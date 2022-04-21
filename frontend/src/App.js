@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import LoginForm from './components/auth/LoginForm';
+import GalleryList from './components/GalleryList';
 
 // Utils & contexts as needed
 import * as sessionActions from './store/session';
@@ -29,6 +30,9 @@ function App() {
 						</Route>
 						<Route exact path='/login'>
 							<LoginForm />
+						</Route>
+						<Route exact path='/galleries'>
+							<GalleryList />
 						</Route>
 					</Switch>
 				</>

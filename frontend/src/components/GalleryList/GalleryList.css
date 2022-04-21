@@ -1,0 +1,50 @@
+#gallery-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80vw;
+    margin-top: 50px;
+}
+
+#gallery-list-header {
+    display: flex;
+    flex-direction: column;
+}
+
+#gallery-list-header * {
+    margin: 5px 0;
+}
+
+#gallery-list-header h2 {
+    font-size: 24px;
+    opacity: 0.5;
+    letter-spacing: 4px;
+}
+
+#add-gallery-button {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+#gallery-node-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#gallery-node {
+    margin: 0 10px;
+}
+
+#gallery-node a {
+    text-decoration: none;
+}
+
+#gallery-node-image {
+    height: 150px;
+    width: auto;
+}
+
+#gallery-title {
+    text-align: center;
+}

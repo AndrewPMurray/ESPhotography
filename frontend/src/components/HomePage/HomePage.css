@@ -1,0 +1,31 @@
+#homepage-image {
+    max-width: 100%;
+}
+
+#slideshow {
+    position: relative;
+}
+
+#slideshow i {
+    position: absolute;
+    font-size: 48px;
+    opacity: 0.2;
+    cursor: pointer;
+    color: #C0C0C0;
+    transition-duration: 200ms;
+}
+
+#slideshow i:hover {
+    opacity: 0.4;
+    color: #F0F0F0;
+}
+
+.fa-chevron-left {
+    left: 20px;
+    top: 50%;
+}
+
+.fa-chevron-right {
+    right: 20px;
+    top: 50%;
+}

@@ -114,3 +114,9 @@ table {
 	animation-duration: 200ms;
 	animation-timing-function: ease-in-out;
 }
+
+/* end animations */
+
+#error {
+	color: #BC0000;
+}

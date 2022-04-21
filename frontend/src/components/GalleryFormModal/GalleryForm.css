@@ -1,0 +1,27 @@
+#gallery-form-container {
+    background-color: #565656;
+    width: 40vw;
+    height: 40vh;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+#gallery-form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+#gallery-form div label {
+    margin-bottom: 5px;
+}
+
+#gallery-form div textarea {
+    resize: none;
+    height: 25vh;
+    padding: 10px;
+}
+
+#submit-gallery-button {
+    align-self: flex-end;
+}
