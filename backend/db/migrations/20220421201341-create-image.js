@@ -8,18 +8,34 @@ module.exports = {
 				primaryKey: true,
 				type: Sequelize.INTEGER,
 			},
+			title: {
+				type: Sequelize.STRING,
+			},
 			url: {
 				allowNull: false,
 				type: Sequelize.STRING,
-				unique: true,
+			},
+			galleryId: {
+				allowNull: false,
+				type: Sequelize.INTEGER,
+				references: {
+					model: 'Galleries',
+				},
+			},
+			isHomepageImage: {
+				allowNull: false,
+				type: Sequelize.BOOLEAN,
+				defaultValue: false,
 			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.fn('now'),
 			},
 			updatedAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
+				defaultValue: Sequelize.fn('now'),
 			},
 		});
 	},
