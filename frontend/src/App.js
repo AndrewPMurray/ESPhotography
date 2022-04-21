@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 // components
-import Portfolio from './components/Portfolio';
+import NavBar from './components/NavBar';
+import HomePage from './components/HomePage';
 import LoginForm from './components/auth/LoginForm';
 
 // Utils & contexts as needed
@@ -20,14 +21,17 @@ function App() {
 	return (
 		<>
 			{isLoaded && (
-				<Switch>
-					<Route exact path='/'>
-						<Portfolio />
-					</Route>
-					<Route exact path='/login'>
-						<LoginForm />
-					</Route>
-				</Switch>
+				<>
+					<NavBar />
+					<Switch>
+						<Route exact path='/'>
+							<HomePage />
+						</Route>
+						<Route exact path='/login'>
+							<LoginForm />
+						</Route>
+					</Switch>
+				</>
 			)}
 		</>
 	);

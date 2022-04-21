@@ -56,7 +56,6 @@ export const deleteImage = (imageId) => async (dispatch) => {
 		method: 'DELETE',
 	});
 	if (response.ok) {
-		const data = await response.json();
 		dispatch(remove(imageId));
 	}
 };

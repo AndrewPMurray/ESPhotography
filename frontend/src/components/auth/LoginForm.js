@@ -29,34 +29,32 @@ const LoginForm = () => {
 	}, [user, history]);
 
 	return (
-		<div className='login-signup-form-container'>
-			{errors.invalid && <li id='errors'>{errors.invalid}</li>}
-			<h2>Login</h2>
-			<form className='login-signup-form' onSubmit={handleSubmit}>
-				<div className='form-field'>
-					<input
-						type='text'
-						value={credential}
-						onChange={(e) => setCredential(e.target.value)}
-						placeholder='Email or Username'
-					/>
-					{errors.credential && <li id='errors'>{errors.credential}</li>}
-				</div>
-				<div className='form-field'>
-					<input
-						type='password'
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						placeholder='Password'
-					/>
-					{errors.password && <li id='errors'>{errors.password}</li>}
-				</div>
-				<div id='login-demo-buttons'>
-					<button className='login-signup-button' type='submit'>
+		<div id='login-page-container'>
+			<div id='login-form-container'>
+				{errors.invalid && <li id='errors'>{errors.invalid}</li>}
+				<h2>Login</h2>
+				<form id='login-form' onSubmit={handleSubmit}>
+					<div className='form-field'>
+						<input
+							type='text'
+							value={credential}
+							onChange={(e) => setCredential(e.target.value)}
+							placeholder='Email or Username'
+						/>
+					</div>
+					<div className='form-field'>
+						<input
+							type='password'
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							placeholder='Password'
+						/>
+					</div>
+					<button className='login-button' type='submit'>
 						Log In
 					</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	);
 };
