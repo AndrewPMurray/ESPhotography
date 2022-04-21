@@ -1,0 +1,91 @@
+// import { csrfFetch } from './csrf';
+
+import { csrfFetch } from './csrf';
+
+const LOAD_IMAGES = 'images/LOAD_IMAGES';
+const ADD_IMAGE = 'images/ADD_IMAGE';
+const REMOVE_IMAGE = 'images/REMOVE_IMAGE';
+
+const load = (images) => {
+	return {
+		type: LOAD_IMAGES,
+		images,
+	};
+};
+
+const add = (image) => {
+	return {
+		type: ADD_IMAGE,
+		image,
+	};
+};
+
+const remove = (imageId) => {
+	return {
+		type: REMOVE_IMAGE,
+		imageId,
+	};
+};
+
+export const loadImages = () => async (dispatch) => {
+	const response = await fetch('/api/images');
+	if (response.ok) {
+		const images = await response.json();
+		dispatch(load(images));
+		return images;
+	}
+};
+
+export const addImage = (image) => async (dispatch) => {
+	const formData = new FormData();
+	formData.append('image', image);
+
+	const response = await csrfFetch('/api/images', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'multipart/form-data',
+		},
+		body: formData,
+	});
+	const data = await response.json();
+	dispatch(add(data));
+};
+
+export const deleteImage = (imageId) => async (dispatch) => {
+	const response = await csrfFetch(`/api/images/${imageId}`, {
+		method: 'DELETE',
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(remove(imageId));
+	}
+};
+
+const initialState = {};
+
+const imagesReducer = (state = initialState, action) => {
+	let newState;
+	switch (action.type) {
+		case LOAD_IMAGES: {
+			newState = {};
+			action.images.forEach((image) => {
+				newState[image.id] = image;
+			});
+			return newState;
+		}
+		case ADD_IMAGE: {
+			newState = { ...state };
+			newState[action.image.id] = action.image;
+			return newState;
+		}
+		case REMOVE_IMAGE: {
+			newState = { ...state };
+			delete newState[action.imageId];
+			return newState;
+		}
+		default:
+			return state;
+	}
+};
+
+export default imagesReducer;
