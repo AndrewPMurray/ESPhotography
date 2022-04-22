@@ -24,6 +24,17 @@ router.get('/', async (req, res) => {
 	return res.json(galleries);
 });
 
+router.get('/:id', async (req, res) => {
+	const { id } = req.params;
+	const gallery = await Gallery.findByPk(id, {
+		include: {
+			model: Image,
+			as: 'images',
+		},
+	});
+	return res.json(gallery);
+});
+
 router.post(
 	'/',
 	csrfProtection,

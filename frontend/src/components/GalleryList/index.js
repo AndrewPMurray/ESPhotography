@@ -18,7 +18,7 @@ export default function GalleryList() {
 		<div id='gallery-list-container'>
 			<div id='gallery-list-header'>
 				{user && <GalleryFormModal />}
-				<h2>GALLERIES</h2>
+				<h2>Galleries</h2>
 				<p>
 					For fine art print inquiries, please contact{' '}
 					<a href='mailto:info@elmarschimttou.com'>info@elmarschmittou.com</a>
@@ -26,9 +26,17 @@ export default function GalleryList() {
 			</div>
 			<div id='gallery-node-container'>
 				{galleries.map(
-					(gallery) =>
+					(gallery, i) =>
 						(gallery.images?.length || user) && (
-							<div id='gallery-node' key={`gallery-${gallery.id}`}>
+							<div
+								id='gallery-node'
+								key={`gallery-${gallery.id}`}
+								onLoad={(e) =>
+									setTimeout(() => {
+										e.target.style.opacity = 1;
+									}, i * 50)
+								}
+							>
 								<Link to={`/galleries/${gallery.id}`}>
 									<img
 										id='gallery-node-image'
@@ -38,6 +46,7 @@ export default function GalleryList() {
 												: 'https://esphotography.s3.us-east-2.amazonaws.com/placeholder-image.png'
 										}
 										alt={gallery.title}
+										style={{ opacity: 0 }}
 									/>
 									<p id='gallery-title'>{gallery.title}</p>
 								</Link>

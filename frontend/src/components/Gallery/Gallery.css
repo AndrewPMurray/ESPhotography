@@ -1,0 +1,25 @@
+#images-slider {
+    display: flex;
+}
+
+#images-slider > div {
+    position: relative
+}
+
+#images-slider > div:hover > #delete-image {
+    visibility: visible;
+}
+
+#delete-image {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    visibility: hidden;
+    cursor: pointer;
+}
+
+#slider-preview {
+    height: 100px;
+    margin: 5px 3px;
+}

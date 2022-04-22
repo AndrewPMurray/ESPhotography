@@ -95,7 +95,6 @@ const deleteSingleFile = (key) => {
 			Key: key,
 		},
 		(err, data) => {
-			console.error(err);
 			console.log(data);
 		}
 	);

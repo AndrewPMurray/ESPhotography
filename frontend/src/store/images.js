@@ -36,9 +36,13 @@ export const loadImages = () => async (dispatch) => {
 	}
 };
 
-export const addImage = (image) => async (dispatch) => {
+export const addImage = (payload) => async (dispatch) => {
+	const { title, galleryId, isHomepageImage, image } = payload;
 	const formData = new FormData();
 	formData.append('image', image);
+	formData.append('title', title);
+	formData.append('galleryId', galleryId);
+	formData.append('isHomepageImage', isHomepageImage);
 
 	const response = await csrfFetch('/api/images', {
 		method: 'POST',

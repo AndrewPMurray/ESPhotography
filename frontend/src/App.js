@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import HomePage from './components/HomePage';
 import LoginForm from './components/auth/LoginForm';
 import GalleryList from './components/GalleryList';
+import Gallery from './components/Gallery';
 
 // Utils & contexts as needed
 import * as sessionActions from './store/session';
@@ -33,6 +34,9 @@ function App() {
 						</Route>
 						<Route exact path='/galleries'>
 							<GalleryList />
+						</Route>
+						<Route exact path='/galleries/:galleryId'>
+							<Gallery />
 						</Route>
 					</Switch>
 				</>

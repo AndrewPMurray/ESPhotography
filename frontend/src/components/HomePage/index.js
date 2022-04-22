@@ -21,7 +21,7 @@ export default function HomePage() {
 				<div id='slideshow'>
 					<i className='fa-solid fa-chevron-left'></i>
 					<i className='fa-solid fa-chevron-right'></i>
-					<img id='homepage-image' src={imageURL} />
+					<img id='homepage-image' src={imageURL} alt='homepage-focused' />
 				</div>
 			)}
 		</div>

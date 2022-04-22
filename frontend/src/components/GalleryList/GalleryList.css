@@ -19,6 +19,7 @@
     font-size: 24px;
     opacity: 0.5;
     letter-spacing: 4px;
+    text-transform: uppercase;
 }
 
 #add-gallery-button {
@@ -29,22 +30,31 @@
 #gallery-node-container {
     margin-top: 50px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 #gallery-node {
-    margin: 0 10px;
+    margin: 10px 10px;
 }
 
 #gallery-node a {
     text-decoration: none;
 }
 
+#gallery-node:hover #gallery-node-image {
+    border-color: rgba(255, 255, 255, 0.5)
+}
+
 #gallery-node-image {
     height: 150px;
     width: auto;
+    border: 5px solid transparent;
+    transition-duration: 600ms;
 }
 
 #gallery-title {
     text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
 }

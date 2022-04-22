@@ -36,6 +36,15 @@ export const loadGalleries = () => async (dispatch) => {
 	}
 };
 
+export const loadSingleGallery = (galleryId) => async (dispatch) => {
+	const response = await fetch(`/api/galleries/${galleryId}`);
+	if (response.ok) {
+		const gallery = await response.json();
+		dispatch(add(gallery));
+		return gallery;
+	}
+};
+
 export const addGallery = (payload) => async (dispatch) => {
 	const response = await csrfFetch('/api/galleries', {
 		method: 'POST',
