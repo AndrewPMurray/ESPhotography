@@ -18,6 +18,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 		for (let i = 0; i < images.length; i++) {
 			if (!title[i] || title[i].length === 0) {
 				setErrors({ title: 'All images require a title' });
+				setLoading(false);
 				return;
 			}
 		}
@@ -47,14 +48,48 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 				types={fileTypes}
 				multiple={true}
 				handleChange={(files) => {
-					for (let file of files) {
-						setImages((prev) => [...prev, file]);
+					for (let i in files) {
+						if (typeof files[i] === 'object') {
+							setImages((prev) => [...prev, files[i]]);
+							setTitle((prev) => {
+								const newTitles = [...prev];
+								newTitles[images.length + +i] = '';
+								return newTitles;
+							});
+							setIsHomepage((prev) => {
+								const newHomepages = [...prev];
+								newHomepages[images.length + +i] = false;
+								return newHomepages;
+							});
+						}
 					}
 				}}
 			/>
 			<div id='image-preview-container'>
 				{images.map((image, i) => (
 					<div id='images-form' key={`file-${i}`}>
+						<p
+							id='delete-image-form-image'
+							onClick={() => {
+								setImages((prev) => {
+									const newImages = [...prev];
+									newImages.splice(i, 1);
+									return newImages;
+								});
+								setTitle((prev) => {
+									const newTitles = [...prev];
+									newTitles.splice(i, 1);
+									return newTitles;
+								});
+								setIsHomepage((prev) => {
+									const newHomepages = [...prev];
+									newHomepages.splice(i, 1);
+									return newHomepages;
+								});
+							}}
+						>
+							X
+						</p>
 						<img id='image-preview' src={URL.createObjectURL(image)} alt='preview' />
 						<input
 							type='text'

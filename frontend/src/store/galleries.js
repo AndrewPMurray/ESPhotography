@@ -60,6 +60,21 @@ export const addGallery = (payload) => async (dispatch) => {
 	}
 };
 
+export const updateGalleryKey = (galleryId, url) => async (dispatch) => {
+	const response = await csrfFetch(`/api/galleries/${galleryId}/key`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ url }),
+	});
+	if (response.ok) {
+		const gallery = await response.json();
+		dispatch(add(gallery));
+		return gallery;
+	}
+};
+
 export const deleteGallery = (galleryId) => async (dispatch) => {
 	const response = await csrfFetch(`/api/images/${galleryId}`, {
 		method: 'DELETE',
@@ -82,8 +97,7 @@ const galleriesReducer = (state = initialState, action) => {
 			return newState;
 		}
 		case ADD_GALLERY: {
-			newState = { ...state };
-			newState[action.gallery.id] = action.gallery;
+			newState = { ...state, [action.gallery.id]: action.gallery };
 			return newState;
 		}
 		case REMOVE_GALLERY: {

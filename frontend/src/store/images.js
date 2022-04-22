@@ -55,6 +55,23 @@ export const addImage = (payload) => async (dispatch) => {
 	dispatch(add(data));
 };
 
+export const updateImage = (image) => async (dispatch) => {
+	const response = await csrfFetch(`/api/images/${image.id}`, {
+		method: 'PUT',
+		header: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(image),
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(add(data));
+	} else {
+		const errors = await response.json();
+		return errors;
+	}
+};
+
 export const deleteImage = (imageId) => async (dispatch) => {
 	const response = await csrfFetch(`/api/images/${imageId}`, {
 		method: 'DELETE',

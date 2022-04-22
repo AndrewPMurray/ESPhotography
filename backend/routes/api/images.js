@@ -9,6 +9,11 @@ const { Image } = require('../../db/models');
 
 const router = express.Router();
 
+const validateImage = [
+	check('title').notEmpty().withMessage('Title is required'),
+	handleValidationErrors,
+];
+
 router.get('/', async (req, res) => {
 	const images = await Image.findAll();
 	return res.json(images);
@@ -29,6 +34,23 @@ router.post(
 		});
 
 		return res.json(image);
+	})
+);
+
+router.put(
+	'/:id',
+	csrfProtection,
+	validateImage,
+	asyncHandler(async (req, res) => {
+		const { id } = req.params;
+		const { title, isHomepageImage } = req.body;
+		const image = await Image.findByPk(id);
+		const editedImage = await image.update({
+			title,
+			isHomepageImage,
+		});
+
+		return res.json(editedImage);
 	})
 );
 

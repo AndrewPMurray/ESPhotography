@@ -16,7 +16,20 @@
     height: 60vh;
 }
 
+#delete-image-form-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    cursor: pointer;
+}
+
+#delete-image-form-image:hover {
+    color: red;
+}
+
 #images-form {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

@@ -50,6 +50,26 @@ router.post(
 	})
 );
 
+router.put(
+	'/:id/key',
+	csrfProtection,
+	asyncHandler(async (req, res) => {
+		const { url } = req.body;
+		const { id } = req.params;
+		const gallery = await Gallery.findByPk(id);
+		await gallery.update({
+			keyImageURL: url || null,
+		});
+		const updatedGallery = await Gallery.findByPk(id, {
+			include: {
+				model: Image,
+				as: 'images',
+			},
+		});
+		return res.json(updatedGallery);
+	})
+);
+
 router.delete(
 	'/:id',
 	csrfProtection,

@@ -1,3 +1,7 @@
+#gallery-images-container {
+    position: relative;
+}
+
 #images-slider {
     display: flex;
 }
@@ -6,20 +10,88 @@
     position: relative
 }
 
-#images-slider > div:hover > #delete-image {
-    visibility: visible;
-}
-
-#delete-image {
+#delete-image,
+#edit-image,
+#set-key-image {
     position: absolute;
-    right: 5px;
-    top: 5px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     visibility: hidden;
     cursor: pointer;
 }
 
+#delete-image {
+    right: 5px;
+    top: 5px;
+}
+
+#edit-image {
+    left: 5px;
+    top: 5px;
+}
+
+#set-key-image {
+    bottom: 10px;
+    right: 10px;
+}
+
+#images-slider > div:hover > div > #delete-image,
+#images-slider > div:hover > div > #edit-image,
+#images-slider > div:hover > div > #set-key-image {
+    visibility: visible;
+}
+
+#delete-image:hover,
+#edit-image:hover,
+#set-key-image:hover {
+    color: red;
+}
+
+#gallery-slideshow {
+    height: 70vh;
+    position: relative;
+}
+
+.fa-chevron-left,
+.fa-chevron-right {
+    position: absolute;
+    top: 50%;
+    font-size: 48px;
+    opacity: 0.5;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.fa-chevron-left:hover,
+.fa-chevron-right:hover {
+    opacity: 1;
+}
+
+.fa-chevron-left {
+    left: 10px;
+}
+
+.fa-chevron-right {
+    right: 10px;
+}
+
+#gallery-image-title {
+    position: absolute;
+    bottom: calc(2% - 5px);
+    width: 100vw;
+    text-align: center;
+    font-size: 20px;
+}
+
+#gallery-image {
+    position: absolute;
+    width: 100vw;
+    height: calc(96% - 8px);
+    object-fit: contain;
+    transition-duration: 1000ms;
+}
+
 #slider-preview {
     height: 100px;
     margin: 5px 3px;
+    cursor: pointer;
 }
