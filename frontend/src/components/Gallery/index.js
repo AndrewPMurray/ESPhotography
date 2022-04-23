@@ -61,6 +61,8 @@ export default function Gallery() {
 		dispatch(updateGalleryKey(galleryId, url));
 	};
 
+	console.log(user);
+
 	return (
 		<div id='gallery-images-container'>
 			{user && <ImagesFormModal galleryId={galleryId} />}
