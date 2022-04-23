@@ -31,7 +31,7 @@ export default function HomePage() {
 
 	return (
 		<div id='landing-container'>
-			{images?.length && (
+			{images?.length > 0 && (
 				<div
 					id='home-slideshow'
 					className='fade-in-slide-up'
