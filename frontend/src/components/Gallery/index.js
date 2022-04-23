@@ -62,7 +62,7 @@ export default function Gallery() {
 			{noImages ? (
 				<h2>No images in this gallery</h2>
 			) : (
-				<div id='gallery-slideshow'>
+				<div id='gallery-slideshow' className='fade-in-slide-up'>
 					<i
 						id='gallery-slide-left'
 						className='fa-solid fa-chevron-left'
@@ -155,6 +155,8 @@ export default function Gallery() {
 							src={image?.url}
 							alt='slider-preview'
 							onClick={() => setActiveImage(i)}
+							className='fade-in'
+							style={{ animationDuration: '500ms' }}
 						/>
 					</div>
 				))}
