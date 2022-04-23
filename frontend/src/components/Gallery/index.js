@@ -40,7 +40,6 @@ export default function Gallery() {
 	}, [dispatch, galleryId, history, user, imageState]);
 
 	useEffect(() => {
-		console.log('window', windowLength);
 		const updateLength = () => {
 			setWindowLength(window.innerWidth);
 		};
