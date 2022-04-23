@@ -39,7 +39,7 @@
 }
 
 #gallery-slideshow {
-    height: 70vh;
+    height: 69vh; /* nice */
     position: relative;
 }
 

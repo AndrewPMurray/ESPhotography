@@ -156,7 +156,11 @@ export default function Gallery() {
 							alt='slider-preview'
 							onClick={() => setActiveImage(i)}
 							className='fade-in'
-							style={{ animationDuration: '500ms' }}
+							style={
+								activeImage === i
+									? { border: '5px solid #C0C0C0', animationDuration: '500ms' }
+									: { animationDuration: '500ms' }
+							}
 						/>
 					</div>
 				))}
