@@ -27,7 +27,7 @@ export default function GalleryList() {
 			<div id='gallery-node-container'>
 				{galleries.map(
 					(gallery, i) =>
-						(gallery.images?.length || user) && (
+						(gallery.images?.length > 0 || user) && (
 							<div
 								id='gallery-node'
 								key={`gallery-${gallery.id}`}

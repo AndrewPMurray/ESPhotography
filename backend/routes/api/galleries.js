@@ -16,7 +16,13 @@ const validateGallery = [
 ];
 
 router.get('/', async (req, res) => {
-	const galleries = await Gallery.findAll();
+	const galleries = await Gallery.findAll({
+		include: {
+			model: Image,
+			as: 'images',
+			limit: 1,
+		},
+	});
 	return res.json(galleries);
 });
 

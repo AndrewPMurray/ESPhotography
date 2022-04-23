@@ -24,11 +24,12 @@ export default function Gallery() {
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
 			.then((res) => {
-				if (!res?.images || res?.images?.length === 0)
+				if (!res?.images || res?.images?.length === 0) {
 					if (!user) {
 						history.push('/not-found');
 					}
-				setNoImages(true);
+					setNoImages(true);
+				}
 			})
 			.catch(() => {
 				history.push('/not-found');
@@ -55,52 +56,47 @@ export default function Gallery() {
 		dispatch(updateGalleryKey(galleryId, url));
 	};
 
-	if (!gallery?.images || gallery?.images?.length === 0) {
-		return (
-			<div id='gallery-images-container'>
-				{user && <ImagesFormModal galleryId={galleryId} />}
-				{noImages && <h2>No images in this gallery</h2>}
-			</div>
-		);
-	}
-
 	return (
 		<div id='gallery-images-container'>
 			{user && <ImagesFormModal galleryId={galleryId} />}
-			<div id='gallery-slideshow'>
-				<i
-					id='gallery-slide-left'
-					className='fa-solid fa-chevron-left'
-					onClick={() => {
-						if (activeImage === 0) setActiveImage(images.length - 1);
-						else setActiveImage(activeImage - 1);
-					}}
-				></i>
-				<i
-					id='gallery-slide-right'
-					className='fa-solid fa-chevron-right'
-					onClick={() => {
-						if (activeImage === images.length - 1) setActiveImage(0);
-						else setActiveImage(activeImage + 1);
-					}}
-				></i>
-				{gallery?.images?.map((image, i) => (
-					<div id='gallery-image-container' key={`gallery-image-${i}`}>
-						<img
-							id='gallery-image'
-							src={image.url}
-							alt='focused'
-							style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
-						/>
-						<p
-							id='gallery-image-title'
-							style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
-						>
-							{image.title}
-						</p>
-					</div>
-				))}
-			</div>
+			{noImages ? (
+				<h2>No images in this gallery</h2>
+			) : (
+				<div id='gallery-slideshow'>
+					<i
+						id='gallery-slide-left'
+						className='fa-solid fa-chevron-left'
+						onClick={() => {
+							if (activeImage === 0) setActiveImage(images.length - 1);
+							else setActiveImage(activeImage - 1);
+						}}
+					></i>
+					<i
+						id='gallery-slide-right'
+						className='fa-solid fa-chevron-right'
+						onClick={() => {
+							if (activeImage === images.length - 1) setActiveImage(0);
+							else setActiveImage(activeImage + 1);
+						}}
+					></i>
+					{gallery?.images?.map((image, i) => (
+						<div id='gallery-image-container' key={`gallery-image-${i}`}>
+							<img
+								id='gallery-image'
+								src={image.url}
+								alt='focused'
+								style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
+							/>
+							<p
+								id='gallery-image-title'
+								style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
+							>
+								{image.title}
+							</p>
+						</div>
+					))}
+				</div>
+			)}
 			{document.querySelector('#images-slider')?.scrollWidth > windowLength && (
 				<>
 					<div id='sliders'>
