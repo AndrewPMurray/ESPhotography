@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { Link } from 'react-scroll';
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
 import { loadSingleGallery, updateGalleryKey } from '../../store/galleries';
@@ -19,6 +18,7 @@ export default function Gallery() {
 	const images = useSelector((state) => state.galleries[galleryId]?.images);
 
 	const [activeImage, setActiveImage] = useState(0);
+	const [windowLength, setWindowLength] = useState(window.innerWidth);
 
 	useEffect(() => {
 		if (!gallery) {
@@ -36,6 +36,15 @@ export default function Gallery() {
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId));
 	}, [imageState, dispatch, galleryId]);
+
+	useEffect(() => {
+		const updateLength = () => {
+			setWindowLength(window.innerWidth);
+		};
+		window.addEventListener('resize', updateLength);
+
+		return () => window.removeEventListener('resize', updateLength);
+	}, []);
 
 	const handleDelete = (image) => {
 		dispatch(deleteImage(image.id));
@@ -94,7 +103,7 @@ export default function Gallery() {
 					</div>
 				))}
 			</div>
-			{document.querySelector('#images-slider')?.scrollWidth > window.innerWidth && (
+			{document.querySelector('#images-slider')?.scrollWidth > windowLength && (
 				<>
 					<div id='sliders'>
 						<i
