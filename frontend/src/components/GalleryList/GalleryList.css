@@ -36,6 +36,7 @@
 
 #gallery-node {
     margin: 10px 10px;
+    position: relative;
 }
 
 #gallery-node a {
@@ -59,4 +60,21 @@
     text-align: center;
     font-size: 14px;
     text-transform: uppercase;
+}
+
+#edit-gallery {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    visibility: hidden;
+    cursor: pointer;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#edit-gallery:hover {
+    color: red;
+}
+
+#gallery-node:hover > #edit-gallery {
+    visibility: visible;
 }

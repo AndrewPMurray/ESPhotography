@@ -4,6 +4,7 @@ const { check } = require('express-validator');
 const csurf = require('csurf');
 const csrfProtection = csurf({ cookie: true });
 
+const { deleteSingleFile } = require('../../awsS3');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Gallery, Image } = require('../../db/models');
 
@@ -51,6 +52,27 @@ router.post(
 );
 
 router.put(
+	'/:id',
+	csrfProtection,
+	validateGallery,
+	asyncHandler(async (req, res) => {
+		const { id, title, description } = req.body;
+		const gallery = await Gallery.findByPk(id);
+		await gallery.update({
+			title,
+			description,
+		});
+		const updatedGallery = await Gallery.findByPk(id, {
+			include: {
+				model: Image,
+				as: 'images',
+			},
+		});
+		return res.json(updatedGallery);
+	})
+);
+
+router.put(
 	'/:id/key',
 	csrfProtection,
 	asyncHandler(async (req, res) => {
@@ -83,6 +105,11 @@ router.delete(
 		});
 
 		images.forEach(async (image) => {
+			const urlParts = image.url.split('/');
+			const key = urlParts[urlParts.length - 1];
+
+			deleteSingleFile(key);
+
 			await image.destroy();
 		});
 

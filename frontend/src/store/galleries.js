@@ -75,8 +75,23 @@ export const updateGalleryKey = (galleryId, url) => async (dispatch) => {
 	}
 };
 
+export const editGallery = (gallery) => async (dispatch) => {
+	const response = await csrfFetch(`/api/galleries/${gallery.id}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(gallery),
+	});
+	if (response.ok) {
+		const updatedGallery = await response.json();
+		dispatch(add(updatedGallery));
+		return updatedGallery;
+	}
+};
+
 export const deleteGallery = (galleryId) => async (dispatch) => {
-	const response = await csrfFetch(`/api/images/${galleryId}`, {
+	const response = await csrfFetch(`/api/galleries/${galleryId}`, {
 		method: 'DELETE',
 	});
 	if (response.ok) {
