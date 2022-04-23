@@ -20,6 +20,9 @@ export default function Gallery() {
 	const [noImages, setNoImages] = useState(false);
 	const [activeImage, setActiveImage] = useState(0);
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
+	const [sliderLength, setSliderLength] = useState(
+		document.querySelector('#images-slider')?.scrollWidth || 0
+	);
 
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
@@ -37,6 +40,7 @@ export default function Gallery() {
 	}, [dispatch, galleryId, history, user, imageState]);
 
 	useEffect(() => {
+		console.log('window', windowLength);
 		const updateLength = () => {
 			setWindowLength(window.innerWidth);
 		};
@@ -115,7 +119,7 @@ export default function Gallery() {
 					))}
 				</div>
 			)}
-			{document.querySelector('#images-slider')?.scrollWidth > windowLength && (
+			{sliderLength > windowLength && (
 				<>
 					<div id='sliders'>
 						<i
@@ -150,7 +154,12 @@ export default function Gallery() {
 					</div>
 				</>
 			)}
-			<div id='images-slider'>
+			<div
+				id='images-slider'
+				onLoad={() =>
+					setSliderLength(document.querySelector('#images-slider')?.scrollWidth)
+				}
+			>
 				{gallery?.images?.map((image, i) => (
 					<div id='slider-div' key={`slider-preview-${i}`}>
 						{user && (

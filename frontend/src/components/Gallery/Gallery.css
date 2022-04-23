@@ -43,6 +43,10 @@
     position: relative;
 }
 
+#gallery-node-container {
+    width: 100vw;
+}
+
 #gallery-slide-left,
 #gallery-slide-right {
     position: absolute;
