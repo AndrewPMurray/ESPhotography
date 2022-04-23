@@ -35,7 +35,7 @@ function App() {
 						<Route exact path='/galleries'>
 							<GalleryList />
 						</Route>
-						<Route exact path='/galleries/:galleryId'>
+						<Route exact path='/galleries/(\d+):galleryId'>
 							<Gallery />
 						</Route>
 					</Switch>
