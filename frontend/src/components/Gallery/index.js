@@ -21,21 +21,15 @@ export default function Gallery() {
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
 
 	useEffect(() => {
-		if (!gallery) {
-			dispatch(loadSingleGallery(galleryId))
-				.then((res) => {
-					if ((!res?.images || res?.images?.length === 0) && !user)
-						history.push('/not-found');
-				})
-				.catch(() => {
+		dispatch(loadSingleGallery(galleryId))
+			.then((res) => {
+				if ((!res?.images || res?.images?.length === 0) && !user)
 					history.push('/not-found');
-				});
-		}
-	}, [dispatch, gallery, galleryId, history, user]);
-
-	useEffect(() => {
-		dispatch(loadSingleGallery(galleryId));
-	}, [imageState, dispatch, galleryId]);
+			})
+			.catch(() => {
+				history.push('/not-found');
+			});
+	}, [dispatch, galleryId, history, user, imageState]);
 
 	useEffect(() => {
 		const updateLength = () => {
