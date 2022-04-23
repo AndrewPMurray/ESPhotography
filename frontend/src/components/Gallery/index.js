@@ -113,8 +113,8 @@ export default function Gallery() {
 								document.querySelector('#images-slider').scrollTo({
 									left:
 										document.querySelector('#images-slider').scrollLeft -
-										windowLength -
-										1,
+										windowLength +
+										100,
 									behavior: 'smooth',
 								});
 							}}
@@ -126,8 +126,8 @@ export default function Gallery() {
 								document.querySelector('#images-slider').scrollTo({
 									left:
 										document.querySelector('#images-slider').scrollLeft +
-										windowLength +
-										1,
+										windowLength -
+										100,
 									behavior: 'smooth',
 								});
 							}}
