@@ -46,6 +46,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 			)}
 			<FileUploader
 				types={fileTypes}
+				name='image'
 				multiple={true}
 				handleChange={(files) => {
 					for (let i in files) {
