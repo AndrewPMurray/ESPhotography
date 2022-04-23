@@ -1,31 +1,41 @@
-#homepage-image {
-    max-width: 100%;
-}
-
-#slideshow {
+#landing-container {
     position: relative;
 }
 
-#slideshow i {
+#home-slideshow {
+    height: 70vh;
+    position: relative;
+}
+
+#home-slide-left,
+#home-slide-right {
     position: absolute;
+    top: 50%;
     font-size: 48px;
-    opacity: 0.2;
+    opacity: 0.5;
     cursor: pointer;
-    color: #C0C0C0;
-    transition-duration: 200ms;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-#slideshow i:hover {
-    opacity: 0.4;
-    color: #F0F0F0;
+#home-slide-left:hover,
+#home-slide-right:hover {
+    opacity: 1;
 }
 
-.fa-chevron-left {
-    left: 20px;
-    top: 50%;
+#home-slide-left {
+    left: 10px;
 }
 
-.fa-chevron-right {
-    right: 20px;
-    top: 50%;
+#home-slide-right {
+    right: 10px;
+}
+
+#home-image {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition-duration: 1000ms;
 }

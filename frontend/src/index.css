@@ -91,6 +91,17 @@ table {
 	}
 }
 
+@keyframes fade-in-slide-up {
+	from {
+		opacity: 0;
+		transform: translateY(3%)
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0)
+	}
+}
+
 .fade-in {
 	animation-name: fade-in;
 	animation-duration: 200ms;
@@ -112,6 +123,13 @@ table {
 .fade-out-shrink {
 	animation-name: fade-out-shrink;
 	animation-duration: 200ms;
+	animation-timing-function: ease-in-out;
+}
+
+.fade-in-slide-up {
+	animation-name: fade-in-slide-up;
+	transform-origin: top;
+	animation-duration: 1250ms;
 	animation-timing-function: ease-in-out;
 }
 

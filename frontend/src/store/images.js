@@ -36,6 +36,15 @@ export const loadImages = () => async (dispatch) => {
 	}
 };
 
+export const loadHomeImages = () => async (dispatch) => {
+	const response = await fetch('/api/images/home');
+	if (response.ok) {
+		const images = await response.json();
+		dispatch(load(images));
+		return images;
+	}
+};
+
 export const addImage = (payload) => async (dispatch) => {
 	const { title, galleryId, isHomepageImage, image } = payload;
 	const formData = new FormData();

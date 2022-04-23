@@ -1,27 +1,72 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loadImages } from '../../store/images';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadHomeImages } from '../../store/images';
 import './HomePage.css';
 
 export default function HomePage() {
 	const dispatch = useDispatch();
-	const [imageURL, setImageURL] = useState(null);
+	const images = useSelector((state) => Object.values(state.images));
+	const [activeImage, setActiveImage] = useState(0);
+	const [imageChanged, setImageChanged] = useState(false);
 
 	useEffect(() => {
-		dispatch(loadImages());
+		dispatch(loadHomeImages());
 	}, [dispatch]);
 
+	const timer = () => {
+		setTimeout(() => setImageChanged(false), 5000);
+	};
+
 	useEffect(() => {
-		const changePhoto = setInterval(() => {}, 5000);
+		const changePhoto = setInterval(() => {
+			if (imageChanged) return;
+			setActiveImage(activeImage === images.length - 1 ? 0 : activeImage + 1);
+		}, 5000);
+
+		return () => {
+			clearInterval(changePhoto);
+			clearTimeout(timer());
+		};
 	});
 
 	return (
 		<div id='landing-container'>
-			{imageURL && (
-				<div id='slideshow'>
-					<i className='fa-solid fa-chevron-left'></i>
-					<i className='fa-solid fa-chevron-right'></i>
-					<img id='homepage-image' src={imageURL} alt='homepage-focused' />
+			{images?.length && (
+				<div
+					id='home-slideshow'
+					className='fade-in-slide-up'
+					style={{ animationDuration: '2000ms' }}
+				>
+					<i
+						id='home-slide-left'
+						className='fa-solid fa-chevron-left'
+						onClick={() => {
+							setImageChanged(true);
+							if (activeImage === 0) setActiveImage(images.length - 1);
+							else setActiveImage(activeImage - 1);
+							timer();
+						}}
+					></i>
+					<i
+						id='home-slide-right'
+						className='fa-solid fa-chevron-right'
+						onClick={() => {
+							setImageChanged(true);
+							if (activeImage === images.length - 1) setActiveImage(0);
+							else setActiveImage(activeImage + 1);
+							timer();
+						}}
+					></i>
+					{images?.map((image, i) => (
+						<div id='home-image-container' key={`gallery-image-${i}`}>
+							<img
+								id='home-image'
+								src={image.url}
+								alt='focused'
+								style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
+							/>
+						</div>
+					))}
 				</div>
 			)}
 		</div>

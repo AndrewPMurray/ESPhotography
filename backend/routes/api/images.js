@@ -19,6 +19,15 @@ router.get('/', async (req, res) => {
 	return res.json(images);
 });
 
+router.get('/home', async (req, res) => {
+	const images = await Image.findAll({
+		where: {
+			isHomepageImage: true,
+		},
+	});
+	return res.json(images);
+});
+
 router.post(
 	'/',
 	singleMulterUpload('image'),

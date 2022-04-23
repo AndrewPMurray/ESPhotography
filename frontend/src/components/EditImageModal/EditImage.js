@@ -32,7 +32,7 @@ export default function EditImage({ setShowModal, image }) {
 
 	return (
 		<div id='edit-image-form-container'>
-			<img id='edit-image-preview' src={image.url} />
+			<img id='edit-image-preview' src={image.url} alt='edit-preview' />
 			<form id='edit-image-form' onSubmit={handleSubmit}>
 				<div id='edit-image-title'>
 					<label htmlFor='title'>Title</label>
