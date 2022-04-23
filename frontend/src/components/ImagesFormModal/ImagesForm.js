@@ -37,8 +37,6 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 		});
 	};
 
-	console.log(isHomepage[3]);
-
 	return (
 		<div id='images-form-container'>
 			{errors.title && (
