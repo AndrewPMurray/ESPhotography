@@ -17,14 +17,18 @@ export default function Gallery() {
 	const gallery = useSelector((state) => state.galleries[galleryId]);
 	const images = useSelector((state) => state.galleries[galleryId]?.images);
 
+	const [noImages, setNoImages] = useState(false);
 	const [activeImage, setActiveImage] = useState(0);
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
 
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
 			.then((res) => {
-				if ((!res?.images || res?.images?.length === 0) && !user)
-					history.push('/not-found');
+				if (!res?.images || res?.images?.length === 0)
+					if (!user) {
+						history.push('/not-found');
+					}
+				setNoImages(true);
 			})
 			.catch(() => {
 				history.push('/not-found');
@@ -55,7 +59,7 @@ export default function Gallery() {
 		return (
 			<div id='gallery-images-container'>
 				{user && <ImagesFormModal galleryId={galleryId} />}
-				<h2>No images in this gallery</h2>
+				{noImages && <h2>No images in this gallery</h2>}
 			</div>
 		);
 	}
