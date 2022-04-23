@@ -67,16 +67,34 @@ export default function Gallery() {
 						id='gallery-slide-left'
 						className='fa-solid fa-chevron-left'
 						onClick={() => {
-							if (activeImage === 0) setActiveImage(images.length - 1);
-							else setActiveImage(activeImage - 1);
+							if (activeImage === 0) {
+								setActiveImage(images.length - 1);
+								document
+									.querySelector(`.slider-preview-${images.length - 1}`)
+									.scrollIntoView({ behavior: 'smooth' });
+							} else {
+								setActiveImage((prev) => prev - 1);
+								document
+									.querySelector(`.slider-preview-${activeImage - 1}`)
+									.scrollIntoView({ behavior: 'smooth' });
+							}
 						}}
 					></i>
 					<i
 						id='gallery-slide-right'
 						className='fa-solid fa-chevron-right'
 						onClick={() => {
-							if (activeImage === images.length - 1) setActiveImage(0);
-							else setActiveImage(activeImage + 1);
+							if (activeImage === images.length - 1) {
+								setActiveImage(0);
+								document
+									.querySelector(`.slider-preview-0`)
+									.scrollIntoView({ behavior: 'smooth' });
+							} else {
+								setActiveImage((prev) => prev + 1);
+								document
+									.querySelector(`.slider-preview-${activeImage + 1}`)
+									.scrollIntoView({ behavior: 'smooth' });
+							}
 						}}
 					></i>
 					{gallery?.images?.map((image, i) => (
@@ -104,6 +122,9 @@ export default function Gallery() {
 							id='slider-slide-left'
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
+								document
+									.querySelector(`.slider-preview-${activeImage}`)
+									.scrollIntoView({ left: '150', behavior: 'smooth' });
 								document.querySelector('#images-slider').scrollTo({
 									left:
 										document.querySelector('#images-slider').scrollLeft -
@@ -155,7 +176,7 @@ export default function Gallery() {
 							src={image?.url}
 							alt='slider-preview'
 							onClick={() => setActiveImage(i)}
-							className='fade-in'
+							className={`slider-preview-${i} fade-in`}
 							style={
 								activeImage === i
 									? { border: '5px solid #C0C0C0', animationDuration: '500ms' }
