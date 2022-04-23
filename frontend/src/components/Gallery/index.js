@@ -113,7 +113,7 @@ export default function Gallery() {
 								document.querySelector('#images-slider').scrollTo({
 									left:
 										document.querySelector('#images-slider').scrollLeft -
-										window.innerWidth -
+										windowLength -
 										1,
 									behavior: 'smooth',
 								});
@@ -126,7 +126,7 @@ export default function Gallery() {
 								document.querySelector('#images-slider').scrollTo({
 									left:
 										document.querySelector('#images-slider').scrollLeft +
-										window.innerWidth +
+										windowLength +
 										1,
 									behavior: 'smooth',
 								});
