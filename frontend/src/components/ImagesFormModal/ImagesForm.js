@@ -27,7 +27,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 				addImage({
 					title: title[i],
 					galleryId,
-					isHomepageImage: isHomepage[i] || false,
+					isHomepageImage: isHomepage[i],
 					image,
 				})
 			);
@@ -36,6 +36,8 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 			}
 		});
 	};
+
+	console.log(isHomepage[3]);
 
 	return (
 		<div id='images-form-container'>
@@ -109,7 +111,8 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 							<input
 								type='checkbox'
 								value={isHomepage[i] || false}
-								onChange={(e) =>
+								checked={isHomepage[i] || false}
+								onChange={() =>
 									setIsHomepage((prev) => {
 										const newHomepages = [...prev];
 										newHomepages[i] = !newHomepages[i];
