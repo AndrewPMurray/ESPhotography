@@ -45,7 +45,9 @@ export default function Gallery() {
 		};
 		window.addEventListener('resize', updateLength);
 
-		return () => window.removeEventListener('resize', updateLength);
+		return () => {
+			window.removeEventListener('resize', updateLength);
+		};
 	}, []);
 
 	const handleDelete = (image) => {

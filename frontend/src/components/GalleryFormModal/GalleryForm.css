@@ -1,7 +1,8 @@
 #gallery-form-container {
     background-color: #565656;
     width: 40vw;
-    height: 500px;
+    height: 40vh;
+    min-height: 275px;
     border-radius: 5px;
     padding: 25px;
 }
@@ -19,6 +20,7 @@
 #gallery-form div textarea {
     resize: none;
     height: 25vh;
+    min-height: 155px;
     padding: 10px;
 }
 

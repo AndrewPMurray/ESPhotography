@@ -62,7 +62,10 @@ export default function GalleryForm({ setShowModal, gallery }) {
 	};
 
 	return (
-		<div id='gallery-form-container' style={gallery ? { height: '650px' } : null}>
+		<div
+			id='gallery-form-container'
+			style={gallery ? { height: '60vh', minHeight: '450px' } : null}
+		>
 			<form id='gallery-form' onSubmit={gallery ? handleEdit : handleSubmit}>
 				<div>
 					<label htmlFor='title'>Title</label>
