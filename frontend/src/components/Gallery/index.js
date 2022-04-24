@@ -60,8 +60,6 @@ export default function Gallery() {
 		dispatch(updateGalleryKey(galleryId, url));
 	};
 
-	console.log(user);
-
 	return (
 		<div id='gallery-images-container'>
 			{user && <ImagesFormModal galleryId={galleryId} />}
@@ -121,7 +119,8 @@ export default function Gallery() {
 					))}
 				</div>
 			)}
-			{images?.length * 155 > windowLength && (
+			{images?.length * document.querySelector('#slider-preview')?.clientWidth >
+				windowLength && (
 				<>
 					<div id='sliders'>
 						<i
