@@ -6,7 +6,6 @@
     color: white;
     width: auto;
     font-size: 20px;
-    padding-left: 20px;
     max-width: 100%;
     padding-top: 40px;
 }
@@ -19,7 +18,7 @@
 
 #navbar-container a:hover,
 .fa-instagram:hover {
-    color: #B0B0B0;
+    color: #A0A0A0;
 }
 
 #signature {

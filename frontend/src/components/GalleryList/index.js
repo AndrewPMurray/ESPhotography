@@ -50,7 +50,7 @@ export default function GalleryList() {
 									/>
 									<p id='gallery-title'>{gallery.title}</p>
 								</Link>
-								<GalleryFormModal gallery={gallery} />
+								{user && <GalleryFormModal gallery={gallery} />}
 							</div>
 						)
 				)}
