@@ -39,12 +39,14 @@ export default function Gallery() {
 
 	useEffect(() => {
 		const updateLength = () => {
-			setWindowLength(window.innerWidth);
+			setTimeout(setWindowLength(window.innerWidth), 500);
 		};
 		window.addEventListener('resize', updateLength);
+		window.addEventListener('orientationchange', updateLength);
 
 		return () => {
 			window.removeEventListener('resize', updateLength);
+			window.removeEventListener('orientationchange', updateLength);
 		};
 	}, []);
 

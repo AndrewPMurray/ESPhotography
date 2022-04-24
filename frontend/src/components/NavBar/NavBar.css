@@ -1,13 +1,14 @@
 #navbar-container {
     display: flex;
     justify-content: space-around;
-    background-color: transparent;
+    background-color: #343434;
+    border-bottom: 1px solid #696969;
     color: white;
     width: auto;
     font-size: 20px;
     padding-left: 20px;
     max-width: 100%;
-    margin-top: 40px;
+    padding-top: 40px;
 }
 
 #navbar-container a,
