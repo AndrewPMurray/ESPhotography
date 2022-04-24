@@ -25,6 +25,7 @@ export default function Gallery() {
 	);
 
 	useEffect(() => {
+		setNoImages(false);
 		dispatch(loadSingleGallery(galleryId))
 			.then((res) => {
 				if (!res?.images || res?.images?.length === 0) {
@@ -50,11 +51,12 @@ export default function Gallery() {
 		};
 	}, []);
 
-	const handleDelete = (image) => {
+	const handleDelete = (image, i) => {
 		dispatch(deleteImage(image.id));
 		if (image.url === gallery.keyImageURL) {
 			dispatch(updateGalleryKey(galleryId, null));
 		}
+		if (i === activeImage) setActiveImage(0);
 	};
 
 	const updateKeyImage = (url) => {
@@ -167,7 +169,7 @@ export default function Gallery() {
 					<div id='slider-div' key={`slider-preview-${i}`}>
 						{user && (
 							<div>
-								<p id='delete-image' onClick={() => handleDelete(image)}>
+								<p id='delete-image' onClick={() => handleDelete(image, i)}>
 									x
 								</p>
 								<i
