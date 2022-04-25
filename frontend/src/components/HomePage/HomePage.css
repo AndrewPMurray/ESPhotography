@@ -3,14 +3,17 @@
 }
 
 #home-slideshow {
-    height: 70vh;
+    height: calc(80vw - 50px);
+    max-height: 1080px;
     position: relative;
 }
 
 #home-slide-left,
 #home-slide-right {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 40px);
+    padding: 40px 0;
+    line-height: 0%;
     font-size: 48px;
     opacity: 0.5;
     cursor: pointer;

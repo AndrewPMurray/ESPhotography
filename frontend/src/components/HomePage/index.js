@@ -37,26 +37,6 @@ export default function HomePage() {
 					className='fade-in-slide-up'
 					style={{ animationDuration: '2000ms' }}
 				>
-					<i
-						id='home-slide-left'
-						className='fa-solid fa-chevron-left'
-						onClick={() => {
-							setImageChanged(true);
-							if (activeImage === 0) setActiveImage(images.length - 1);
-							else setActiveImage(activeImage - 1);
-							timer();
-						}}
-					></i>
-					<i
-						id='home-slide-right'
-						className='fa-solid fa-chevron-right'
-						onClick={() => {
-							setImageChanged(true);
-							if (activeImage === images.length - 1) setActiveImage(0);
-							else setActiveImage(activeImage + 1);
-							timer();
-						}}
-					></i>
 					{images?.map((image, i) => (
 						<div id='home-image-container' key={`gallery-image-${i}`}>
 							<img
@@ -65,6 +45,26 @@ export default function HomePage() {
 								alt='focused'
 								style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
 							/>
+							<i
+								id='home-slide-left'
+								className='fa-solid fa-chevron-left'
+								onClick={() => {
+									setImageChanged(true);
+									if (activeImage === 0) setActiveImage(images.length - 1);
+									else setActiveImage(activeImage - 1);
+									timer();
+								}}
+							></i>
+							<i
+								id='home-slide-right'
+								className='fa-solid fa-chevron-right'
+								onClick={() => {
+									setImageChanged(true);
+									if (activeImage === images.length - 1) setActiveImage(0);
+									else setActiveImage(activeImage + 1);
+									timer();
+								}}
+							></i>
 						</div>
 					))}
 				</div>
