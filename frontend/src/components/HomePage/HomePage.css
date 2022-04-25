@@ -34,7 +34,8 @@
 #home-image {
     position: absolute;
     width: 100vw;
-    height: 100%;
+    height: calc(80vw - 50px);
+    max-height: 1080px;
     object-fit: cover;
     object-position: center;
     transition-duration: 1000ms;
