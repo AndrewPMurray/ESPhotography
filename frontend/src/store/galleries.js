@@ -132,6 +132,7 @@ const galleriesReducer = (state = initialState, action) => {
 			newState = {
 				...state,
 				[action.gallery.id]: action.gallery,
+				list: orderGalleries([...state.list, action.gallery]),
 			};
 			return newState;
 		}
@@ -140,7 +141,7 @@ const galleriesReducer = (state = initialState, action) => {
 			return newState;
 		}
 		case REMOVE_GALLERY: {
-			newState = { ...state };
+			newState = { ...state, list: state.list.filter((e) => e.id !== action.galleryId) };
 			delete newState[action.galleryId];
 			return newState;
 		}

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { editGallery, updateOrder } from '../../store/galleries';
 
@@ -12,7 +12,7 @@ import './GalleryList.css';
 
 export default function GalleryList() {
 	const dispatch = useDispatch();
-	const galleries = useSelector((state) => state.galleries);
+	const galleries = useSelector((state) => state.galleries.list);
 	const user = useSelector((state) => state.session.user);
 
 	useEffect(() => {
@@ -60,7 +60,7 @@ export default function GalleryList() {
 								ref={provided.innerRef}
 								style={{ flexWrap: user ? 'nowrap' : 'wrap' }}
 							>
-								{galleries.list.map(
+								{galleries.map(
 									(gallery, i) =>
 										(gallery.images?.length > 0 || user) && (
 											<Draggable
@@ -86,7 +86,7 @@ export default function GalleryList() {
 				</DragDropContext>
 			) : (
 				<div id='gallery-node-container' style={{ flexWrap: user ? 'nowrap' : 'wrap' }}>
-					{galleries.list.map(
+					{galleries.map(
 						(gallery, i) =>
 							(gallery.images?.length > 0 || user) && (
 								<GalleryNode key={gallery.id} gallery={gallery} user={user} i={i} />
