@@ -85,7 +85,7 @@ export const updateGalleryKey = (galleryId, url) => async (dispatch) => {
 };
 
 export const editGalleryOrder = (gallery) => async (dispatch) => {
-	const response = await csrfFetch(`/api/galleries/${gallery.id}`, {
+	const response = await csrfFetch(`/api/galleries/${gallery.id}/order`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',

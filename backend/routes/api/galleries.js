@@ -113,6 +113,28 @@ router.put(
 );
 
 router.put(
+	'/:id/order',
+	csrfProtection,
+	asyncHandler(async (req, res) => {
+		const { id, title, description, orderNumber } = req.body;
+		const gallery = await Gallery.findByPk(id);
+		await gallery.update({
+			title,
+			description,
+			orderNumber,
+		});
+		const updatedGallery = await Gallery.findByPk(id, {
+			include: {
+				model: Image,
+				as: 'images',
+			},
+			order: [[{ model: Image, as: 'images' }, 'orderNumber', 'ASC']],
+		});
+		return res.json(updatedGallery);
+	})
+);
+
+router.put(
 	'/:id/key',
 	csrfProtection,
 	asyncHandler(async (req, res) => {
