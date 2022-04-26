@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
+
 import { loadSingleGallery, updateGalleryKey } from '../../store/galleries';
-import { deleteImage } from '../../store/images';
+import { updateImage, deleteImage } from '../../store/images';
+
 import './Gallery.css';
 
 export default function Gallery() {
@@ -60,6 +64,27 @@ export default function Gallery() {
 
 	const updateKeyImage = (url) => {
 		dispatch(updateGalleryKey(galleryId, url));
+	};
+
+	const updateImageOrder = async ({ source, destination }) => {
+		const newImages = [...images];
+		const [reorderedImage] = newImages.splice(source.index, 1);
+		newImages.splice(destination.index, 0, reorderedImage);
+
+		newImages.forEach(async (image, i) => {
+			if (image.orderNumber !== i) {
+				image.orderNumber = i;
+				await dispatch(
+					updateImage({
+						id: image.id,
+						title: image.title,
+						isHomepageImage: image.isHomepageImage,
+						orderNumber: i,
+						homepageOrderNumber: image.homepageOrderNumber,
+					})
+				);
+			}
+		});
 	};
 
 	return (

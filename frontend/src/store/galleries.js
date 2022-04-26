@@ -2,9 +2,10 @@
 
 import { csrfFetch } from './csrf';
 
-const LOAD_GALLERIES = 'images/LOAD_GALLERIES';
-const ADD_GALLERY = 'images/ADD_GALLERY';
-const REMOVE_GALLERY = 'images/REMOVE_GALLERY';
+const LOAD_GALLERIES = 'galleries/LOAD_GALLERIES';
+const ADD_GALLERY = 'galleries/ADD_GALLERY';
+const REMOVE_GALLERY = 'galleries/REMOVE_GALLERY';
+const UPDATE_ORDER = 'galleries/UPDATE_ORDER';
 
 const load = (galleries) => {
 	return {
@@ -24,6 +25,13 @@ const remove = (galleryId) => {
 	return {
 		type: REMOVE_GALLERY,
 		galleryId,
+	};
+};
+
+export const updateOrder = (galleries) => {
+	return {
+		type: UPDATE_ORDER,
+		galleries,
 	};
 };
 
@@ -99,20 +107,36 @@ export const deleteGallery = (galleryId) => async (dispatch) => {
 	}
 };
 
-const initialState = {};
+const orderGalleries = (galleries) => {
+	return galleries
+		.filter((gallery) => !Array.isArray(gallery))
+		.sort((galA, galB) => {
+			return galA.orderNumber - galB.orderNumber;
+		});
+};
+
+const initialState = { list: [] };
 
 const galleriesReducer = (state = initialState, action) => {
 	let newState;
 	switch (action.type) {
 		case LOAD_GALLERIES: {
-			newState = {};
+			newState = { list: [] };
 			action.galleries.forEach((gallery) => {
 				newState[gallery.id] = gallery;
 			});
+			newState.list = orderGalleries(action.galleries);
 			return newState;
 		}
 		case ADD_GALLERY: {
-			newState = { ...state, [action.gallery.id]: action.gallery };
+			newState = {
+				...state,
+				[action.gallery.id]: action.gallery,
+			};
+			return newState;
+		}
+		case UPDATE_ORDER: {
+			newState = { ...state, list: orderGalleries(action.galleries) };
 			return newState;
 		}
 		case REMOVE_GALLERY: {
