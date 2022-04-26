@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './GalleryForm.css';
 import { addGallery, editGallery, deleteGallery } from '../../store/galleries';
 
 export default function GalleryForm({ setShowModal, gallery }) {
 	const dispatch = useDispatch();
+	const galleries = useSelector((state) => Object.values(state.galleries.list));
 	const [loading, setLoading] = useState();
 	const [errors, setErrors] = useState({});
 	const [title, setTitle] = useState(gallery?.title || '');
@@ -17,6 +18,7 @@ export default function GalleryForm({ setShowModal, gallery }) {
 			addGallery({
 				title,
 				description,
+				orderNumber: galleries.length,
 			})
 		)
 			.then((res) => {
@@ -37,6 +39,7 @@ export default function GalleryForm({ setShowModal, gallery }) {
 				id: gallery.id,
 				title,
 				description,
+				orderNumber: gallery.orderNumber,
 			})
 		)
 			.then(() => setShowModal(false))

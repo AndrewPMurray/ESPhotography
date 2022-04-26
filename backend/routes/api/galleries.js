@@ -12,7 +12,16 @@ const gallery = require('../../db/models/gallery');
 const router = express.Router();
 
 const validateGallery = [
-	check('title').notEmpty().withMessage('Title is required'),
+	check('title')
+		.notEmpty()
+		.withMessage('Title is required')
+		.custom((value) => {
+			return Gallery.findOne({ where: { title: value } }).then((res) => {
+				if (res && res.title.toLowerCase() === value.toLowerCase()) {
+					return Promise.reject('Title name already exists');
+				}
+			});
+		}),
 	handleValidationErrors,
 ];
 

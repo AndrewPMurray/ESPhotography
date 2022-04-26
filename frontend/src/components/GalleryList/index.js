@@ -24,8 +24,6 @@ export default function GalleryList() {
 		const [reorderedGallery] = newGalleries.splice(source.index, 1);
 		newGalleries.splice(destination.index, 0, reorderedGallery);
 
-		console.log(newGalleries);
-
 		newGalleries.forEach(async (gallery, i) => {
 			if (gallery.orderNumber !== i) {
 				gallery.orderNumber = i;
@@ -59,7 +57,10 @@ export default function GalleryList() {
 								id='gallery-node-container'
 								{...provided.droppableProps}
 								ref={provided.innerRef}
-								style={{ flexWrap: user ? 'nowrap' : 'wrap' }}
+								style={{
+									flexWrap: user ? 'nowrap' : 'wrap',
+									justifyContent: user ? 'flex-start' : null,
+								}}
 							>
 								{galleries.map(
 									(gallery, i) =>
@@ -86,7 +87,13 @@ export default function GalleryList() {
 					</Droppable>
 				</DragDropContext>
 			) : (
-				<div id='gallery-node-container' style={{ flexWrap: user ? 'nowrap' : 'wrap' }}>
+				<div
+					id='gallery-node-container'
+					style={{
+						flexWrap: user ? 'nowrap' : 'wrap',
+						justifyContent: user ? 'flex-start' : null,
+					}}
+				>
 					{galleries.map(
 						(gallery, i) =>
 							(gallery.images?.length > 0 || user) && (
