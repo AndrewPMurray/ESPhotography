@@ -147,7 +147,7 @@ const galleriesReducer = (state = initialState, action) => {
 			newState = {
 				...state,
 				[action.gallery.id]: action.gallery,
-				list: orderGalleries([...state.list, action.gallery]),
+				list: orderGalleries([state, action.gallery]),
 			};
 			return newState;
 		}
