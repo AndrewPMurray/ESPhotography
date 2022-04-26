@@ -14,7 +14,6 @@ export default function GalleryList() {
 	const dispatch = useDispatch();
 	const galleries = useSelector((state) => state.galleries);
 	const user = useSelector((state) => state.session.user);
-	console.log(galleries.list);
 
 	useEffect(() => {
 		dispatch(loadGalleries());

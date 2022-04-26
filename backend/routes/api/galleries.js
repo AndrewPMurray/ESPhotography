@@ -58,8 +58,8 @@ router.get('/:id', async (req, res) => {
 		include: {
 			model: Image,
 			as: 'images',
-			order: [['orderNumber', 'ASC']],
 		},
+		order: [[{ model: Image, as: 'images' }, 'orderNumber', 'ASC']],
 	});
 	return res.json(gallery);
 });
