@@ -109,7 +109,7 @@ export const deleteGallery = (galleryId) => async (dispatch) => {
 
 const orderGalleries = (galleries) => {
 	return galleries
-		.filter((gallery) => !Array.isArray(gallery))
+		.filter((gallery, i) => gallery.orderNumber === i)
 		.sort((galA, galB) => {
 			return galA.orderNumber - galB.orderNumber;
 		});

@@ -20,9 +20,11 @@ export default function GalleryList() {
 	}, [dispatch]);
 
 	const updateGalleryOrder = async ({ source, destination }) => {
-		const newGalleries = [...galleries.list];
+		const newGalleries = [...galleries];
 		const [reorderedGallery] = newGalleries.splice(source.index, 1);
 		newGalleries.splice(destination.index, 0, reorderedGallery);
+
+		console.log(newGalleries);
 
 		newGalleries.forEach(async (gallery, i) => {
 			if (gallery.orderNumber !== i) {

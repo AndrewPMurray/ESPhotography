@@ -24,6 +24,7 @@ export default function Gallery() {
 	const [noImages, setNoImages] = useState(false);
 	const [activeImage, setActiveImage] = useState(0);
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
+	const [imagesLength, setImagesLength] = useState(0);
 
 	useEffect(() => {
 		setNoImages(false);
@@ -145,8 +146,7 @@ export default function Gallery() {
 					))}
 				</div>
 			)}
-			{images?.length * document.querySelector('#slider-preview')?.clientWidth >
-				windowLength && (
+			{imagesLength > windowLength && (
 				<>
 					<div id='sliders'>
 						<i
@@ -235,6 +235,14 @@ export default function Gallery() {
 													src={image?.url}
 													alt='slider-preview'
 													onClick={() => setActiveImage(i)}
+													onLoad={() =>
+														setImagesLength(
+															images?.length *
+																document.querySelector(
+																	'#slider-preview'
+																)?.clientWidth
+														)
+													}
 													className={`slider-preview-${i} fade-in`}
 													style={
 														activeImage === i
