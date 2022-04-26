@@ -8,6 +8,7 @@ import HomePage from './components/HomePage';
 import LoginForm from './components/auth/LoginForm';
 import GalleryList from './components/GalleryList';
 import Gallery from './components/Gallery';
+import Footer from './components/Footer';
 
 // Utils & contexts as needed
 import * as sessionActions from './store/session';
@@ -21,27 +22,26 @@ function App() {
 	}, [dispatch]);
 
 	return (
-		<>
-			{isLoaded && (
-				<>
-					<NavBar />
-					<Switch>
-						<Route exact path='/'>
-							<HomePage />
-						</Route>
-						<Route exact path='/login'>
-							<LoginForm />
-						</Route>
-						<Route exact path='/galleries'>
-							<GalleryList />
-						</Route>
-						<Route exact path='/galleries/:galleryId(\d+)'>
-							<Gallery />
-						</Route>
-					</Switch>
-				</>
-			)}
-		</>
+		isLoaded && (
+			<>
+				<NavBar />
+				<Switch>
+					<Route exact path='/'>
+						<HomePage />
+					</Route>
+					<Route exact path='/login'>
+						<LoginForm />
+					</Route>
+					<Route exact path='/galleries'>
+						<GalleryList />
+					</Route>
+					<Route exact path='/galleries/:galleryId(\d+)'>
+						<Gallery />
+					</Route>
+				</Switch>
+				<Footer />
+			</>
+		)
 	);
 }
 

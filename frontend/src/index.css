@@ -29,6 +29,24 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
+html,body {
+	margin:0;
+	padding:0;
+ }
+
+#root {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+#root > *:not(#navbar-container, #footer-container) {
+	min-height: 75vh;
+	flex: 1;
+}
+
+
 body {
 	line-height: 1;
 	background-color: #343434;
