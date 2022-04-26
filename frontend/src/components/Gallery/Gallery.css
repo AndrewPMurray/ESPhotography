@@ -1,5 +1,6 @@
 #gallery-images-container {
     position: relative;
+    overflow: hidden;
 }
 
 #delete-image,

@@ -11,16 +11,18 @@ export default function NavBar() {
 					<NavLink to='/'>
 						<img id='signature' src='../images/signature.png' alt='signature' />
 					</NavLink>
-					<NavLink to='/galleries'>Galleries</NavLink>
-					<NavLink to='/bio'>Bio</NavLink>
-					<NavLink to='/contact'>Contact</NavLink>
-					<a
-						href='https://instagram.com/elmarschmittou'
-						target='_blank'
-						rel='noopener noreferrer'
-					>
-						<i className='fa-brands fa-instagram'></i>
-					</a>
+					<div id='navbar-links'>
+						<NavLink to='/galleries'>Galleries</NavLink>
+						<NavLink to='/bio'>Bio</NavLink>
+						<NavLink to='/contact'>Contact</NavLink>
+						<a
+							href='https://instagram.com/elmarschmittou'
+							target='_blank'
+							rel='noopener noreferrer'
+						>
+							<i className='fa-brands fa-instagram'></i>
+						</a>
+					</div>
 				</div>
 			</nav>
 		</div>
