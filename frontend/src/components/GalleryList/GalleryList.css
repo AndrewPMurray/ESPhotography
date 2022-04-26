@@ -31,6 +31,8 @@
     margin-top: 50px;
     display: flex;
     justify-content: center;
+    overflow-x: auto;
+    max-width: 80%;
 }
 
 #gallery-node {

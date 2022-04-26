@@ -50,6 +50,7 @@ html,body {
 body {
 	line-height: 1;
 	background-color: #343434;
+	width: 100vw;
 }
 ol, ul {
 	list-style: none;
