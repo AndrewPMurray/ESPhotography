@@ -28,10 +28,10 @@ const remove = (galleryId) => {
 	};
 };
 
-export const updateOrder = (galleries) => {
+export const updateOrder = (gallery) => {
 	return {
 		type: UPDATE_ORDER,
-		galleries,
+		gallery,
 	};
 };
 
@@ -83,6 +83,21 @@ export const updateGalleryKey = (galleryId, url) => async (dispatch) => {
 	}
 };
 
+export const editGalleryOrder = (gallery) => async (dispatch) => {
+	const response = await csrfFetch(`/api/galleries/${gallery.id}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(gallery),
+	});
+	if (response.ok) {
+		const updatedGallery = await response.json();
+		dispatch(updateOrder(updatedGallery));
+		return updatedGallery;
+	}
+};
+
 export const editGallery = (gallery) => async (dispatch) => {
 	const response = await csrfFetch(`/api/galleries/${gallery.id}`, {
 		method: 'PUT',
@@ -109,7 +124,7 @@ export const deleteGallery = (galleryId) => async (dispatch) => {
 
 const orderGalleries = (galleries) => {
 	return galleries
-		.filter((gallery, i) => gallery.orderNumber === i)
+		.filter((gallery) => !Array.isArray(gallery))
 		.sort((galA, galB) => {
 			return galA.orderNumber - galB.orderNumber;
 		});
@@ -137,7 +152,8 @@ const galleriesReducer = (state = initialState, action) => {
 			return newState;
 		}
 		case UPDATE_ORDER: {
-			newState = { ...state, list: orderGalleries(action.galleries) };
+			newState = { ...state, [action.gallery.id]: action.gallery };
+			newState.list = orderGalleries(newState.list);
 			return newState;
 		}
 		case REMOVE_GALLERY: {

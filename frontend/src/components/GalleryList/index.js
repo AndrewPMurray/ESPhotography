@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { editGallery, updateOrder } from '../../store/galleries';
+import { editGalleryOrder } from '../../store/galleries';
 
 import GalleryFormModal from '../GalleryFormModal';
 import GalleryNode from './GalleryNode';
@@ -30,7 +30,7 @@ export default function GalleryList() {
 			if (gallery.orderNumber !== i) {
 				gallery.orderNumber = i;
 				await dispatch(
-					editGallery({
+					editGalleryOrder({
 						id: gallery.id,
 						title: gallery.title,
 						description: gallery.description,
@@ -39,7 +39,6 @@ export default function GalleryList() {
 				);
 			}
 		});
-		await dispatch(updateOrder(newGalleries));
 	};
 
 	return (
