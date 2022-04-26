@@ -73,7 +73,6 @@ export default function Gallery() {
 
 		newImages.forEach(async (image, i) => {
 			if (image.orderNumber !== i) {
-				image.orderNumber = i;
 				await dispatch(
 					updateImage({
 						id: image.id,
@@ -182,42 +181,122 @@ export default function Gallery() {
 					</div>
 				</>
 			)}
-			<div id='images-slider'>
-				{gallery?.images?.map((image, i) => (
-					<div id='slider-div' key={`slider-preview-${i}`}>
-						{user && (
-							<div>
-								<p id='delete-image' onClick={() => handleDelete(image, i)}>
-									x
-								</p>
-								<i
-									id='set-key-image'
-									className='fa-solid fa-key'
-									onClick={() => updateKeyImage(image.url)}
-									style={
-										image.url === gallery.keyImageURL
-											? { color: 'gold', visibility: 'visible' }
-											: null
-									}
-								></i>
-								<EditImageModal image={image} />
+			{user ? (
+				<DragDropContext onDragEnd={updateImageOrder}>
+					<Droppable droppableId='images' direction='horizontal'>
+						{(provided) => (
+							<div
+								id='images-slider'
+								{...provided.droppableProps}
+								ref={provided.innerRef}
+							>
+								{gallery?.images?.map((image, i) => (
+									<Draggable
+										key={`slider-preview-${i}`}
+										draggableId={`${image.title}-${i}`}
+										index={i}
+									>
+										{(provided) => (
+											<div
+												id='slider-div'
+												ref={provided.innerRef}
+												{...provided.draggableProps}
+												{...provided.dragHandleProps}
+											>
+												{user && (
+													<div>
+														<p
+															id='delete-image'
+															onClick={() => handleDelete(image, i)}
+														>
+															x
+														</p>
+														<i
+															id='set-key-image'
+															className='fa-solid fa-key'
+															onClick={() =>
+																updateKeyImage(image.url)
+															}
+															style={
+																image.url === gallery.keyImageURL
+																	? {
+																			color: 'gold',
+																			visibility: 'visible',
+																	  }
+																	: null
+															}
+														></i>
+														<EditImageModal image={image} />
+													</div>
+												)}
+												<img
+													id='slider-preview'
+													src={image?.url}
+													alt='slider-preview'
+													onClick={() => setActiveImage(i)}
+													className={`slider-preview-${i} fade-in`}
+													style={
+														activeImage === i
+															? {
+																	border: '5px solid #C0C0C0',
+																	animationDuration: '500ms',
+															  }
+															: { animationDuration: '500ms' }
+													}
+												/>
+											</div>
+										)}
+									</Draggable>
+								))}
+								{provided.placeholder}
 							</div>
 						)}
-						<img
-							id='slider-preview'
-							src={image?.url}
-							alt='slider-preview'
-							onClick={() => setActiveImage(i)}
-							className={`slider-preview-${i} fade-in`}
-							style={
-								activeImage === i
-									? { border: '5px solid #C0C0C0', animationDuration: '500ms' }
-									: { animationDuration: '500ms' }
-							}
-						/>
-					</div>
-				))}
-			</div>
+					</Droppable>
+				</DragDropContext>
+			) : (
+				<div id='images-slider'>
+					{gallery?.images?.map((image, i) => (
+						<div id='slider-div' key={`slider-preview-${i}`}>
+							{user && (
+								<div>
+									<p id='delete-image' onClick={() => handleDelete(image, i)}>
+										x
+									</p>
+									<i
+										id='set-key-image'
+										className='fa-solid fa-key'
+										onClick={() => updateKeyImage(image.url)}
+										style={
+											image.url === gallery.keyImageURL
+												? {
+														color: 'gold',
+														visibility: 'visible',
+												  }
+												: null
+										}
+									></i>
+									<EditImageModal image={image} />
+								</div>
+							)}
+							<img
+								id='slider-preview'
+								src={image?.url}
+								alt='slider-preview'
+								onClick={() => setActiveImage(i)}
+								className={`slider-preview-${i} fade-in`}
+								style={
+									activeImage === i
+										? {
+												border: '5px solid #C0C0C0',
+												animationDuration: '500ms',
+										  }
+										: { animationDuration: '500ms' }
+								}
+							/>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	);
 }

@@ -17,6 +17,8 @@ export default function EditImage({ setShowModal, image }) {
 				id: image.id,
 				title,
 				isHomepageImage: isHomepage,
+				orderNumber: image.orderNumber,
+				homepageOrderNumber: image.homepageOrderNumber,
 			})
 		)
 			.then(() => {

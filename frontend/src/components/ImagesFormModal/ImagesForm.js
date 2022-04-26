@@ -28,6 +28,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 					title: title[i],
 					galleryId,
 					isHomepageImage: isHomepage[i],
+					orderNumber: images.length + i,
 					image,
 				})
 			);

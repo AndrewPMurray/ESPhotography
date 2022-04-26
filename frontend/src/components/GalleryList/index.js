@@ -66,7 +66,7 @@ export default function GalleryList() {
 										(gallery.images?.length > 0 || user) && (
 											<Draggable
 												key={gallery.id}
-												draggableId={gallery.title}
+												draggableId={`${gallery.title}-${i}`}
 												index={i}
 											>
 												{(provided) => (
