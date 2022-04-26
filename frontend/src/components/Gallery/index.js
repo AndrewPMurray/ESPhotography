@@ -102,12 +102,20 @@ export default function Gallery() {
 								setActiveImage(images.length - 1);
 								document
 									.querySelector(`.slider-preview-${images.length - 1}`)
-									.scrollIntoView({ behavior: 'smooth' });
+									.scrollIntoView({
+										block: 'end',
+										inline: 'nearest',
+										behavior: 'smooth',
+									});
 							} else {
 								setActiveImage((prev) => prev - 1);
 								document
 									.querySelector(`.slider-preview-${activeImage - 1}`)
-									.scrollIntoView({ behavior: 'smooth' });
+									.scrollIntoView({
+										block: 'end',
+										inline: 'nearest',
+										behavior: 'smooth',
+									});
 							}
 						}}
 					></i>
@@ -119,12 +127,20 @@ export default function Gallery() {
 								setActiveImage(0);
 								document
 									.querySelector(`.slider-preview-0`)
-									.scrollIntoView({ behavior: 'smooth' });
+									.scrollIntoView({
+										block: 'end',
+										inline: 'nearest',
+										behavior: 'smooth',
+									});
 							} else {
 								setActiveImage((prev) => prev + 1);
 								document
 									.querySelector(`.slider-preview-${activeImage + 1}`)
-									.scrollIntoView({ behavior: 'smooth' });
+									.scrollIntoView({
+										block: 'end',
+										inline: 'nearest',
+										behavior: 'smooth',
+									});
 							}
 						}}
 					></i>
