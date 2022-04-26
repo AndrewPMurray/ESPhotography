@@ -189,7 +189,7 @@ export default function Gallery() {
 								id='images-slider'
 								{...provided.droppableProps}
 								ref={provided.innerRef}
-								style={{ overflowX: 'hidden' }}
+								style={{ overflowX: 'scroll' }}
 							>
 								{gallery?.images?.map((image, i) => (
 									<Draggable
