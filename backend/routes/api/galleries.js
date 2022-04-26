@@ -7,6 +7,7 @@ const csrfProtection = csurf({ cookie: true });
 const { deleteSingleFile } = require('../../awsS3');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Gallery, Image } = require('../../db/models');
+const gallery = require('../../db/models/gallery');
 
 const router = express.Router();
 
@@ -15,7 +16,31 @@ const validateGallery = [
 	handleValidationErrors,
 ];
 
-router.get('/', async (req, res) => {
+const defaultGallerySort = async (_req, _res, next) => {
+	const galleries = await Gallery.findAll({
+		order: [['orderNumber', 'ASC']],
+	});
+	galleries.forEach(async (gallery, i) => {
+		await gallery.update({
+			orderNumber: i,
+		});
+	});
+	return next();
+};
+
+const defaultImageSort = async (id) => {
+	const images = await Image.findAll({
+		where: {
+			galleryId: id,
+		},
+		order: [['orderNumber', 'ASC']],
+	});
+	images.forEach(async (image, i) => {
+		await image.update({ orderNumber: i });
+	});
+};
+
+router.get('/', defaultGallerySort, async (req, res) => {
 	const galleries = await Gallery.findAll({
 		include: {
 			model: Image,
@@ -28,10 +53,12 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
 	const { id } = req.params;
+	await defaultImageSort(id);
 	const gallery = await Gallery.findByPk(id, {
 		include: {
 			model: Image,
 			as: 'images',
+			order: [['orderNumber', 'ASC']],
 		},
 	});
 	return res.json(gallery);
@@ -42,10 +69,11 @@ router.post(
 	csrfProtection,
 	validateGallery,
 	asyncHandler(async (req, res) => {
-		const { title, description } = req.body;
+		const { title, description, orderNumber } = req.body;
 		const gallery = await Gallery.create({
 			title,
 			description,
+			orderNumber,
 		});
 
 		return res.json(gallery);
@@ -57,16 +85,18 @@ router.put(
 	csrfProtection,
 	validateGallery,
 	asyncHandler(async (req, res) => {
-		const { id, title, description } = req.body;
+		const { id, title, description, orderNumber } = req.body;
 		const gallery = await Gallery.findByPk(id);
 		await gallery.update({
 			title,
 			description,
+			orderNumber,
 		});
 		const updatedGallery = await Gallery.findByPk(id, {
 			include: {
 				model: Image,
 				as: 'images',
+				order: [['orderNumber', 'ASC']],
 			},
 		});
 		return res.json(updatedGallery);
@@ -87,6 +117,7 @@ router.put(
 			include: {
 				model: Image,
 				as: 'images',
+				order: [['orderNumber', 'ASC']],
 			},
 		});
 		return res.json(updatedGallery);

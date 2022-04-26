@@ -24,6 +24,7 @@ router.get('/home', async (req, res) => {
 		where: {
 			isHomepageImage: true,
 		},
+		order: [['homepageOrderNumber', 'ASC']],
 	});
 	return res.json(images);
 });
@@ -57,6 +58,8 @@ router.put(
 		const editedImage = await image.update({
 			title,
 			isHomepageImage,
+			orderNumber,
+			homepageOrderNumber,
 		});
 
 		return res.json(editedImage);
