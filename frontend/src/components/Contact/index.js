@@ -18,7 +18,7 @@ export default function Contact() {
 				<pre id='contact-section-text'>
 					{`Andrew Murray
 
-Portfolio: `}
+`}
 					<a href='https://andrewmurray.dev' target='_blank' rel='noopener noreferrer'>
 						andrewmurray.dev
 					</a>

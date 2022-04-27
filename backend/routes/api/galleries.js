@@ -6,7 +6,7 @@ const csrfProtection = csurf({ cookie: true });
 
 const { deleteSingleFile } = require('../../awsS3');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Gallery, Image } = require('../../db/models');
+const { Gallery, Image, Sequelize } = require('../../db/models');
 const gallery = require('../../db/models/gallery');
 
 const router = express.Router();
@@ -16,8 +16,14 @@ const validateGallery = [
 		.notEmpty()
 		.withMessage('Title is required')
 		.custom((value) => {
-			return Gallery.findOne({ where: { title: value } }).then((res) => {
-				if (res && res.title.toLowerCase() === value.toLowerCase()) {
+			return Gallery.findOne({
+				where: {
+					title: {
+						[Sequelize.Op.iLike]: value,
+					},
+				},
+			}).then((res) => {
+				if (res) {
 					return Promise.reject('Title name already exists');
 				}
 			});
