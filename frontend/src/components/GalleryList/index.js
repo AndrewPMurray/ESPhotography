@@ -41,7 +41,7 @@ export default function GalleryList() {
 
 	return (
 		<div id='gallery-list-container'>
-			<div id='gallery-list-header'>
+			<div id='header'>
 				{user && <GalleryFormModal />}
 				<h2>Galleries</h2>
 				<p>

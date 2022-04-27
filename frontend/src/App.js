@@ -12,6 +12,9 @@ import Footer from './components/Footer';
 
 // Utils & contexts as needed
 import * as sessionActions from './store/session';
+import Bio from './components/Bio';
+import Contact from './components/Contact';
+import NotFound from './components/NotFound';
 
 function App() {
 	const dispatch = useDispatch();
@@ -37,6 +40,15 @@ function App() {
 					</Route>
 					<Route exact path='/galleries/:galleryId(\d+)'>
 						<Gallery />
+					</Route>
+					<Route exact path='/bio'>
+						<Bio />
+					</Route>
+					<Route exact path='/contact'>
+						<Contact />
+					</Route>
+					<Route>
+						<NotFound />
 					</Route>
 				</Switch>
 				<Footer />

@@ -27,7 +27,6 @@ export default function Gallery() {
 	const [imagesLength, setImagesLength] = useState(0);
 
 	useEffect(() => {
-		setNoImages(false);
 		dispatch(loadSingleGallery(galleryId))
 			.then((res) => {
 				if (!res?.images || res?.images?.length === 0) {
@@ -35,7 +34,7 @@ export default function Gallery() {
 						history.push('/not-found');
 					}
 					setNoImages(true);
-				}
+				} else setNoImages(false);
 			})
 			.catch(() => {
 				history.push('/not-found');
@@ -125,13 +124,11 @@ export default function Gallery() {
 						onClick={() => {
 							if (activeImage === images.length - 1) {
 								setActiveImage(0);
-								document
-									.querySelector(`.slider-preview-0`)
-									.scrollIntoView({
-										block: 'end',
-										inline: 'nearest',
-										behavior: 'smooth',
-									});
+								document.querySelector(`.slider-preview-0`).scrollIntoView({
+									block: 'end',
+									inline: 'nearest',
+									behavior: 'smooth',
+								});
 							} else {
 								setActiveImage((prev) => prev + 1);
 								document

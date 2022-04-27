@@ -157,3 +157,20 @@ table {
 #error {
 	color: #BC0000;
 }
+
+#header {
+    display: flex;
+    flex-direction: column;
+	margin-bottom: 25px;
+}
+
+#header * {
+    margin: 5px 0;
+}
+
+#header h2 {
+    font-size: 24px;
+    opacity: 0.5;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
