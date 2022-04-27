@@ -55,7 +55,7 @@ const defaultImageSort = async (id) => {
 	});
 };
 
-router.get('/', defaultGallerySort, async (req, res) => {
+router.get('/', defaultGallerySort, async (_req, res) => {
 	const galleries = await Gallery.findAll({
 		include: {
 			model: Image,
