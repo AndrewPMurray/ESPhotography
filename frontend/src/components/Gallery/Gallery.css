@@ -48,28 +48,30 @@
     width: 100vw;
 }
 
+#gallery-slide-container {
+    position: absolute;
+    bottom: 100px;
+    height: calc(95vw + 75px);
+    width: 100vw;
+    max-height: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 #gallery-slide-left,
 #gallery-slide-right {
-    position: absolute;
-    top: 50%;
     font-size: 48px;
     opacity: 0.5;
     cursor: pointer;
     z-index: 1;
     padding: 0 10px;
+    margin: 0 15px;
 }
 
 #gallery-slide-left:hover,
 #gallery-slide-right:hover {
     opacity: 1;
-}
-
-#gallery-slide-left {
-    left: 15px;
-}
-
-#gallery-slide-right {
-    right: 15px;
 }
 
 #gallery-image-title {

@@ -93,54 +93,57 @@ export default function Gallery() {
 				<h2>No images in this gallery</h2>
 			) : (
 				<div id='gallery-slideshow' className='fade-in-slide-up'>
-					<i
-						id='gallery-slide-left'
-						className='fa-solid fa-chevron-left'
-						onClick={() => {
-							if (activeImage === 0) {
-								setActiveImage(images.length - 1);
-								document
-									.querySelector(`.slider-preview-${images.length - 1}`)
-									.scrollIntoView({
+					<div id='gallery-slide-container'>
+						<i
+							id='gallery-slide-left'
+							className='fa-solid fa-chevron-left'
+							onClick={() => {
+								if (activeImage === 0) {
+									setActiveImage(images.length - 1);
+									document
+										.querySelector(`.slider-preview-${images.length - 1}`)
+										.scrollIntoView({
+											block: 'end',
+											inline: 'nearest',
+											behavior: 'smooth',
+										});
+								} else {
+									setActiveImage((prev) => prev - 1);
+									document
+										.querySelector(`.slider-preview-${activeImage - 1}`)
+										.scrollIntoView({
+											block: 'end',
+											inline: 'nearest',
+											behavior: 'smooth',
+										});
+								}
+							}}
+						></i>
+						<i
+							id='gallery-slide-right'
+							className='fa-solid fa-chevron-right'
+							onClick={() => {
+								if (activeImage === images.length - 1) {
+									setActiveImage(0);
+									document.querySelector(`.slider-preview-0`).scrollIntoView({
 										block: 'end',
 										inline: 'nearest',
 										behavior: 'smooth',
 									});
-							} else {
-								setActiveImage((prev) => prev - 1);
-								document
-									.querySelector(`.slider-preview-${activeImage - 1}`)
-									.scrollIntoView({
-										block: 'end',
-										inline: 'nearest',
-										behavior: 'smooth',
-									});
-							}
-						}}
-					></i>
-					<i
-						id='gallery-slide-right'
-						className='fa-solid fa-chevron-right'
-						onClick={() => {
-							if (activeImage === images.length - 1) {
-								setActiveImage(0);
-								document.querySelector(`.slider-preview-0`).scrollIntoView({
-									block: 'end',
-									inline: 'nearest',
-									behavior: 'smooth',
-								});
-							} else {
-								setActiveImage((prev) => prev + 1);
-								document
-									.querySelector(`.slider-preview-${activeImage + 1}`)
-									.scrollIntoView({
-										block: 'end',
-										inline: 'nearest',
-										behavior: 'smooth',
-									});
-							}
-						}}
-					></i>
+								} else {
+									setActiveImage((prev) => prev + 1);
+									document
+										.querySelector(`.slider-preview-${activeImage + 1}`)
+										.scrollIntoView({
+											block: 'end',
+											inline: 'nearest',
+											behavior: 'smooth',
+										});
+								}
+							}}
+						></i>
+					</div>
+
 					{gallery?.images?.map((image, i) => (
 						<div id='gallery-image-container' key={`gallery-image-${i}`}>
 							<img
