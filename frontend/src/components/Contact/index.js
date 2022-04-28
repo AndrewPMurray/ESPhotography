@@ -16,9 +16,7 @@ export default function Contact() {
 			<div id='contact-section'>
 				<h2 id='contact-section-header'>Webmaster Info</h2>
 				<pre id='contact-section-text'>
-					{`Andrew Murray
-
-`}
+					{`Andrew Murray: `}
 					<a href='https://andrewmurray.dev' target='_blank' rel='noopener noreferrer'>
 						andrewmurray.dev
 					</a>
