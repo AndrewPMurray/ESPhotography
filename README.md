@@ -6,7 +6,7 @@ A photography portfolio made for a professional photographer, Elmar Schmittou
 
 
 
-[esphotography](https://elmarschmittou.com/), a fullstack photography portfolio, is a showcase of photos taken by professional photographer Elmar Schmittou. The website allows the photographer to log in in order to add & edit galleries and photos. The photographer can reorganize how photos are displayed by dragging and dropping while logged in.
+[esphotography](https://elmarschmittou.com/), a fullstack photography portfolio, is a showcase of photos taken by professional photographer Elmar Schmittou. The website allows the photographer to log in to add & edit galleries and photos. The photographer can reorganize how photos are displayed by dragging and dropping while logged in.
 
 ## Technologies Used
 
