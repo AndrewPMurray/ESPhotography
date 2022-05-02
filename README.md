@@ -42,7 +42,7 @@ A photography portfolio made for a professional photographer, Elmar Schmittou
 	- Replace 'password' in DATABASE_URL with your chosen password
 	- Enter a secure combination of characters for your SECRET_KEY
 	- Create your own [S3](https://s3.console.aws.amazon.com/s3/home?region=us-east-1) image bucket and [AWS user](https://console.aws.amazon.com/iam/home?#/users) and connect them, and enter in the information for AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. You'll also need to change the NAME_OF_BUCKET variable in backend/awsS3.js to match your bucket name.
-	- Choose a secure password for the user seeder (to see login functionality in action)
+	- Choose a username and secure password for the user name & password seeder (to see login functionality in action)
 8. Sequelize Migrate and Seed your database in backend directory
 	- `npx dotenv sequelize db:migrate`
 	- `npx dotenv sequelize db:seed:all`
