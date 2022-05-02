@@ -51,7 +51,7 @@ A photography portfolio made for a professional photographer, Elmar Schmittou
 10. Start frontend server in `frontend` directory
 	- `npm start`
 11. In your browser go to `localhost:3000`
-12. You may login by typing in `localhost:3000/login` (Use the password you provided as your "seeder password" in step 7)
+12. You may login by typing in `localhost:3000/login` (The username is "themar." Use the password you provided as your "seeder password" in step 7)
 
 
 ---------------------
