@@ -12,6 +12,7 @@ module.exports = {
 		expiresIn: process.env.JWT_EXPIRES_IN,
 	},
 	seeder: {
+		username: process.env.SEEDER_USERNAME,
 		password: process.env.SEEDER_PASSWORD,
 	},
 };

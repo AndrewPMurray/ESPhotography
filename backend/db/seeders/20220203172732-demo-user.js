@@ -1,7 +1,7 @@
 'use strict';
 const bcrypt = require('bcryptjs');
 const config = require('../../config');
-const { password } = config.seeder;
+const { username, password } = config.seeder;
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
@@ -10,7 +10,7 @@ module.exports = {
 			[
 				{
 					email: 'elmar1701@gmail.com',
-					username: 'TheMar',
+					username: username,
 					hashedPassword: bcrypt.hashSync(password),
 				},
 			],
