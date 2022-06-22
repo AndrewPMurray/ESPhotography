@@ -256,7 +256,8 @@ export default function Gallery() {
 															images?.length *
 																document.querySelector(
 																	'#slider-preview'
-																)?.clientWidth
+																)?.clientWidth +
+																100
 														)
 													}
 													className={`slider-preview-${i} fade-in`}
@@ -307,6 +308,13 @@ export default function Gallery() {
 								id='slider-preview'
 								src={image?.url}
 								alt='slider-preview'
+								onLoad={() =>
+									setImagesLength(
+										images?.length *
+											document.querySelector('#slider-preview')?.clientWidth +
+											100
+									)
+								}
 								onClick={() => setActiveImage(i)}
 								className={`slider-preview-${i} fade-in`}
 								style={
