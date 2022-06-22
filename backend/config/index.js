@@ -14,5 +14,6 @@ module.exports = {
 	seeder: {
 		username: process.env.SEEDER_USERNAME,
 		password: process.env.SEEDER_PASSWORD,
+		email: process.env.SEEDER_EMAIL,
 	},
 };
