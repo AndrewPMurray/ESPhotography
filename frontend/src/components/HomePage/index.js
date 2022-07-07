@@ -43,7 +43,9 @@ export default function HomePage() {
 								id='home-image'
 								src={image.url}
 								alt='focused'
-								style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
+								style={
+									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
+								}
 							/>
 							<i
 								id='home-slide-left'
