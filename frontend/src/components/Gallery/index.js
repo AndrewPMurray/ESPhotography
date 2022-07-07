@@ -13,7 +13,6 @@ import { updateImage, deleteImage } from '../../store/images';
 import './Gallery.css';
 
 export default function Gallery() {
-	polyfill();
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { galleryId } = useParams();
@@ -100,6 +99,7 @@ export default function Gallery() {
 							id='gallery-slide-left'
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
+								polyfill();
 								if (activeImage === 0) {
 									setActiveImage(images.length - 1);
 									document
@@ -125,6 +125,7 @@ export default function Gallery() {
 							id='gallery-slide-right'
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
+								polyfill();
 								if (activeImage === images.length - 1) {
 									setActiveImage(0);
 									document.querySelector(`.slider-preview-0`).scrollIntoView({
@@ -152,11 +153,15 @@ export default function Gallery() {
 								id='gallery-image'
 								src={image.url}
 								alt='focused'
-								style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
+								style={
+									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
+								}
 							/>
 							<p
 								id='gallery-image-title'
-								style={activeImage === i ? { opacity: 1 } : { opacity: 0 }}
+								style={
+									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
+								}
 							>
 								{image.title}
 							</p>
@@ -171,9 +176,7 @@ export default function Gallery() {
 							id='slider-slide-left'
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
-								document
-									.querySelector(`.slider-preview-${activeImage}`)
-									.scrollIntoView({ left: '150', behavior: 'smooth' });
+								polyfill();
 								document.querySelector('#images-slider').scrollTo({
 									left:
 										document.querySelector('#images-slider').scrollLeft -
@@ -187,6 +190,7 @@ export default function Gallery() {
 							id='slider-slide-right'
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
+								polyfill();
 								document.querySelector('#images-slider').scrollTo({
 									left:
 										document.querySelector('#images-slider').scrollLeft +
