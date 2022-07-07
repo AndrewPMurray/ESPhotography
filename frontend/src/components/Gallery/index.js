@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { polyfill } from 'seamless-scroll-polyfill';
+import { scrollTo, scrollIntoView } from 'seamless-scroll-polyfill';
 
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
@@ -99,25 +99,30 @@ export default function Gallery() {
 							id='gallery-slide-left'
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
-								polyfill();
 								if (activeImage === 0) {
 									setActiveImage(images.length - 1);
-									document
-										.querySelector(`.slider-preview-${images.length - 1}`)
-										.scrollIntoView({
+									scrollIntoView(
+										document.querySelector(
+											`.slider-preview-${images.length - 1}`
+										),
+										{
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
-										});
+										}
+									);
 								} else {
 									setActiveImage((prev) => prev - 1);
-									document
-										.querySelector(`.slider-preview-${activeImage - 1}`)
-										.scrollIntoView({
+									scrollIntoView(
+										document.querySelector(
+											`.slider-preview-${activeImage - 1}`
+										),
+										{
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
-										});
+										}
+									);
 								}
 							}}
 						></i>
@@ -125,23 +130,25 @@ export default function Gallery() {
 							id='gallery-slide-right'
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
-								polyfill();
 								if (activeImage === images.length - 1) {
 									setActiveImage(0);
-									document.querySelector(`.slider-preview-0`).scrollIntoView({
+									scrollIntoView(document.querySelector(`.slider-preview-0`), {
 										block: 'end',
 										inline: 'nearest',
 										behavior: 'smooth',
 									});
 								} else {
 									setActiveImage((prev) => prev + 1);
-									document
-										.querySelector(`.slider-preview-${activeImage + 1}`)
-										.scrollIntoView({
+									scrollIntoView(
+										document.querySelector(
+											`.slider-preview-${activeImage + 1}`
+										),
+										{
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
-										});
+										}
+									);
 								}
 							}}
 						></i>
@@ -176,8 +183,7 @@ export default function Gallery() {
 							id='slider-slide-left'
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
-								polyfill();
-								document.querySelector('#images-slider').scrollTo({
+								scrollTo(document.querySelector('#images-slider'), {
 									left:
 										document.querySelector('#images-slider').scrollLeft -
 										windowLength +
@@ -190,8 +196,7 @@ export default function Gallery() {
 							id='slider-slide-right'
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
-								polyfill();
-								document.querySelector('#images-slider').scrollTo({
+								scrollTo(document.querySelector('#images-slider'), {
 									left:
 										document.querySelector('#images-slider').scrollLeft +
 										windowLength -
