@@ -1,5 +1,5 @@
 import { elementScrollIntoViewPolyfill } from 'seamless-scroll-polyfill';
 
-if (typeof window !== undefined && typeof document !== undefined) {
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
 	elementScrollIntoViewPolyfill();
 }
