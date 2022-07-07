@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { polyfill } from 'seamless-scroll-polyfill';
 
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
@@ -9,10 +10,10 @@ import EditImageModal from '../EditImageModal';
 import { loadSingleGallery, updateGalleryKey } from '../../store/galleries';
 import { updateImage, deleteImage } from '../../store/images';
 
-import './safari-polyfill';
 import './Gallery.css';
 
 export default function Gallery() {
+	polyfill();
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { galleryId } = useParams();
