@@ -6,8 +6,6 @@ import './NavBar.css';
 export default function NavBar() {
 	const user = useSelector((state) => state.session.user);
 
-	const logout = () => {};
-
 	return (
 		<div id='navbar-container' className='fade-in'>
 			<nav>
