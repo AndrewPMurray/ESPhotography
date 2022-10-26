@@ -1,8 +1,12 @@
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 
 export default function NavBar() {
-	// const fileTypes = ['JPG', 'PNG', ' JPEG', 'jpg', 'jpeg'];
+	const user = useSelector((state) => state.session.user);
+
+	const logout = () => {};
 
 	return (
 		<div id='navbar-container' className='fade-in'>
@@ -25,6 +29,7 @@ export default function NavBar() {
 					</div>
 				</div>
 			</nav>
+			{user && <LogoutButton />}
 		</div>
 	);
 }
