@@ -62,16 +62,6 @@ router.get('/', defaultGallerySort, async (_req, res) => {
 			limit: 1,
 		},
 	});
-	// migrate
-	galleries.forEach(async (gallery) => {
-		if (gallery.keyImageURL && gallery.keyImageURL.includes('amazonaws')) {
-			const urlParts = gallery.keyImageURL.split('/');
-			const Key = urlParts[urlParts.length - 1];
-			await gallery.update({
-				keyImageURL: `https://theelderwan.us.to:9000/esphotography/${Key}`,
-			});
-		}
-	});
 	return res.json(galleries);
 });
 
