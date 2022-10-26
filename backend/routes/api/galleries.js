@@ -7,7 +7,6 @@ const csrfProtection = csurf({ cookie: true });
 const { deleteSingleFile } = require('../../awsS3');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Gallery, Image, Sequelize } = require('../../db/models');
-const gallery = require('../../db/models/gallery');
 
 const router = express.Router();
 
@@ -62,6 +61,16 @@ router.get('/', defaultGallerySort, async (_req, res) => {
 			as: 'images',
 			limit: 1,
 		},
+	});
+	// migrate
+	galleries.forEach(async (gallery) => {
+		if (gallery.keyImageURL && gallery.keyImageURL.includes('amazonaws')) {
+			const urlParts = gallery.keyImageURL.split('/');
+			const Key = urlParts[urlParts.length - 1];
+			await gallery.update({
+				keyImageURL: `https://theelderwan.us.to:9000/esphotography/${Key}`,
+			});
+		}
 	});
 	return res.json(galleries);
 });

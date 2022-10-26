@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadHomeImages } from '../../store/images';
+import { loadImages, loadHomeImages } from '../../store/images';
 import './HomePage.css';
 
 export default function HomePage() {
@@ -10,7 +10,7 @@ export default function HomePage() {
 	const [imageChanged, setImageChanged] = useState(false);
 
 	useEffect(() => {
-		dispatch(loadHomeImages());
+		dispatch(loadImages());
 	}, [dispatch]);
 
 	const timer = () => {

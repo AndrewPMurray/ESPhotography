@@ -16,6 +16,14 @@ const validateImage = [
 
 router.get('/', async (req, res) => {
 	const images = await Image.findAll();
+	// migration
+	images.forEach(async (image) => {
+		if (image.url.includes('amazonaws')) {
+			const urlParts = image.url.split('/');
+			const Key = urlParts[urlParts.length - 1];
+			await image.update({ url: `https://theelderwan.us.to:9000/esphotography/${Key}` });
+		}
+	});
 	return res.json(images);
 });
 
