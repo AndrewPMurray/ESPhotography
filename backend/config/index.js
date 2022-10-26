@@ -16,4 +16,8 @@ module.exports = {
 		password: process.env.SEEDER_PASSWORD,
 		email: process.env.SEEDER_EMAIL,
 	},
+	s3Config: {
+		key: process.env.MINIO_KEY,
+		secret: process.env.MINIO_SECRET,
+	},
 };

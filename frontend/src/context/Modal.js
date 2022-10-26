@@ -47,7 +47,7 @@ export function Modal({ onClose, children }) {
 	if (!modalNode) return null;
 
 	return ReactDOM.createPortal(
-		<div id='modal'>
+		<div id='modal' style={{ zIndex: 1000 }}>
 			<div id='modal-background' className='fade-in' />
 			<div id='modal-content' className='fade-in-grow'>
 				{children}

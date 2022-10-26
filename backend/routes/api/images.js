@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 const csurf = require('csurf');
 const csrfProtection = csurf({ cookie: true });
 
-const { deleteSingleFile, singlePublicFileUpload, singleMulterUpload } = require('../../awsS3');
+const { deleteSingleFile, singlePublicFileUpload, singleMulterUpload } = require('../../minioS3');
 const { Image } = require('../../db/models');
 
 const router = express.Router();
@@ -36,16 +36,19 @@ router.post(
 	asyncHandler(async (req, res) => {
 		const { title, galleryId, isHomepageImage, orderNumber } = req.body;
 		const imgUrl = await singlePublicFileUpload(req.file);
-		const image = await Image.create({
-			url: imgUrl,
-			title,
-			galleryId,
-			isHomepageImage,
-			orderNumber,
-			homepageOrderNumber: null,
-		});
+		if (imgUrl) {
+			const image = await Image.create({
+				url: imgUrl,
+				title,
+				galleryId,
+				isHomepageImage,
+				orderNumber,
+				homepageOrderNumber: null,
+			});
 
-		return res.json(image);
+			return res.json(image);
+		}
+		return res.status(500).json({ error: 'file upload failed' });
 	})
 );
 
