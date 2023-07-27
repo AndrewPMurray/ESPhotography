@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadHomeImages, loadImages, updateImage } from '../../store/images';
+import { loadHomeImages } from '../../store/images';
 import './HomePage.css';
 
 export default function HomePage() {
@@ -10,8 +10,7 @@ export default function HomePage() {
 	const [imageChanged, setImageChanged] = useState(false);
 
 	useEffect(() => {
-		// dispatch(loadHomeImages());
-		dispatch(loadImages());
+		dispatch(loadHomeImages());
 	}, [dispatch]);
 
 	const timer = () => {
@@ -29,14 +28,6 @@ export default function HomePage() {
 			clearTimeout(timer());
 		};
 	});
-
-	useEffect(() => {
-		images.forEach((i) => {
-			i.url = i.url.replace('theelderwan.us.to:9000', 'minio.domainofaka.app');
-			console.log(i.url);
-			dispatch(updateImage(i));
-		});
-	}, []);
 
 	return (
 		<div id='landing-container'>
