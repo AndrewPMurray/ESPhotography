@@ -2,14 +2,13 @@ const Minio = require('minio');
 const multer = require('multer');
 const { s3Config } = require('./config');
 
-const minioApiHost = 'theelderwan.us.to';
+const minioApiHost = 'minio.domainofaka.app';
 const bucketName = 'esphotography';
 const accessKey = s3Config.key;
 const secretKey = s3Config.secret;
 
 const s3 = new Minio.Client({
 	endPoint: minioApiHost,
-	port: 9000,
 	useSSL: true,
 	accessKey,
 	secretKey,
@@ -32,7 +31,7 @@ const singlePublicFileUpload = async (file) => {
 	const Key = new Date().getTime().toString() + path.extname(originalname);
 	try {
 		await s3.putObject(bucketName, Key, buffer);
-		return `https://${minioApiHost}:9000/${bucketName}/${Key}`;
+		return `https://${minioApiHost}/${bucketName}/${Key}`;
 	} catch (e) {
 		console.log(e);
 	}

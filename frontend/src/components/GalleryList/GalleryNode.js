@@ -22,7 +22,7 @@ export default function GalleryNode({ gallery, user, provided, i }) {
 						src={
 							gallery.keyImageURL
 								? gallery.keyImageURL
-								: 'https://theelderwan.us.to:9000/esphotography/placeholder-image.png'
+								: 'https://minio.domainofaka.app/esphotography/placeholder-image.png'
 						}
 						alt={gallery.title}
 						style={{
