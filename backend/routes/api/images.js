@@ -58,13 +58,14 @@ router.put(
 	validateImage,
 	asyncHandler(async (req, res) => {
 		const { id } = req.params;
-		const { title, isHomepageImage, orderNumber, homepageOrderNumber } = req.body;
+		const { title, isHomepageImage, orderNumber, homepageOrderNumber, url } = req.body;
 		const image = await Image.findByPk(id);
 		const editedImage = await image.update({
 			title,
 			isHomepageImage,
 			orderNumber,
 			homepageOrderNumber,
+			url,
 		});
 
 		return res.json(editedImage);
