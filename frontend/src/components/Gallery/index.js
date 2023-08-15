@@ -101,10 +101,10 @@ export default function Gallery() {
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
 								if (activeImage === 0) {
-									setActiveImage(images.length - 1);
+									setActiveImage(images?.length - 1);
 									scrollIntoView(
 										document.querySelector(
-											`.slider-preview-${images.length - 1}`
+											`.slider-preview-${images?.length - 1}`
 										),
 										{
 											block: 'end',
@@ -131,7 +131,7 @@ export default function Gallery() {
 							id='gallery-slide-right'
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
-								if (activeImage === images.length - 1) {
+								if (activeImage === images?.length - 1) {
 									setActiveImage(0);
 									scrollIntoView(document.querySelector(`.slider-preview-0`), {
 										block: 'end',
@@ -184,7 +184,7 @@ export default function Gallery() {
 											: { opacity: 0 }
 									}
 								>
-									{image.description.length > 300 ? (
+									{image.description?.length > 300 ? (
 										<DescriptionModal description={image.description} />
 									) : (
 										image.description
