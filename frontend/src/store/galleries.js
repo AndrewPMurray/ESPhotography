@@ -63,7 +63,6 @@ export const addGallery = (payload) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const gallery = await response.json();
-		console.log(gallery);
 		dispatch(add(gallery));
 		return gallery;
 	}
