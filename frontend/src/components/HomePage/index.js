@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadHomeImages } from '../../store/images';
+
+import HomepageImagesModal from '../HomepageImagesModal';
+
 import './HomePage.css';
 
 export default function HomePage() {
 	const dispatch = useDispatch();
-	const images = useSelector((state) => Object.values(state.images));
+	const images = useSelector((state) => Object.values(state.images)) ?? [];
+	const sortedImages = images.sort((a, b) => a.orderNumber - b.orderNumber);
+	const user = useSelector((state) => state.session.user);
 	const [activeImage, setActiveImage] = useState(0);
 	const [imageChanged, setImageChanged] = useState(false);
 
@@ -37,7 +42,7 @@ export default function HomePage() {
 					className='fade-in-slide-up'
 					style={{ animationDuration: '2000ms' }}
 				>
-					{images?.map((image, i) => (
+					{sortedImages?.map((image, i) => (
 						<div id='home-image-container' key={`gallery-image-${i}`}>
 							<img
 								id='home-image'
@@ -71,6 +76,7 @@ export default function HomePage() {
 					))}
 				</div>
 			)}
+			{user && sortedImages.length > 0 && <HomepageImagesModal images={sortedImages} />}
 		</div>
 	);
 }
