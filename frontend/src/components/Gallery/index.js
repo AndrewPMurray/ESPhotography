@@ -184,11 +184,6 @@ export default function Gallery() {
 											? { opacity: 1, zIndex: 5 }
 											: { opacity: 0 }
 									}
-									onClick={
-										image.description.length > 500
-											? console.log('modal')
-											: undefined
-									}
 								>
 									{image.description.length > 300 ? (
 										<DescriptionModal description={image.description} />
