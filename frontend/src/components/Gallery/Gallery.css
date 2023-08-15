@@ -82,6 +82,26 @@
 	font-size: 20px;
 }
 
+#gallery-image-description {
+	position: absolute;
+	top: calc(85% + 20px);
+	left: calc(13% - 8px);
+	width: 75vw;
+	text-align: center;
+	line-height: 1.2;
+	font-size: 16px;
+}
+
+#description-modal-container {
+	display: flex;
+	align-items: center;
+	background-color: #565656;
+	width: 40vw;
+	min-height: 275px;
+	border-radius: 5px;
+	padding: 25px;
+}
+
 #gallery-image {
 	position: absolute;
 	width: 100vw;

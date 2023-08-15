@@ -6,6 +6,7 @@ import { scrollTo, scrollIntoView } from 'seamless-scroll-polyfill';
 
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
+import DescriptionModal from './DescriptionModal';
 
 import { loadSingleGallery, updateGalleryKey } from '../../store/galleries';
 import { updateImage, deleteImage } from '../../store/images';
@@ -26,6 +27,7 @@ export default function Gallery() {
 	const [activeImage, setActiveImage] = useState(0);
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
 	const [imagesLength, setImagesLength] = useState(0);
+	const [showDescriptionModal, setShowDescriptionModal] = useState(false);
 
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
@@ -164,14 +166,37 @@ export default function Gallery() {
 									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
 								}
 							/>
-							<p
-								id='gallery-image-title'
-								style={
-									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
-								}
-							>
-								{image.title}
-							</p>
+							<div id='title-description-container'>
+								<p
+									id='gallery-image-title'
+									style={
+										activeImage === i
+											? { opacity: 1, zIndex: 5 }
+											: { opacity: 0 }
+									}
+								>
+									{image.title}
+								</p>
+								<p
+									id='gallery-image-description'
+									style={
+										activeImage === i
+											? { opacity: 1, zIndex: 5 }
+											: { opacity: 0 }
+									}
+									onClick={
+										image.description.length > 500
+											? console.log('modal')
+											: undefined
+									}
+								>
+									{image.description.length > 300 ? (
+										<DescriptionModal description={image.description} />
+									) : (
+										image.description
+									)}
+								</p>
+							</div>
 						</div>
 					))}
 				</div>

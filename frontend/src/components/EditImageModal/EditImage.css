@@ -1,34 +1,35 @@
 #edit-image-form-container {
-    background-color: #565656;
-    width: 40vw;
-    height: 40vh;
-    border-radius: 5px;
-    padding: 25px;
+	background-color: #565656;
+	width: 40vw;
+	height: 40vh;
+	border-radius: 5px;
+	padding: 25px;
 }
 
 #edit-image-preview {
-    height: calc(50% - 8px);
-    width: 100%;
-    object-fit: contain;
-    margin-bottom: 30px;
-    align-self: center;
+	height: calc(50% - 8px);
+	width: 100%;
+	object-fit: contain;
+	margin-bottom: 30px;
+	align-self: center;
 }
 
 #edit-image-title,
+#edit-image-description,
 #submit-image-button-container {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
 }
 
 #edit-image-form div label {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 #is-homepage-checkbox {
-    display: flex;
+	display: flex;
 }
 
 #submit-image-button {
-    align-self: flex-end;
+	align-self: flex-end;
 }

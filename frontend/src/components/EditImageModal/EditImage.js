@@ -7,6 +7,7 @@ export default function EditImage({ setShowModal, image }) {
 	const dispatch = useDispatch();
 	const [errors, setErrors] = useState({});
 	const [title, setTitle] = useState(image.title);
+	const [description, setDescription] = useState(image.description);
 	const [isHomepage, setIsHomepage] = useState(image.isHomepageImage || false);
 
 	const handleSubmit = async (e) => {
@@ -16,6 +17,7 @@ export default function EditImage({ setShowModal, image }) {
 			updateImage({
 				id: image.id,
 				title,
+				description,
 				isHomepageImage: isHomepage,
 				orderNumber: image.orderNumber,
 				homepageOrderNumber: image.homepageOrderNumber,
@@ -40,6 +42,16 @@ export default function EditImage({ setShowModal, image }) {
 					<label htmlFor='title'>Title</label>
 					{errors?.title && <p id='error'>{errors.title}</p>}
 					<input value={title} onChange={(e) => setTitle(e.target.value)} />
+				</div>
+				<div id='edit-image-description'>
+					<label htmlFor='title'>Description</label>
+					{errors?.description && <p id='error'>{errors.description}</p>}
+					<textarea
+						rows='3'
+						style={{ resize: 'none' }}
+						value={description}
+						onChange={(e) => setDescription(e.target.value)}
+					/>
 				</div>
 				<div id='is-homepage-checkbox'>
 					<label htmlFor='description'>Homepage Image: </label>

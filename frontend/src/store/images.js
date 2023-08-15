@@ -46,10 +46,11 @@ export const loadHomeImages = () => async (dispatch) => {
 };
 
 export const addImage = (payload) => async (dispatch) => {
-	const { title, galleryId, isHomepageImage, image } = payload;
+	const { title, description, galleryId, isHomepageImage, image } = payload;
 	const formData = new FormData();
 	formData.append('image', image);
 	formData.append('title', title);
+	formData.append('description', description);
 	formData.append('galleryId', galleryId);
 	formData.append('isHomepageImage', isHomepageImage);
 

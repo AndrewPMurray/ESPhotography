@@ -10,6 +10,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 	const [images, setImages] = useState([]);
 	const [errors, setErrors] = useState({});
 	const [title, setTitle] = useState([]);
+	const [description, setDescription] = useState([]);
 	const [isHomepage, setIsHomepage] = useState([]);
 	const fileTypes = ['JPG', 'PNG', ' JPEG', 'jpg', 'jpeg'];
 
@@ -26,6 +27,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 			await dispatch(
 				addImage({
 					title: title[i],
+					description: description[i],
 					galleryId,
 					isHomepageImage: isHomepage[i],
 					orderNumber: images.length + i,
@@ -83,6 +85,11 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 									newTitles.splice(i, 1);
 									return newTitles;
 								});
+								setDescription((prev) => {
+									const newDescs = [...prev];
+									newDescs.splice(i, 1);
+									return newDescs;
+								});
 								setIsHomepage((prev) => {
 									const newHomepages = [...prev];
 									newHomepages.splice(i, 1);
@@ -102,6 +109,21 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 									const newTitles = [...prev];
 									newTitles[i] = e.target.value;
 									return newTitles;
+								})
+							}
+							style={{ width: '90%', marginBottom: '2px' }}
+						/>
+						<textarea
+							rows='6'
+							cols='21'
+							style={{ resize: 'none', width: '90%' }}
+							placeholder='description'
+							value={description[i] || ''}
+							onChange={(e) =>
+								setDescription((prev) => {
+									const newDescs = [...prev];
+									newDescs[i] = e.target.value;
+									return newDescs;
 								})
 							}
 						/>
