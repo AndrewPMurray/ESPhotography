@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
 		'Image',
 		{
 			title: DataTypes.STRING,
+			description: DataTypes.TEXT,
 			url: DataTypes.STRING,
 			galleryId: DataTypes.INTEGER,
 			isHomepageImage: DataTypes.BOOLEAN,

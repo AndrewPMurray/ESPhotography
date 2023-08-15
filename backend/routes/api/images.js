@@ -34,16 +34,18 @@ router.post(
 	singleMulterUpload('image'),
 	csrfProtection,
 	asyncHandler(async (req, res) => {
-		const { title, galleryId, isHomepageImage, orderNumber } = req.body;
+		const { title, description, galleryId, isHomepageImage, orderNumber, homepageOrderNumber } =
+			req.body;
 		const imgUrl = await singlePublicFileUpload(req.file);
 		if (imgUrl) {
 			const image = await Image.create({
 				url: imgUrl,
 				title,
+				description,
 				galleryId,
 				isHomepageImage,
 				orderNumber,
-				homepageOrderNumber: null,
+				homepageOrderNumber,
 			});
 
 			return res.json(image);
@@ -58,13 +60,13 @@ router.put(
 	validateImage,
 	asyncHandler(async (req, res) => {
 		const { id } = req.params;
-		const { title, isHomepageImage, orderNumber, homepageOrderNumber } = req.body;
+		const { title, description, isHomepageImage, orderNumber } = req.body;
 		const image = await Image.findByPk(id);
 		const editedImage = await image.update({
 			title,
+			description,
 			isHomepageImage,
 			orderNumber,
-			homepageOrderNumber,
 		});
 
 		return res.json(editedImage);
