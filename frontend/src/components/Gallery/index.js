@@ -27,7 +27,6 @@ export default function Gallery() {
 	const [activeImage, setActiveImage] = useState(0);
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
 	const [imagesLength, setImagesLength] = useState(0);
-	const [showDescriptionModal, setShowDescriptionModal] = useState(false);
 
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
