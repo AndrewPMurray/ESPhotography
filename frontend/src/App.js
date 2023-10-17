@@ -12,7 +12,7 @@ import Footer from './components/Footer';
 
 // Utils & contexts as needed
 import * as sessionActions from './store/session';
-import Bio from './components/Bio';
+import About from './components/About';
 import Contact from './components/Contact';
 import NotFound from './components/NotFound';
 
@@ -41,8 +41,8 @@ function App() {
 					<Route exact path='/galleries/:galleryId(\d+)'>
 						<Gallery />
 					</Route>
-					<Route exact path='/bio'>
-						<Bio />
+					<Route exact path='/about'>
+						<About />
 					</Route>
 					<Route exact path='/contact'>
 						<Contact />

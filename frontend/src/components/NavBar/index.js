@@ -15,7 +15,7 @@ export default function NavBar() {
 					</NavLink>
 					<div id='navbar-links'>
 						<NavLink to='/galleries'>Galleries</NavLink>
-						<NavLink to='/bio'>Bio</NavLink>
+						<NavLink to='/about'>About</NavLink>
 						<NavLink to='/contact'>Contact</NavLink>
 						<a
 							href='https://instagram.com/elmarschmittou'
