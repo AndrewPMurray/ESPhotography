@@ -1,5 +1,5 @@
 'use strict';
-export const Gallery = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
 	const Gallery = sequelize.define(
 		'Gallery',
 		{

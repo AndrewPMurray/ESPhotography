@@ -1,13 +1,12 @@
-import express, { Request, Response } from 'express';
-import asyncHandler from 'express-async-handler';
-import { check } from 'express-validator';
-import csurf from 'csurf';
-import { handleValidationErrors } from '../../utils/validation';
-
-import { deleteSingleFile, singlePublicFileUpload, singleMulterUpload } from '../../minioS3';
-import { Image } from '../../db/models';
-
+const express = require('express');
+const asyncHandler = require('express-async-handler');
+const { check } = require('express-validator');
+const csurf = require('csurf');
 const csrfProtection = csurf({ cookie: true });
+
+const { deleteSingleFile, singlePublicFileUpload, singleMulterUpload } = require('../../minioS3');
+const { Image } = require('../../db/models');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -35,7 +34,7 @@ router.post(
 	'/',
 	singleMulterUpload('image'),
 	csrfProtection,
-	asyncHandler(async (req: Request, res: Response) => {
+	asyncHandler(async (req, res) => {
 		const { title, description, galleryId, isHomepageImage, orderNumber, homepageOrderNumber } =
 			req.body;
 		const imgUrl = await singlePublicFileUpload(req.file);
@@ -60,7 +59,7 @@ router.put(
 	'/:id',
 	csrfProtection,
 	validateImage,
-	asyncHandler(async (req: Request, res: Response) => {
+	asyncHandler(async (req, res) => {
 		const { id } = req.params;
 		const { title, description, isHomepageImage, orderNumber } = req.body;
 		const image = await Image.findByPk(id);
@@ -78,7 +77,7 @@ router.put(
 router.delete(
 	'/:id',
 	csrfProtection,
-	asyncHandler(async (req: Request, res: Response) => {
+	asyncHandler(async (req, res) => {
 		const { id } = req.params;
 		const image = await Image.findByPk(id);
 		const urlParts = image.url.split('/');
@@ -92,4 +91,4 @@ router.delete(
 	})
 );
 
-export default router;
+module.exports = router;

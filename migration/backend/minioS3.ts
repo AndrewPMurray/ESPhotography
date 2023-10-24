@@ -1,4 +1,4 @@
-import Minio from 'minio';
+import { Client } from 'minio';
 import multer from 'multer';
 import { s3Config } from './config';
 
@@ -7,7 +7,7 @@ const bucketName = 'esphotography';
 const accessKey = s3Config.key;
 const secretKey = s3Config.secret;
 
-const s3 = new Minio.Client({
+const s3 = new Client({
 	endPoint: minioApiHost,
 	useSSL: true,
 	accessKey: accessKey,
@@ -25,8 +25,8 @@ export const isMinioOnline = () => {
 	});
 };
 
-export const singlePublicFileUpload = async (file) => {
-	const { originalname, buffer } = await file;
+export const singlePublicFileUpload = async (file: Express.Multer.File) => {
+	const { originalname, buffer } = file;
 	const path = require('path');
 	const Key = new Date().getTime().toString() + path.extname(originalname);
 	try {
@@ -38,7 +38,7 @@ export const singlePublicFileUpload = async (file) => {
 };
 
 export const deleteSingleFile = (key: string) => {
-	s3.removeObject(bucketName, key, (err) => {
+	s3.removeObjects(bucketName, [key], (err) => {
 		if (err) console.log('error deleting image', err);
 		else console.log('success! Image deleted');
 	});

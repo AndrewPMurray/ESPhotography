@@ -1,10 +1,10 @@
-import express from 'express';
-import asyncHandler from 'express-async-handler';
-import { check } from 'express-validator';
+const express = require('express');
+const asyncHandler = require('express-async-handler');
+const { check } = require('express-validator');
 
-import { handleValidationErrors } from '../../utils/validation';
-import { setTokenCookie, restoreUser } from '../../utils/auth';
-import { User } from '../../db/models';
+const { handleValidationErrors } = require('../../utils/validation');
+const { setTokenCookie, restoreUser } = require('../../utils/auth');
+const { User } = require('../../db/models');
 
 const router = express.Router();
 
@@ -57,4 +57,4 @@ router.delete('/', (_req, res) => {
 	return res.json({ message: 'success' });
 });
 
-export default router;
+module.exports = router;

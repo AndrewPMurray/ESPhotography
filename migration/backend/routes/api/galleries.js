@@ -1,13 +1,12 @@
-import express, { NextFunction, Request, Response } from 'express';
-import asyncHandler from 'express-async-handler';
-import { check } from 'express-validator';
-import csurf from 'csurf';
-
-import { deleteSingleFile } from '../../minioS3';
-import { handleValidationErrors } from '../../utils/validation';
-import { Gallery, Image, Sequelize } from '../../db/models';
-
+const express = require('express');
+const asyncHandler = require('express-async-handler');
+const { check } = require('express-validator');
+const csurf = require('csurf');
 const csrfProtection = csurf({ cookie: true });
+
+const { deleteSingleFile } = require('../../minioS3');
+const { handleValidationErrors } = require('../../utils/validation');
+const { Gallery, Image, Sequelize } = require('../../db/models');
 
 const router = express.Router();
 
@@ -22,7 +21,7 @@ const validateGallery = [
 						[Sequelize.Op.iLike]: value,
 					},
 				},
-			}).then((res: Response) => {
+			}).then((res) => {
 				if (res) {
 					return Promise.reject('Title name already exists');
 				}
@@ -31,11 +30,11 @@ const validateGallery = [
 	handleValidationErrors,
 ];
 
-const defaultGallerySort = async (_req: Request, _res: Response, next: NextFunction) => {
+const defaultGallerySort = async (_req, _res, next) => {
 	const galleries = await Gallery.findAll({
 		order: [['orderNumber', 'ASC']],
 	});
-	galleries.forEach(async (gallery, i: number) => {
+	galleries.forEach(async (gallery, i) => {
 		await gallery.update({
 			orderNumber: i,
 		});
@@ -43,19 +42,19 @@ const defaultGallerySort = async (_req: Request, _res: Response, next: NextFunct
 	return next();
 };
 
-const defaultImageSort = async (id: number) => {
+const defaultImageSort = async (id) => {
 	const images = await Image.findAll({
 		where: {
 			galleryId: id,
 		},
 		order: [['orderNumber', 'ASC']],
 	});
-	images.forEach(async (image, i: number) => {
+	images.forEach(async (image, i) => {
 		await image.update({ orderNumber: i });
 	});
 };
 
-router.get('/', defaultGallerySort, async (_req: Request, res: Response) => {
+router.get('/', defaultGallerySort, async (_req, res) => {
 	const galleries = await Gallery.findAll({
 		include: {
 			model: Image,
@@ -66,9 +65,9 @@ router.get('/', defaultGallerySort, async (_req: Request, res: Response) => {
 	return res.json(galleries);
 });
 
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req, res) => {
 	const { id } = req.params;
-	await defaultImageSort(parseInt(id));
+	await defaultImageSort(id);
 	const gallery = await Gallery.findByPk(id, {
 		include: {
 			model: Image,
@@ -83,7 +82,7 @@ router.post(
 	'/',
 	csrfProtection,
 	validateGallery,
-	asyncHandler(async (req: Request, res: Response) => {
+	asyncHandler(async (req, res) => {
 		const { title, description, orderNumber } = req.body;
 		const gallery = await Gallery.create({
 			title,
@@ -188,4 +187,4 @@ router.delete(
 	})
 );
 
-export default router;
+module.exports = router;

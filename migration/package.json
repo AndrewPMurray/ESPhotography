@@ -5,8 +5,9 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"backend:build": "cd backend && npx tsc",
-		"backend:start": "npm run backend:build && cd backend && node ../dist/backend/index.js",
-		"backend:dev": "cd backend && concurrently \"npx tsc --watch\" \"nodemon -q ../dist/backend/index.js\"",
+		"backend:start": "per-env",
+		"backend:start:development": "cd backend && concurrently \"npx tsc --watch\" \"nodemon app.ts\"",
+		"backend:start:production": "",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
@@ -32,10 +33,12 @@
 		"next": "13.5.4",
 		"per-env": "^1.0.2",
 		"pg": "^8.7.1",
+		"pg-hstore": "^2.3.4",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"sequelize": "^6.33.0",
 		"sequelize-cli": "^5.5.1",
+		"sequelize-typescript": "^2.1.5",
 		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
@@ -52,7 +55,25 @@
 		"eslint": "8.51.0",
 		"eslint-config-next": "13.5.4",
 		"nodemon": "^3.0.1",
+		"ts-node": "^10.9.1",
 		"tslint": "^6.1.3",
 		"typescript": "^5.2.2"
-	}
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.3%",
+			"not ie 11",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"proxy": "http://localhost:5000"
 }
