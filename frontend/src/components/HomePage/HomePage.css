@@ -8,34 +8,6 @@
 	position: relative;
 }
 
-#home-slide-left,
-#home-slide-right {
-	position: absolute;
-	top: calc(50% - 40px);
-	padding: 40px 10px;
-	border-radius: 5px;
-	line-height: 0%;
-	font-size: 48px;
-	opacity: 0.5;
-	cursor: pointer;
-	z-index: 10;
-	background-color: rgba(0, 0, 0, 0.5);
-	transition-duration: 200ms;
-}
-
-#home-slide-left:hover,
-#home-slide-right:hover {
-	opacity: 1;
-}
-
-#home-slide-left {
-	left: 15px;
-}
-
-#home-slide-right {
-	right: 20px;
-}
-
 #home-image {
 	position: absolute;
 	width: 100vw;

@@ -101,7 +101,7 @@ export default function Gallery({ setCurrentRoute }) {
 				<div id='gallery-slideshow' className='fade-in-slide-up'>
 					<div id='gallery-slide-container'>
 						<i
-							id='gallery-slide-left'
+							id='slide-left'
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
 								if (activeImage === 0) {
@@ -132,7 +132,7 @@ export default function Gallery({ setCurrentRoute }) {
 							}}
 						></i>
 						<i
-							id='gallery-slide-right'
+							id='slide-right'
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
 								if (activeImage === images?.length - 1) {

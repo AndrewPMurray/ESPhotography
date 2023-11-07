@@ -257,3 +257,30 @@ table {
 	text-transform: uppercase;
 	font-weight: 200;
 }
+
+#slide-left,
+#slide-right {
+	position: absolute;
+	top: calc(50% - 40px);
+	padding: 40px 10px;
+	border-radius: 5px;
+	line-height: 0%;
+	font-size: 36px;
+	cursor: pointer;
+	z-index: 10;
+	background-color: rgba(255, 255, 255, 0.3);
+	transition-duration: 200ms;
+}
+
+#slide-left:hover,
+#slide-right:hover {
+	background-color: rgba(255, 255, 255, 1);
+}
+
+#slide-left {
+	left: 15px;
+}
+
+#slide-right {
+	right: 20px;
+}

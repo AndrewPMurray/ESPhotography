@@ -57,7 +57,7 @@ export default function HomePage({ setCurrentRoute }) {
 								}
 							/>
 							<i
-								id='home-slide-left'
+								id='slide-left'
 								className='fa-solid fa-chevron-left'
 								onClick={() => {
 									setImageChanged(true);
@@ -67,7 +67,7 @@ export default function HomePage({ setCurrentRoute }) {
 								}}
 							></i>
 							<i
-								id='home-slide-right'
+								id='slide-right'
 								className='fa-solid fa-chevron-right'
 								onClick={() => {
 									setImageChanged(true);
