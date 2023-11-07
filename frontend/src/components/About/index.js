@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import './About.css';
 
-export default function About() {
+export default function About({ setCurrentRoute }) {
+	useEffect(() => {
+		setCurrentRoute(window.location.href);
+	}, [setCurrentRoute]);
+
 	return (
 		<div id='about-container'>
 			<h1 id='text-header'>My name is Elmar, and I am based in Indianapolis, Indiana.</h1>

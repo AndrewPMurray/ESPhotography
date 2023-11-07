@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import './Contact.css';
 
-export default function Contact() {
+export default function Contact({ setCurrentRoute }) {
+	useEffect(() => {
+		setCurrentRoute(window.location.href);
+	}, [setCurrentRoute]);
+
 	return (
 		<div id='contact-container'>
 			<div id='header'>

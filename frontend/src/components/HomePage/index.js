@@ -6,7 +6,7 @@ import HomepageImagesModal from '../HomepageImagesModal';
 
 import './HomePage.css';
 
-export default function HomePage() {
+export default function HomePage({ setCurrentRoute }) {
 	const dispatch = useDispatch();
 	const images = useSelector((state) => Object.values(state.images)) ?? [];
 	const sortedImages = images.sort((a, b) => a.orderNumber - b.orderNumber);
@@ -17,6 +17,10 @@ export default function HomePage() {
 	useEffect(() => {
 		dispatch(loadHomeImages());
 	}, [dispatch]);
+
+	useEffect(() => {
+		setCurrentRoute(window.location.href);
+	}, [setCurrentRoute]);
 
 	const timer = () => {
 		setTimeout(() => setImageChanged(false), 5000);

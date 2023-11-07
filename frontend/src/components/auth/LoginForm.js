@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import './auth.css';
 
-const LoginForm = () => {
+const LoginForm = ({ setCurrentRoute }) => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const [credential, setCredential] = useState('');
@@ -27,6 +27,10 @@ const LoginForm = () => {
 			history.push('/');
 		}
 	}, [user, history]);
+
+	useEffect(() => {
+		setCurrentRoute(window.location.href);
+	}, [setCurrentRoute]);
 
 	return (
 		<div id='login-page-container'>

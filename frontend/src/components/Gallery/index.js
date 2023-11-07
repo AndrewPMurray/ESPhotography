@@ -13,7 +13,7 @@ import { updateImage, deleteImage } from '../../store/images';
 
 import './Gallery.css';
 
-export default function Gallery() {
+export default function Gallery({ setCurrentRoute }) {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const { galleryId } = useParams();
@@ -55,6 +55,10 @@ export default function Gallery() {
 			window.removeEventListener('orientationchange', updateLength);
 		};
 	}, []);
+
+	useEffect(() => {
+		setCurrentRoute(window.location.href);
+	}, [setCurrentRoute]);
 
 	const handleDelete = (image, i) => {
 		dispatch(deleteImage(image.id));
@@ -154,7 +158,6 @@ export default function Gallery() {
 							}}
 						></i>
 					</div>
-
 					{gallery?.images?.map((image, i) => (
 						<div id='gallery-image-container' key={`gallery-image-${i}`}>
 							<img

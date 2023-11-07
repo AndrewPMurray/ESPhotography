@@ -12,13 +12,11 @@
 	font-size: 16px;
 	line-height: 1.4;
 	margin: 16px 0;
-	text-align: justify;
-	text-align-last: center;
+	text-align: center;
 }
 
 #text-header {
 	text-align: center;
-	font-weight: bold;
 	font-size: 24px;
 	margin: 16px 0;
 }

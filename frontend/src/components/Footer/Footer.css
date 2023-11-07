@@ -1,66 +1,88 @@
 #footer-container {
-    display: flex;
-    justify-content: space-around;
-    background-color: #101010;
-    color: white;
-    font-size: 20px;
-    height: 180px;
-    padding: 20px 0;
-    position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #343434;
+	color: white;
+	font-size: 20px;
+	height: 250px;
+	padding: 20px 0;
+	position: relative;
 }
 
 #footer-links-container {
-    display: flex;
-    position: absolute;
-    top: 35%;
+	display: flex;
+	position: absolute;
+	top: 50px;
+	width: 90vw;
+}
+
+#footer-links-sub-container {
+	display: flex;
 }
 
 #footer-copyright {
-    flex: 1;
-    width: 500px;
+	flex: 1;
+	width: 500px;
+}
+
+#footer-signature {
+	height: 120px;
+	padding-bottom: 20px;
+	border-radius: 5px;
+	transition-duration: 200ms;
 }
 
 #disclaimer-text {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 #footer-copyright,
 #footer-links {
-    margin: 0 25px;
+	margin: 0 25px;
 }
 
 #footer-copyright p,
 #footer-links p,
 #footer-copyright a,
 #footer-links a {
-    font-size: 12px;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-    text-decoration: none;
+	font-size: 12px;
+	letter-spacing: 1px;
+	margin-bottom: 5px;
+	text-decoration: none;
+	font-size: 14px;
+	color: white;
 }
 
-#footer-links a,
-.fa-instagram {
-    margin-top: 5px;
-    text-decoration: none;
-    transition-duration: 200ms;
+#footer-links a {
+	margin-bottom: 10px;
+	font-size: 24px;
+	text-decoration: none;
+	transition-duration: 200ms;
 }
 
 #insta-footer {
-    text-align: center;
+	text-align: center;
 }
 
 #insta-footer > i {
-    font-size: 36px;
+	font-size: 36px;
+	margin-top: 10px;
+	margin-left: 10px;
+	color: white;
+}
+
+#insta-footer > i:hover {
+	color: #a0a0a0;
 }
 
 #footer-links a:hover,
 .fa-instagram:hover {
-    color: #A0A0A0;
+	color: #a0a0a0;
 }
 
 #footer-links {
-    display: flex;
-    flex-direction: column;
-    max-width: 100vw;
+	display: flex;
+	flex-direction: column;
+	max-width: 100vw;
 }

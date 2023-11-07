@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
@@ -19,6 +19,7 @@ import NotFound from './components/NotFound';
 function App() {
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [currentRoute, setCurrentRoute] = useState(window.location.href);
 
 	useEffect(() => {
 		dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -27,28 +28,28 @@ function App() {
 	return (
 		isLoaded && (
 			<>
-				<NavBar />
+				<NavBar currentRoute={currentRoute} />
 				<Switch>
 					<Route exact path='/'>
-						<HomePage />
+						<HomePage setCurrentRoute={setCurrentRoute} />
 					</Route>
 					<Route exact path='/login'>
-						<LoginForm />
+						<LoginForm setCurrentRoute={setCurrentRoute} />
 					</Route>
 					<Route exact path='/galleries'>
-						<GalleryList />
+						<GalleryList setCurrentRoute={setCurrentRoute} />
 					</Route>
 					<Route exact path='/galleries/:galleryId(\d+)'>
-						<Gallery />
+						<Gallery setCurrentRoute={setCurrentRoute} />
 					</Route>
 					<Route exact path='/about'>
-						<About />
+						<About setCurrentRoute={setCurrentRoute} />
 					</Route>
 					<Route exact path='/contact'>
-						<Contact />
+						<Contact setCurrentRoute={setCurrentRoute} />
 					</Route>
 					<Route>
-						<NotFound />
+						<NotFound setCurrentRoute={setCurrentRoute} />
 					</Route>
 				</Switch>
 				<Footer />

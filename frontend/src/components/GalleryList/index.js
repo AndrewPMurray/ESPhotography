@@ -10,7 +10,7 @@ import { loadGalleries } from '../../store/galleries';
 
 import './GalleryList.css';
 
-export default function GalleryList() {
+export default function GalleryList({ setCurrentRoute }) {
 	const dispatch = useDispatch();
 	const galleries = useSelector((state) => state.galleries.list);
 	const user = useSelector((state) => state.session.user);
@@ -18,6 +18,10 @@ export default function GalleryList() {
 	useEffect(() => {
 		dispatch(loadGalleries());
 	}, [dispatch]);
+
+	useEffect(() => {
+		setCurrentRoute(window.location.href);
+	}, [setCurrentRoute]);
 
 	const updateGalleryOrder = async ({ source, destination }) => {
 		const newGalleries = [...galleries];

@@ -17,7 +17,7 @@ module.exports = {
 		email: process.env.SEEDER_EMAIL,
 	},
 	s3Config: {
-		key: process.env.MINIO_KEY ?? '',
-		secret: process.env.MINIO_SECRET ?? '',
+		key: process.env.MINIO_KEY,
+		secret: process.env.MINIO_SECRET,
 	},
 };

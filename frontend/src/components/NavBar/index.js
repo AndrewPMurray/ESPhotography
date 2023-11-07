@@ -1,9 +1,10 @@
+import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 
-export default function NavBar() {
+export default function NavBar({ currentRoute }) {
 	const user = useSelector((state) => state.session.user);
 
 	return (
@@ -14,9 +15,48 @@ export default function NavBar() {
 						<img id='signature' src='../images/signature.png' alt='signature' />
 					</NavLink>
 					<div id='navbar-links'>
-						<NavLink to='/galleries'>Galleries</NavLink>
-						<NavLink to='/about'>About</NavLink>
-						<NavLink to='/contact'>Contact</NavLink>
+						<NavLink
+							to='/galleries'
+							style={
+								currentRoute.includes('galleries')
+									? {
+											textDecoration: 'underline',
+											textDecorationThickness: 'from-font',
+											textUnderlineOffset: '5px',
+									  }
+									: undefined
+							}
+						>
+							Galleries
+						</NavLink>
+						<NavLink
+							to='/about'
+							style={
+								currentRoute.includes('about')
+									? {
+											textDecoration: 'underline',
+											textDecorationThickness: 'from-font',
+											textUnderlineOffset: '5px',
+									  }
+									: undefined
+							}
+						>
+							About
+						</NavLink>
+						<NavLink
+							to='/contact'
+							style={
+								currentRoute.includes('contact')
+									? {
+											textDecoration: 'underline',
+											textDecorationThickness: 'from-font',
+											textUnderlineOffset: '5px',
+									  }
+									: undefined
+							}
+						>
+							Contact
+						</NavLink>
 						<a
 							href='https://instagram.com/elmarschmittou'
 							target='_blank'
