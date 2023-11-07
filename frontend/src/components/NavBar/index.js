@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
@@ -14,7 +13,7 @@ export default function NavBar({ currentRoute }) {
 					<NavLink to='/'>
 						<img id='signature' src='../images/signature.png' alt='signature' />
 					</NavLink>
-					<div id='navbar-links'>
+					<div id='navbar-sub-links'>
 						<NavLink
 							to='/galleries'
 							style={
