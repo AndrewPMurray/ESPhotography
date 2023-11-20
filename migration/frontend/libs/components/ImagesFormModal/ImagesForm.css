@@ -1,0 +1,60 @@
+#images-form-container {
+	background-color: #565656;
+	width: 80vw;
+	height: 75vh;
+	border-radius: 5px;
+	padding: 25px;
+	display: flex;
+	flex-direction: column;
+}
+
+#image-preview-container {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 20px;
+	overflow: auto;
+	height: 60vh;
+}
+
+#delete-image-form-image {
+	position: absolute;
+	top: 2px;
+	right: 3px;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	cursor: pointer;
+}
+
+#delete-image-form-image:hover {
+	color: red;
+}
+
+#images-form {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	height: 345px;
+	margin: 20px 5px;
+}
+
+#submit-images-button {
+	align-self: flex-end;
+}
+
+#images-form > * {
+	margin-right: 20px;
+}
+
+#image-preview {
+	max-height: 200px;
+	max-width: 200px;
+	margin-bottom: 5px;
+}
+
+#add-photos-button {
+	width: 100px;
+	height: 30px;
+	margin-top: 15px;
+	align-self: flex-end;
+}
