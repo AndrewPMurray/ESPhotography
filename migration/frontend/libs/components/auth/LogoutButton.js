@@ -2,16 +2,16 @@
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logout } from '@state/client/session';
+import { logout } from '@state/session';
 import './auth.css';
-import { useNavigation } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
 const LogoutButton = () => {
-	const navigate = useNavigation();
+	const router = useRouter();
 	const dispatch = useDispatch();
 
-	const onLogout = async (e) => {
-		dispatch(logout()).then(() => navigate('/'));
+	const onLogout = (e) => {
+		dispatch(logout()).then(() => router.push('/'));
 	};
 
 	return (

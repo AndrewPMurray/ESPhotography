@@ -1,4 +1,6 @@
-import { NavLink } from 'react-router-dom';
+'use client';
+
+import Link from 'next/link';
 import './Footer.css';
 
 export default function Footer() {
@@ -27,10 +29,10 @@ export default function Footer() {
 				</div>
 				<div id='footer-links-sub-container'>
 					<div id='footer-links'>
-						<NavLink to='/'>Home</NavLink>
-						<NavLink to='/galleries'>Galleries</NavLink>
-						<NavLink to='/about'>About</NavLink>
-						<NavLink to='/contact'>Contact</NavLink>
+						<Link href='/'>Home</Link>
+						<Link href='/galleries'>Galleries</Link>
+						<Link href='/about'>About</Link>
+						<Link href='/contact'>Contact</Link>
 					</div>
 				</div>
 			</div>

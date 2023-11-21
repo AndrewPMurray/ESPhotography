@@ -1,6 +1,14 @@
+'use client';
+
 import Cookies from 'js-cookie';
 
-export async function csrfFetch(url, options = {}) {
+type fetchOptionsType = {
+	method?: string;
+	body?: string | FormData;
+	headers?: Record<string, string> & { 'XSRF-Token'?: string | undefined };
+};
+
+export async function csrfFetch(url: string, options: fetchOptionsType = {}) {
 	options.method = options.method || 'GET';
 	options.headers = options.headers || {};
 

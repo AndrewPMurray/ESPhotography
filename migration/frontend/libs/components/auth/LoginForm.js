@@ -1,13 +1,15 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 
-import * as sessionActions from '../../store/session';
+import * as sessionActions from '@state/session';
 import './auth.css';
 
-const LoginForm = ({ setCurrentRoute }) => {
+const LoginForm = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
+	const router = useRouter();
 	const [credential, setCredential] = useState('');
 	const [password, setPassword] = useState('');
 	const [errors, setErrors] = useState({});
@@ -24,13 +26,13 @@ const LoginForm = ({ setCurrentRoute }) => {
 
 	useEffect(() => {
 		if (user) {
-			history.push('/');
+			router.push('/');
 		}
-	}, [user, history]);
+	}, [user]);
 
 	useEffect(() => {
-		setCurrentRoute(window.location.href);
-	}, [setCurrentRoute]);
+		dispatch(sessionActions.setCurrentRoute());
+	}, []);
 
 	return (
 		<div id='login-page-container'>

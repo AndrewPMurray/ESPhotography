@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { updateImage } from '@state/client/images';
+import { updateImage } from '@state/images';
 
 export default function HomepageImages({ setShowModal, images }) {
 	const dispatch = useDispatch();

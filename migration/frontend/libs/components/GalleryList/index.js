@@ -1,26 +1,37 @@
+'use client';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { editGalleryOrder } from '../../store/galleries';
+import { editGalleryOrder } from '@state/galleries';
 
 import GalleryFormModal from '../GalleryFormModal';
 import GalleryNode from './GalleryNode';
 
-import { loadGalleries } from '../../store/galleries';
+import { loadGalleries } from '@state/galleries';
+import { setCurrentRoute } from '@state/session';
 
 import './GalleryList.css';
 
-export default function GalleryList({ setCurrentRoute }) {
+export default function GalleryList() {
 	const dispatch = useDispatch();
-	const galleries = useSelector((state) => state.galleries.list);
+	const galleries = useSelector((state) => state.galleries);
 	const user = useSelector((state) => state.session.user);
+
+	const [isBrowser, setIsBrowser] = useState(false);
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			setIsBrowser(true);
+		}
+	}, []);
 
 	useEffect(() => {
 		dispatch(loadGalleries());
 	}, [dispatch]);
 
 	useEffect(() => {
-		setCurrentRoute(window.location.href);
+		dispatch(setCurrentRoute());
 	}, [setCurrentRoute]);
 
 	const updateGalleryOrder = async ({ source, destination }) => {
@@ -30,8 +41,7 @@ export default function GalleryList({ setCurrentRoute }) {
 
 		newGalleries.forEach(async (gallery, i) => {
 			if (gallery.orderNumber !== i) {
-				gallery.orderNumber = i;
-				await dispatch(
+				dispatch(
 					editGalleryOrder({
 						id: gallery.id,
 						title: gallery.title,
@@ -53,9 +63,9 @@ export default function GalleryList({ setCurrentRoute }) {
 					<a href='mailto:info@elmarschimttou.com'>info@elmarschmittou.com</a>
 				</p>
 			</div>
-			{user ? (
+			{user && isBrowser ? (
 				<DragDropContext onDragEnd={updateGalleryOrder}>
-					<Droppable droppableId='galleries' direction='horizontal'>
+					<Droppable droppableId={`galleries-${Date.now()}`} direction='horizontal'>
 						{(provided) => (
 							<div
 								id='gallery-node-container'

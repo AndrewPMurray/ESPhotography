@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Modal } from '../../context/Modal';
+import { Modal } from '@context/Modal';
 import GalleryForm from './GalleryForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 const GalleryFormModal = ({ gallery }) => {
 	const [showModal, setShowModal] = useState(false);
@@ -8,11 +10,12 @@ const GalleryFormModal = ({ gallery }) => {
 	return (
 		<>
 			{gallery ? (
-				<i
+				<FontAwesomeIcon
 					id='edit-gallery'
+					icon={faPen}
 					className='fa-solid fa-pen'
 					onClick={() => setShowModal(true)}
-				></i>
+				/>
 			) : (
 				<button id='add-gallery-button' onClick={() => setShowModal(true)}>
 					Add Gallery

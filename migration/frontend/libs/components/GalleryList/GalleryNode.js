@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import GalleryFormModal from '../GalleryFormModal';
 
 export default function GalleryNode({ gallery, user, provided, i }) {
@@ -16,7 +16,7 @@ export default function GalleryNode({ gallery, user, provided, i }) {
 					}, i * 50)
 				}
 			>
-				<Link to={`/galleries/${gallery.id}`}>
+				<Link href={`/galleries/${gallery.id}`}>
 					<img
 						id='gallery-node-image'
 						src={

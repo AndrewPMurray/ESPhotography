@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './GalleryForm.css';
-import { addGallery, editGallery, deleteGallery } from '../../store/galleries';
+import { addGallery, editGallery, deleteGallery } from '@state/galleries';
 
 export default function GalleryForm({ setShowModal, gallery }) {
 	const dispatch = useDispatch();
-	const galleries = useSelector((state) => Object.values(state.galleries.list));
+	const galleries = useSelector((state) => state.galleries);
 	const [loading, setLoading] = useState();
 	const [errors, setErrors] = useState({});
 	const [title, setTitle] = useState(gallery?.title || '');

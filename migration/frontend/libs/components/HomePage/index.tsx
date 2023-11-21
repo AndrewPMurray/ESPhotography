@@ -2,8 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadHomeImages } from '@state/client/images';
-import { setCurrentRoute } from '@state/client/session';
+
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { loadHomeImages } from '@state/images';
+import type { RootState } from '@state/index';
+import { setCurrentRoute } from '@state/session';
 
 import HomepageImagesModal from '../HomepageImagesModal';
 
@@ -11,9 +15,9 @@ import './HomePage.css';
 
 export default function HomePage() {
 	const dispatch = useDispatch();
-	const images = useSelector((state) => Object.values(state.images)) ?? [];
+	const images = useSelector((state: RootState) => Object.values(state.images)) ?? [];
 	const sortedImages = images.sort((a, b) => a.orderNumber - b.orderNumber);
-	const user = useSelector((state) => state.session.user);
+	const user = useSelector((state: RootState) => state.session.user);
 	const [activeImage, setActiveImage] = useState(0);
 	const [imageChanged, setImageChanged] = useState(false);
 
@@ -22,9 +26,7 @@ export default function HomePage() {
 		dispatch(setCurrentRoute());
 	}, [dispatch]);
 
-	const timer = () => {
-		setTimeout(() => setImageChanged(false), 5000);
-	};
+	const timer = () => setTimeout(() => setImageChanged(false), 5000);
 
 	useEffect(() => {
 		const changePhoto = setInterval(() => {
@@ -56,8 +58,9 @@ export default function HomePage() {
 									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
 								}
 							/>
-							<i
+							<FontAwesomeIcon
 								id='slide-left'
+								icon={faChevronLeft}
 								className='fa-solid fa-chevron-left'
 								onClick={() => {
 									setImageChanged(true);
@@ -65,9 +68,10 @@ export default function HomePage() {
 									else setActiveImage(activeImage - 1);
 									timer();
 								}}
-							></i>
-							<i
+							></FontAwesomeIcon>
+							<FontAwesomeIcon
 								id='slide-right'
+								icon={faChevronRight}
 								className='fa-solid fa-chevron-right'
 								onClick={() => {
 									setImageChanged(true);
@@ -75,7 +79,7 @@ export default function HomePage() {
 									else setActiveImage(activeImage + 1);
 									timer();
 								}}
-							></i>
+							></FontAwesomeIcon>
 						</div>
 					))}
 				</div>

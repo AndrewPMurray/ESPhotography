@@ -1,27 +1,285 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&family=Work+Sans:wght@100;200;400&display=swap');
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* CSS Reset */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	font-family: 'work sans';
+	font-weight: 200;
+	color: black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	display: block;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#root {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+#root > *:not(#navbar-container, #footer-container) {
+	min-height: 75vh;
+	flex: 1;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	line-height: 1;
+	background-color: white;
+	width: 100vw;
+}
+ol,
+ul {
+	list-style: none;
+}
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Animations */
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes fade-in-grow {
+	from {
+		transform: scaleY(0.7) scaleX(0.7);
+		opacity: 0;
+	}
+	to {
+		transform: scaleY(1) scaleX(1);
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out-shrink {
+	from {
+		transform: scaleY(1) scaleX(1);
+		opacity: 1;
+	}
+	to {
+		transform: scaleY(0.7) scaleX(0.7);
+		opacity: 0;
+	}
+}
+
+@keyframes fade-in-slide-up {
+	from {
+		opacity: 0;
+		transform: translateY(3%);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.fade-in {
+	animation-name: fade-in;
+	animation-duration: 200ms;
+	animation-timing-function: ease-in-out;
+}
+
+.fade-out {
+	animation-name: fade-out;
+	animation-duration: 200ms;
+	animation-timing-function: ease-in-out;
+}
+
+.fade-in-grow {
+	animation-name: fade-in-grow;
+	animation-duration: 200ms;
+	animation-timing-function: ease-in-out;
+}
+
+.fade-out-shrink {
+	animation-name: fade-out-shrink;
+	animation-duration: 200ms;
+	animation-timing-function: ease-in-out;
+}
+
+.fade-in-slide-up {
+	animation-name: fade-in-slide-up;
+	transform-origin: top;
+	animation-duration: 1250ms;
+	animation-timing-function: ease-in-out;
+}
+
+/* end animations */
+
+#error {
+	color: #bc0000;
+}
+
+#header {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 25px;
+}
+
+#header * {
+	margin: 5px 0;
+}
+
+#header h2 {
+	font-size: 24px;
+	opacity: 0.5;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+	font-weight: 200;
+}
+
+#slide-left,
+#slide-right {
+	position: absolute;
+	top: calc(50% - 40px);
+	padding: 40px 10px;
+	border-radius: 5px;
+	line-height: 0%;
+	font-size: 36px;
+	cursor: pointer;
+	z-index: 10;
+	background-color: rgba(255, 255, 255, 0.3);
+	transition-duration: 200ms;
+}
+
+#slide-left:hover,
+#slide-right:hover {
+	background-color: rgba(255, 255, 255, 1);
+}
+
+#slide-left {
+	left: 15px;
+}
+
+#slide-right {
+	right: 20px;
 }
