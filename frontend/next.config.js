@@ -4,7 +4,10 @@ const nextConfig = {
 		return [
 			{
 				source: '/api/:path*',
-				destination: 'http://localhost:5000/api/:path*',
+				destination:
+					process.env.NODE_ENV !== 'production'
+						? 'http://localhost:5000/api/:path*'
+						: 'https://elmarschmittou.com/api/:path*',
 			},
 		];
 	},
