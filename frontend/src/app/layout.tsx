@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import Navbar from '@components/NavBar';
 import Footer from '@components/Footer';
@@ -18,6 +18,11 @@ export const metadata: Metadata = {
 	keywords:
 		'Photography Photographer Photo Photos shoot fine art prints indy Indianapolis Indiana circle city Midwest portrait portraits family pet studio dog cat couple couples elope elopement senior high school portraits newborn candid street style black white nature headshot commissions Elmar schmittou best talented skilled classy',
 	robots: 'index, follow',
+};
+
+export const viewport: Viewport = {
+	initialScale: 1,
+	width: 'device-width viewport-fit=cover',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
