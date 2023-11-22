@@ -1,6 +1,6 @@
 'use client';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { editGalleryOrder } from '@state/galleries';
@@ -9,14 +9,15 @@ import GalleryFormModal from '../GalleryFormModal';
 import GalleryNode from './GalleryNode';
 
 import { loadGalleries } from '@state/galleries';
+import { type RootState, useAppDispatch } from '@state/index';
 import { setCurrentRoute } from '@state/session';
 
 import './GalleryList.css';
 
 export default function GalleryList() {
-	const dispatch = useDispatch();
-	const galleries = useSelector((state) => state.galleries);
-	const user = useSelector((state) => state.session.user);
+	const dispatch = useAppDispatch();
+	const galleries = useSelector((state: RootState) => state.galleries);
+	const user = useSelector((state: RootState) => state.session.user);
 
 	const [isBrowser, setIsBrowser] = useState(false);
 
@@ -34,7 +35,13 @@ export default function GalleryList() {
 		dispatch(setCurrentRoute());
 	}, [setCurrentRoute]);
 
-	const updateGalleryOrder = async ({ source, destination }) => {
+	const updateGalleryOrder = async ({
+		source,
+		destination,
+	}: {
+		source: any;
+		destination: any;
+	}) => {
 		const newGalleries = [...galleries];
 		const [reorderedGallery] = newGalleries.splice(source.index, 1);
 		newGalleries.splice(destination.index, 0, reorderedGallery);
@@ -73,12 +80,12 @@ export default function GalleryList() {
 								ref={provided.innerRef}
 								style={{
 									flexWrap: user ? 'nowrap' : 'wrap',
-									justifyContent: user ? 'flex-start' : null,
+									justifyContent: user ? 'flex-start' : undefined,
 								}}
 							>
 								{galleries.map(
 									(gallery, i) =>
-										(gallery.images?.length > 0 || user) && (
+										((gallery.images && gallery.images.length > 0) || user) && (
 											<Draggable
 												key={gallery.id}
 												draggableId={`${gallery.title}-${i}`}
@@ -88,7 +95,7 @@ export default function GalleryList() {
 													<GalleryNode
 														gallery={gallery}
 														user={user}
-														provided={user ? provided : null}
+														provided={user ? provided : undefined}
 														i={i}
 													/>
 												)}
@@ -105,13 +112,18 @@ export default function GalleryList() {
 					id='gallery-node-container'
 					style={{
 						flexWrap: user ? 'nowrap' : 'wrap',
-						justifyContent: user ? 'flex-start' : null,
+						justifyContent: user ? 'flex-start' : undefined,
 					}}
 				>
 					{galleries.map(
 						(gallery, i) =>
-							(gallery.images?.length > 0 || user) && (
-								<GalleryNode key={gallery.id} gallery={gallery} user={user} i={i} />
+							((gallery.images && gallery.images.length > 0) || user) && (
+								<GalleryNode
+									key={gallery.id}
+									gallery={gallery}
+									user={user ?? undefined}
+									i={i}
+								/>
 							)
 					)}
 				</div>

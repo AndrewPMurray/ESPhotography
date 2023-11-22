@@ -5,8 +5,9 @@ import { Modal } from '../../context/Modal';
 import HomepageImages from './HomepageImages';
 
 import './HomepageImages.css';
+import type { Image } from '@state/@types';
 
-const HomepageImagesModal = ({ images }) => {
+const HomepageImagesModal = ({ images }: { images: Image[] }) => {
 	const [showModal, setShowModal] = useState(false);
 
 	return (

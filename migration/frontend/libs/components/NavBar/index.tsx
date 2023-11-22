@@ -2,11 +2,17 @@
 
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
+
+import { RootState } from '@state/index';
+
 import LogoutButton from '../auth/LogoutButton';
+
 import './NavBar.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 export default function NavBar() {
-	const { user, currentRoute } = useSelector((state) => state.session);
+	const { user, currentRoute } = useSelector((state: RootState) => state.session);
 
 	return (
 		<div id='navbar-container' className='fade-in'>
@@ -63,7 +69,10 @@ export default function NavBar() {
 							target='_blank'
 							rel='noopener noreferrer'
 						>
-							<i className='fa-brands fa-instagram'></i>
+							<FontAwesomeIcon
+								icon={faInstagram}
+								className='fa-brands fa-instagram'
+							/>
 						</Link>
 					</div>
 				</div>

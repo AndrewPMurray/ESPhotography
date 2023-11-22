@@ -1,7 +1,16 @@
 import Link from 'next/link';
 import GalleryFormModal from '../GalleryFormModal';
+import { Gallery, User } from '@state/@types';
+import { DraggableProvided } from 'react-beautiful-dnd';
 
-export default function GalleryNode({ gallery, user, provided, i }) {
+type GalleryNodeProps = {
+	gallery: Gallery;
+	user?: User;
+	provided?: DraggableProvided;
+	i: number;
+};
+
+export default function GalleryNode({ gallery, user, provided, i }: GalleryNodeProps) {
 	return (
 		<div
 			ref={provided?.innerRef || null}
@@ -10,11 +19,12 @@ export default function GalleryNode({ gallery, user, provided, i }) {
 		>
 			<div
 				id='gallery-node'
-				onLoad={(e) =>
+				onLoad={(e) => {
+					const target = e.target as HTMLDivElement;
 					setTimeout(() => {
-						e.target.style.opacity = 1;
-					}, i * 50)
-				}
+						target.style.opacity = '1';
+					}, i * 50);
+				}}
 			>
 				<Link href={`/galleries/${gallery.id}`}>
 					<img

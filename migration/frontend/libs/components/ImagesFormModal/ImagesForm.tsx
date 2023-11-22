@@ -1,17 +1,30 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+'use client';
+
+import { type Dispatch, type SetStateAction, useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
-import { addImage } from '../../store/images';
+
+import { addImage } from '@state/images';
+import { useAppDispatch } from '@state/index';
+
 import './ImagesForm.css';
 
-export default function ImagesForm({ setShowModal, galleryId }) {
-	const dispatch = useDispatch();
+type ImagesFormProps = {
+	setShowModal: Dispatch<SetStateAction<boolean>>;
+	galleryId: string;
+};
+
+type ErrorType = {
+	title?: string;
+};
+
+export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps) {
+	const dispatch = useAppDispatch();
 	const [loading, setLoading] = useState(false);
-	const [images, setImages] = useState([]);
-	const [errors, setErrors] = useState({});
-	const [title, setTitle] = useState([]);
-	const [description, setDescription] = useState([]);
-	const [isHomepage, setIsHomepage] = useState([]);
+	const [images, setImages] = useState<File[]>([]);
+	const [errors, setErrors] = useState<ErrorType>({});
+	const [title, setTitle] = useState<string[]>([]);
+	const [description, setDescription] = useState<string[]>([]);
+	const [isHomepage, setIsHomepage] = useState<boolean[]>([]);
 	const fileTypes = ['JPG', 'PNG', ' JPEG', 'jpg', 'jpeg'];
 
 	const handleSubmit = async () => {
@@ -51,7 +64,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 				types={fileTypes}
 				name='image'
 				multiple={true}
-				handleChange={(files) => {
+				handleChange={(files: File[]) => {
 					for (let i in files) {
 						if (typeof files[i] === 'object') {
 							setImages((prev) => [...prev, files[i]]);
@@ -114,8 +127,8 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 							style={{ width: '90%', marginBottom: '2px' }}
 						/>
 						<textarea
-							rows='6'
-							cols='21'
+							rows={6}
+							cols={21}
 							style={{ resize: 'none', width: '90%' }}
 							placeholder='description'
 							value={description[i] || ''}
@@ -131,7 +144,7 @@ export default function ImagesForm({ setShowModal, galleryId }) {
 							<label htmlFor='isHomePageImage'>Homepage image: </label>
 							<input
 								type='checkbox'
-								value={isHomepage[i] || false}
+								defaultChecked={isHomepage[i] || false}
 								checked={isHomepage[i] || false}
 								onChange={() =>
 									setIsHomepage((prev) => {

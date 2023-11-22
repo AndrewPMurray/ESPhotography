@@ -1,14 +1,6 @@
 'use client';
 
-import {
-	createContext,
-	useRef,
-	useContext,
-	useState,
-	type ReactElement,
-	SetStateAction,
-	PropsWithChildren,
-} from 'react';
+import { createContext, useRef, useContext, useState, PropsWithChildren } from 'react';
 import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
@@ -31,7 +23,7 @@ export function ModalProvider({ children }: PropsWithChildren) {
 	);
 }
 
-export function Modal({ onClose, children }: { onClose: () => void; children?: ReactElement[] }) {
+export function Modal({ onClose, children }: PropsWithChildren & { onClose: () => void }) {
 	const modalNode = useContext(ModalContext);
 
 	useEffect(() => {

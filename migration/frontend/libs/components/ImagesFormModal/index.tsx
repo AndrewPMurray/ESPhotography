@@ -1,8 +1,10 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import ImagesForm from './ImagesForm';
 
-const ImagesFormModal = ({ galleryId }) => {
+const ImagesFormModal = ({ galleryId }: { galleryId: string }) => {
 	const [showModal, setShowModal] = useState(false);
 
 	return (

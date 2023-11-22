@@ -1,10 +1,18 @@
+'use client';
+
 import { useEffect } from 'react';
+
+import { useAppDispatch } from '@state/index';
+import { setCurrentRoute } from '@state/session';
+
 import './About.css';
 
-export default function About({ setCurrentRoute }) {
+export default function About() {
+	const dispatch = useAppDispatch();
+
 	useEffect(() => {
-		setCurrentRoute(window.location.href);
-	}, [setCurrentRoute]);
+		dispatch(setCurrentRoute());
+	}, []);
 
 	return (
 		<div id='about-container'>

@@ -38,22 +38,25 @@ export const addImage = createAsyncThunk('images/addImage', async (payload: Imag
 	return data;
 });
 
-export const updateImage = createAsyncThunk('images/updateImage', async (image: Image) => {
-	const response = await csrfFetch(`/api/images/${image.id}`, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(image),
-	});
-	if (response.ok) {
-		const data = await response.json();
-		return data;
-	} else {
-		const errors = await response.json();
-		return errors;
+export const updateImage = createAsyncThunk(
+	'images/updateImage',
+	async (image: Image): Promise<Image> => {
+		const response = await csrfFetch(`/api/images/${image.id}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(image),
+		});
+		if (response.ok) {
+			const data = await response.json();
+			return data;
+		} else {
+			const errors = await response.json();
+			return errors;
+		}
 	}
-});
+);
 
 export const deleteImage = createAsyncThunk('images/deleteImage', async (imageId: string) => {
 	const response = await csrfFetch(`/api/images/${imageId}`, {
@@ -73,15 +76,13 @@ const imagesSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(loadImages.fulfilled, (_state, action) => {
-				const newState = [...action.payload];
-				return newState;
+				return action.payload;
 			})
 			.addCase(loadHomeImages.fulfilled, (_state, action) => {
-				const newState = [...action.payload];
-				return newState;
+				return action.payload;
 			})
 			.addCase(addImage.fulfilled, (state, action) => {
-				state = [...state, action.payload];
+				return [...state, action.payload];
 			})
 			.addCase(updateImage.fulfilled, (state, action) => {
 				const newState = [...state];

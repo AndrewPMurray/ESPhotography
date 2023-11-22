@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { loadHomeImages } from '@state/images';
-import type { RootState } from '@state/index';
+import { useAppDispatch, type RootState } from '@state/index';
 import { setCurrentRoute } from '@state/session';
 
 import HomepageImagesModal from '../HomepageImagesModal';
@@ -14,7 +15,7 @@ import HomepageImagesModal from '../HomepageImagesModal';
 import './HomePage.css';
 
 export default function HomePage() {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const images = useSelector((state: RootState) => Object.values(state.images)) ?? [];
 	const sortedImages = images.sort((a, b) => a.orderNumber - b.orderNumber);
 	const user = useSelector((state: RootState) => state.session.user);
@@ -68,7 +69,7 @@ export default function HomePage() {
 									else setActiveImage(activeImage - 1);
 									timer();
 								}}
-							></FontAwesomeIcon>
+							/>
 							<FontAwesomeIcon
 								id='slide-right'
 								icon={faChevronRight}
@@ -79,7 +80,7 @@ export default function HomePage() {
 									else setActiveImage(activeImage + 1);
 									timer();
 								}}
-							></FontAwesomeIcon>
+							/>
 						</div>
 					))}
 				</div>

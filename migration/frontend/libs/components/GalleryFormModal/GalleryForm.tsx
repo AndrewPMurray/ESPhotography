@@ -1,18 +1,32 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import './GalleryForm.css';
-import { addGallery, editGallery, deleteGallery } from '@state/galleries';
+import { type FormEvent, type MouseEvent, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-export default function GalleryForm({ setShowModal, gallery }) {
-	const dispatch = useDispatch();
-	const galleries = useSelector((state) => state.galleries);
-	const [loading, setLoading] = useState();
-	const [errors, setErrors] = useState({});
+import type { Gallery } from '@state/@types';
+import { addGallery, editGallery, deleteGallery } from '@state/galleries';
+import { type RootState, useAppDispatch } from '@state/index';
+
+import './GalleryForm.css';
+
+type GalleryFormProps = {
+	setShowModal: any;
+	gallery?: Gallery;
+};
+
+type ErrorType = {
+	title?: string;
+	delete?: string;
+};
+
+export default function GalleryForm({ setShowModal, gallery }: GalleryFormProps) {
+	const dispatch = useAppDispatch();
+	const galleries = useSelector((state: RootState) => state.galleries);
+	const [loading, setLoading] = useState<boolean>();
+	const [errors, setErrors] = useState<ErrorType>({});
 	const [title, setTitle] = useState(gallery?.title || '');
 	const [deleteText, setDeleteText] = useState('');
 	const [description, setDescription] = useState(gallery?.description || '');
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		return dispatch(
 			addGallery({
@@ -21,7 +35,7 @@ export default function GalleryForm({ setShowModal, gallery }) {
 				orderNumber: galleries.length,
 			})
 		)
-			.then((res) => {
+			.then(() => {
 				setShowModal(false);
 			})
 			.catch(async (res) => {
@@ -32,8 +46,9 @@ export default function GalleryForm({ setShowModal, gallery }) {
 			});
 	};
 
-	const handleEdit = async (e) => {
+	const handleEdit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!gallery) return;
 		return dispatch(
 			editGallery({
 				id: gallery.id,
@@ -51,23 +66,26 @@ export default function GalleryForm({ setShowModal, gallery }) {
 			});
 	};
 
-	const handleDelete = async (e) => {
-		setLoading(true);
+	const handleDelete = async (e: MouseEvent<HTMLElement>) => {
 		e.preventDefault();
-		return dispatch(deleteGallery(gallery.id))
-			.then(() => setShowModal(false))
-			.catch(() => {
-				setLoading(false);
-				setErrors({
-					delete: `Unable to delete?! Uhhh you're not supposed to see this. Pay no attention to the man behind the curtain. Hey, so uh... Completely unrelated, but contact me and let me know about this? kthx.`,
-				});
-			});
+		setLoading(true);
+		if (!gallery) return;
+		return gallery.id
+			? dispatch(deleteGallery(gallery.id))
+					.then(() => setShowModal(false))
+					.catch(() => {
+						setLoading(false);
+						setErrors({
+							delete: `Unable to delete?! Uhhh you're not supposed to see this. Pay no attention to the man behind the curtain. Hey, so uh... Completely unrelated, but contact me and let me know about this? kthx.`,
+						});
+					})
+			: undefined;
 	};
 
 	return (
 		<div
 			id='gallery-form-container'
-			style={gallery ? { height: '60vh', minHeight: '450px' } : null}
+			style={gallery ? { height: '60vh', minHeight: '450px' } : undefined}
 		>
 			<form id='gallery-form' onSubmit={gallery ? handleEdit : handleSubmit}>
 				<div>

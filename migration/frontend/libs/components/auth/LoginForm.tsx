@@ -1,21 +1,26 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
+import { RootState, useAppDispatch } from '@state/index';
 import * as sessionActions from '@state/session';
 import './auth.css';
 
+type ErrorType = {
+	invalid?: string;
+};
+
 const LoginForm = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const [credential, setCredential] = useState('');
 	const [password, setPassword] = useState('');
-	const [errors, setErrors] = useState({});
-	const user = useSelector((state) => state.session.user);
+	const [errors, setErrors] = useState<ErrorType>({});
+	const user = useSelector((state: RootState) => state.session.user);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setErrors({});
 		return dispatch(sessionActions.login({ credential, password })).catch(async (res) => {

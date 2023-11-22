@@ -1,27 +1,37 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { scrollTo, scrollIntoView } from 'seamless-scroll-polyfill';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight, faKey } from '@fortawesome/free-solid-svg-icons';
+
+import { loadSingleGallery, updateGalleryKey } from '@state/galleries';
+import { updateImage, deleteImage } from '@state/images';
+import { RootState, useAppDispatch } from '@state/index';
+import { setCurrentRoute } from '@state/session';
+import { Image } from '@state/@types';
 
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
 import DescriptionModal from './DescriptionModal';
 
-import { loadSingleGallery, updateGalleryKey } from '../../store/galleries';
-import { updateImage, deleteImage } from '../../store/images';
-
 import './Gallery.css';
 
-export default function Gallery({ setCurrentRoute }) {
-	const dispatch = useDispatch();
-	const history = useHistory();
-	const { galleryId } = useParams();
+export default function Gallery({ params }: { params: { galleryId: string } }) {
+	const dispatch = useAppDispatch();
+	const router = useRouter();
+	const { galleryId } = params ?? {};
 
-	const user = useSelector((state) => state.session.user);
-	const imageState = useSelector((state) => state.images);
-	const gallery = useSelector((state) => state.galleries[galleryId]);
-	const images = useSelector((state) => state.galleries[galleryId]?.images);
+	const user = useSelector((state: RootState) => state.session.user);
+	const imageState = useSelector((state: RootState) => state.images);
+	const gallery = useSelector((state: RootState) =>
+		state.galleries.find((g) => g.id === Number(galleryId))
+	);
+	const images = gallery?.images;
 
 	const [noImages, setNoImages] = useState(false);
 	const [activeImage, setActiveImage] = useState(0);
@@ -31,21 +41,21 @@ export default function Gallery({ setCurrentRoute }) {
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
 			.then((res) => {
-				if (!res?.images || res?.images?.length === 0) {
+				if (!res?.payload?.images || res?.payload?.images?.length === 0) {
 					if (!user) {
-						history.push('/not-found');
+						router.push('/not-found');
 					}
 					setNoImages(true);
 				} else setNoImages(false);
 			})
 			.catch(() => {
-				history.push('/not-found');
+				router.push('/not-found');
 			});
-	}, [dispatch, galleryId, history, user, imageState]);
+	}, [dispatch, galleryId, router, user, imageState]);
 
 	useEffect(() => {
 		const updateLength = () => {
-			setTimeout(setWindowLength(window.innerWidth), 500);
+			setTimeout(() => setWindowLength(window.innerWidth), 500);
 		};
 		window.addEventListener('resize', updateLength);
 		window.addEventListener('orientationchange', updateLength);
@@ -57,22 +67,23 @@ export default function Gallery({ setCurrentRoute }) {
 	}, []);
 
 	useEffect(() => {
-		setCurrentRoute(window.location.href);
-	}, [setCurrentRoute]);
+		dispatch(setCurrentRoute());
+	}, []);
 
-	const handleDelete = (image, i) => {
+	const handleDelete = (image: Image, i: number) => {
 		dispatch(deleteImage(image.id));
-		if (image.url === gallery.keyImageURL) {
-			dispatch(updateGalleryKey(galleryId, null));
+		if (image.url === gallery?.keyImageURL && galleryId) {
+			dispatch(updateGalleryKey({ galleryId, url: null }));
 		}
 		if (i === activeImage) setActiveImage(0);
 	};
 
-	const updateKeyImage = (url) => {
-		dispatch(updateGalleryKey(galleryId, url));
+	const updateKeyImage = (url: string) => {
+		if (galleryId) dispatch(updateGalleryKey({ galleryId, url }));
 	};
 
-	const updateImageOrder = async ({ source, destination }) => {
+	const updateImageOrder = async ({ source, destination }: { source: any; destination: any }) => {
+		if (!images || !images.length) return;
 		const newImages = [...images];
 		const [reorderedImage] = newImages.splice(source.index, 1);
 		newImages.splice(destination.index, 0, reorderedImage);
@@ -100,63 +111,67 @@ export default function Gallery({ setCurrentRoute }) {
 			) : (
 				<div id='gallery-slideshow' className='fade-in-slide-up'>
 					<div id='gallery-slide-container'>
-						<i
+						<FontAwesomeIcon
 							id='slide-left'
+							icon={faChevronLeft}
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
 								if (activeImage === 0) {
-									setActiveImage(images?.length - 1);
-									scrollIntoView(
-										document.querySelector(
-											`.slider-preview-${images?.length - 1}`
-										),
-										{
-											block: 'end',
-											inline: 'nearest',
-											behavior: 'smooth',
-										}
-									);
-								} else {
-									setActiveImage((prev) => prev - 1);
-									scrollIntoView(
-										document.querySelector(
+									if (images?.length) {
+										const sliderPreviewElement = document.querySelector(
+											`.slider-preview-${images.length - 1}`
+										);
+										setActiveImage(images.length - 1);
+										if (sliderPreviewElement)
+											scrollIntoView(sliderPreviewElement, {
+												block: 'end',
+												inline: 'nearest',
+												behavior: 'smooth',
+											});
+									} else {
+										const sliderPreviewElement = document.querySelector(
 											`.slider-preview-${activeImage - 1}`
-										),
-										{
-											block: 'end',
-											inline: 'nearest',
-											behavior: 'smooth',
-										}
-									);
+										);
+										setActiveImage((prev) => prev - 1);
+										if (sliderPreviewElement)
+											scrollIntoView(sliderPreviewElement, {
+												block: 'end',
+												inline: 'nearest',
+												behavior: 'smooth',
+											});
+									}
 								}
 							}}
-						></i>
-						<i
+						/>
+						<FontAwesomeIcon
 							id='slide-right'
+							icon={faChevronRight}
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
-								if (activeImage === images?.length - 1) {
+								if (activeImage === images?.length ?? 0 - 1) {
+									const sliderPreviewElement =
+										document.querySelector(`.slider-preview-0`);
 									setActiveImage(0);
-									scrollIntoView(document.querySelector(`.slider-preview-0`), {
-										block: 'end',
-										inline: 'nearest',
-										behavior: 'smooth',
-									});
-								} else {
-									setActiveImage((prev) => prev + 1);
-									scrollIntoView(
-										document.querySelector(
-											`.slider-preview-${activeImage + 1}`
-										),
-										{
+									if (sliderPreviewElement)
+										scrollIntoView(sliderPreviewElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
-										}
+										});
+								} else {
+									const sliderPreviewElement = document.querySelector(
+										`.slider-preview-${activeImage + 1}`
 									);
+									setActiveImage((prev) => prev + 1);
+									if (sliderPreviewElement)
+										scrollIntoView(sliderPreviewElement, {
+											block: 'end',
+											inline: 'nearest',
+											behavior: 'smooth',
+										});
 								}
 							}}
-						></i>
+						/>
 					</div>
 					{gallery?.images?.map((image, i) => (
 						<div id='gallery-image-container' key={`gallery-image-${i}`}>
@@ -179,7 +194,7 @@ export default function Gallery({ setCurrentRoute }) {
 								>
 									{image.title}
 								</p>
-								<p
+								<div
 									id='gallery-image-description'
 									style={
 										activeImage === i
@@ -187,12 +202,12 @@ export default function Gallery({ setCurrentRoute }) {
 											: { opacity: 0 }
 									}
 								>
-									{image.description?.length > 300 ? (
+									{image.description?.length && image.description.length > 300 ? (
 										<DescriptionModal description={image.description} />
 									) : (
 										image.description
 									)}
-								</p>
+								</div>
 							</div>
 						</div>
 					))}
@@ -201,38 +216,40 @@ export default function Gallery({ setCurrentRoute }) {
 			{imagesLength > windowLength && (
 				<>
 					<div id='sliders'>
-						<i
+						<FontAwesomeIcon
 							id='slider-slide-left'
+							icon={faChevronLeft}
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
-								scrollTo(document.querySelector('#images-slider'), {
-									left:
-										document.querySelector('#images-slider').scrollLeft -
-										windowLength +
-										100,
-									behavior: 'smooth',
-								});
+								const imagesSlider = document.querySelector('#images-slider');
+								if (imagesSlider) {
+									scrollTo(imagesSlider, {
+										left: imagesSlider.scrollLeft - windowLength + 100,
+										behavior: 'smooth',
+									});
+								}
 							}}
-						></i>
-						<i
+						/>
+						<FontAwesomeIcon
 							id='slider-slide-right'
+							icon={faChevronRight}
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
-								scrollTo(document.querySelector('#images-slider'), {
-									left:
-										document.querySelector('#images-slider').scrollLeft +
-										windowLength -
-										100,
-									behavior: 'smooth',
-								});
+								const imagesSlider = document.querySelector('#images-slider');
+								if (imagesSlider) {
+									scrollTo(imagesSlider, {
+										left: imagesSlider.scrollLeft + windowLength - 100,
+										behavior: 'smooth',
+									});
+								}
 							}}
-						></i>
+						/>
 					</div>
 				</>
 			)}
 			{user ? (
 				<DragDropContext onDragEnd={updateImageOrder}>
-					<Droppable droppableId='images' direction='horizontal'>
+					<Droppable droppableId={`images-${Date.now()}`} direction='horizontal'>
 						{(provided) => (
 							<div
 								id='images-slider'
@@ -261,11 +278,12 @@ export default function Gallery({ setCurrentRoute }) {
 														>
 															x
 														</p>
-														<i
+														<FontAwesomeIcon
 															id='set-key-image'
+															icon={faKey}
 															className='fa-solid fa-key'
 															onClick={() =>
-																updateKeyImage(image.url)
+																updateKeyImage(image.url ?? '')
 															}
 															style={
 																image.url === gallery.keyImageURL
@@ -273,9 +291,9 @@ export default function Gallery({ setCurrentRoute }) {
 																			color: 'gold',
 																			visibility: 'visible',
 																	  }
-																	: null
+																	: undefined
 															}
-														></i>
+														/>
 														<EditImageModal image={image} />
 													</div>
 												)}
@@ -285,13 +303,15 @@ export default function Gallery({ setCurrentRoute }) {
 													alt='slider-preview'
 													onClick={() => setActiveImage(i)}
 													onLoad={() =>
-														setImagesLength(
-															images?.length *
-																document.querySelector(
-																	'#slider-preview'
-																)?.clientWidth +
-																100
-														)
+														images?.length
+															? setImagesLength(
+																	images.length *
+																		(document.querySelector(
+																			'#slider-preview'
+																		)?.clientWidth ?? 0) +
+																		100
+															  )
+															: undefined
 													}
 													className={`slider-preview-${i} fade-in`}
 													style={
@@ -321,19 +341,20 @@ export default function Gallery({ setCurrentRoute }) {
 									<p id='delete-image' onClick={() => handleDelete(image, i)}>
 										x
 									</p>
-									<i
+									<FontAwesomeIcon
 										id='set-key-image'
+										icon={faKey}
 										className='fa-solid fa-key'
-										onClick={() => updateKeyImage(image.url)}
+										onClick={() => updateKeyImage(image.url ?? '')}
 										style={
 											image.url === gallery.keyImageURL
 												? {
 														color: 'gold',
 														visibility: 'visible',
 												  }
-												: null
+												: undefined
 										}
-									></i>
+									/>
 									<EditImageModal image={image} />
 								</div>
 							)}
@@ -342,11 +363,14 @@ export default function Gallery({ setCurrentRoute }) {
 								src={image?.url}
 								alt='slider-preview'
 								onLoad={() =>
-									setImagesLength(
-										images?.length *
-											document.querySelector('#slider-preview')?.clientWidth +
-											100
-									)
+									images?.length
+										? setImagesLength(
+												images.length *
+													(document.querySelector('#slider-preview')
+														?.clientWidth ?? 0) +
+													100
+										  )
+										: undefined
 								}
 								onClick={() => setActiveImage(i)}
 								className={`slider-preview-${i} fade-in`}

@@ -6,6 +6,7 @@ import storage from './storage';
 import session from './session';
 import galleries from './galleries';
 import images from './images';
+import { useDispatch } from 'react-redux';
 
 const persistConfig = {
 	key: 'session',
@@ -30,5 +31,6 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export default store;

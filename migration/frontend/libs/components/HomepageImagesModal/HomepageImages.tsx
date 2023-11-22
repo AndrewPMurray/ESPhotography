@@ -1,12 +1,18 @@
 'use client';
 
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import { updateImage } from '@state/images';
+import { useAppDispatch } from '@state/index';
+import type { Image } from '@state/@types';
 
-export default function HomepageImages({ setShowModal, images }) {
-	const dispatch = useDispatch();
+type HomepageImagesProps = {
+	setShowModal: Dispatch<SetStateAction<boolean>>;
+	images: Image[];
+};
+
+export default function HomepageImages({ setShowModal, images }: HomepageImagesProps) {
+	const dispatch = useAppDispatch();
 	const [orders, setOrders] = useState(images);
 
 	const handleSubmit = () => {
@@ -35,7 +41,10 @@ export default function HomepageImages({ setShowModal, images }) {
 							onChange={(e) =>
 								setOrders((prev) => {
 									const newOrders = [...prev];
-									newOrders[i] = { ...newOrders[i], orderNumber: e.target.value };
+									newOrders[i] = {
+										...newOrders[i],
+										orderNumber: Number(e.target.value),
+									};
 									return newOrders;
 								})
 							}

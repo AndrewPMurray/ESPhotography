@@ -1,9 +1,16 @@
+'use client';
+
 import { useEffect } from 'react';
+
+import { useAppDispatch } from '@state/index';
+import { setCurrentRoute } from '@state/session';
+
 import './Contact.css';
 
-export default function Contact({ setCurrentRoute }) {
+export default function Contact() {
+	const dispatch = useAppDispatch();
 	useEffect(() => {
-		setCurrentRoute(window.location.href);
+		dispatch(setCurrentRoute());
 	}, [setCurrentRoute]);
 
 	return (

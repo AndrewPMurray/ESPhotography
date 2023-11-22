@@ -66,7 +66,9 @@ export const setCurrentRoute = createAsyncThunk('session/route', async () => {
 	return window.location.href;
 });
 
-const initialState = { user: null, currentRoute: '/' };
+type initialStateProps = { user: User | null; currentRoute: string };
+
+const initialState: initialStateProps = { user: null, currentRoute: '/' };
 
 const sessionSlice = createSlice({
 	name: 'session',
@@ -75,15 +77,15 @@ const sessionSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(login.fulfilled, (state, action) => {
-				state.user = action.payload || null;
+				state.user = action.payload;
 			})
 			.addCase(restoreUser.fulfilled, (state, action) => {
-				state.user = action.payload || null;
+				state.user = action.payload;
 			})
 			.addCase(signup.fulfilled, (state, action) => {
-				state.user = action.payload || null;
+				state.user = action.payload;
 			})
-			.addCase(logout.fulfilled, (state, _action) => {
+			.addCase(logout.fulfilled, () => {
 				return initialState;
 			})
 			.addCase(setCurrentRoute.fulfilled, (state, action) => {

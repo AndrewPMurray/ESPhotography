@@ -37,7 +37,7 @@ export const addGallery = createAsyncThunk('galleries/addGallery', async (galler
 
 export const updateGalleryKey = createAsyncThunk(
 	'galleries/updateGalleryKey',
-	async (galleryId, url) => {
+	async ({ galleryId, url }: { galleryId: string; url: string | null }) => {
 		const response = await csrfFetch(`/api/galleries/${galleryId}/key`, {
 			method: 'PUT',
 			headers: {
@@ -85,7 +85,7 @@ export const editGallery = createAsyncThunk('galleries/editGallery', async (gall
 
 export const deleteGallery = createAsyncThunk(
 	'galleries/deleteGallery',
-	async (galleryId: string) => {
+	async (galleryId: string | number) => {
 		const response = await csrfFetch(`/api/galleries/${galleryId}`, {
 			method: 'DELETE',
 		});
@@ -111,11 +111,13 @@ const galleriesSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(loadGalleries.fulfilled, (state, action) => {
+			.addCase(loadGalleries.fulfilled, (_state, action) => {
+				if (!action?.payload) return [];
 				return orderGalleries(action.payload);
 			})
 			.addCase(loadSingleGallery.fulfilled, (state, action) => {
-				return orderGalleries(action.payload);
+				if (!action?.payload) return [];
+				return [action.payload];
 			})
 			.addCase(addGallery.fulfilled, (state, action) => {
 				return orderGalleries([...state, action.payload]);
@@ -135,8 +137,8 @@ const galleriesSlice = createSlice({
 			.addCase(editGallery.fulfilled, (state, action) => {
 				const newState = [...state];
 				const ind = newState.findIndex((gallery) => gallery.id === action.payload.id);
-				newState.splice(ind, 1);
-				return orderGalleries([...newState, action.payload]);
+				newState[ind] = action.payload;
+				return orderGalleries(newState);
 			})
 			.addCase(deleteGallery.fulfilled, (state, action) => {
 				if (action.payload) {

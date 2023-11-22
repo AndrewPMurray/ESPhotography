@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Modal } from '@context/Modal';
-import GalleryForm from './GalleryForm';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
-const GalleryFormModal = ({ gallery }) => {
+import { Modal } from '@context/Modal';
+import { Gallery } from '@state/@types/galleries';
+
+import GalleryForm from './GalleryForm';
+
+const GalleryFormModal = ({ gallery }: { gallery?: Gallery }) => {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
