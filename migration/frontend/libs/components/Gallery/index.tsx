@@ -282,7 +282,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														<FontAwesomeIcon
 															id='set-key-image'
 															icon={faKey}
-															className='fa-solid fa-key'
+															className='fa-solid fa-key fa-outline'
 															onClick={() =>
 																updateKeyImage(image.url ?? '')
 															}
@@ -291,6 +291,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 																	? {
 																			color: 'gold',
 																			visibility: 'visible',
+																			filter: 'none',
 																	  }
 																	: undefined
 															}
@@ -345,13 +346,14 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									<FontAwesomeIcon
 										id='set-key-image'
 										icon={faKey}
-										className='fa-solid fa-key'
+										className='fa-solid fa-key fa-outline'
 										onClick={() => updateKeyImage(image.url ?? '')}
 										style={
 											image.url === gallery.keyImageURL
 												? {
 														color: 'gold',
 														visibility: 'visible',
+														filter: 'none',
 												  }
 												: undefined
 										}

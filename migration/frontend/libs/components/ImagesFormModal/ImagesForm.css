@@ -20,7 +20,7 @@
 	position: absolute;
 	top: 2px;
 	right: 3px;
-	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 	cursor: pointer;
 }
 

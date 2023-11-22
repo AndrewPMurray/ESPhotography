@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400&family=Work+Sans:wght@100;200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400&display=swap');
 
 /* CSS Reset */
 html,
@@ -88,7 +88,7 @@ video {
 	font-size: 100%;
 	vertical-align: baseline;
 	font-family: 'work sans';
-	font-weight: 200;
+	font-weight: 300;
 	color: black;
 }
 
@@ -147,6 +147,10 @@ q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.fa-outline {
+	filter: drop-shadow(0px 0px 2px white);
 }
 
 /* Animations */
@@ -254,7 +258,7 @@ table {
 	opacity: 0.5;
 	letter-spacing: 4px;
 	text-transform: uppercase;
-	font-weight: 200;
+	font-weight: 300;
 }
 
 #slide-left,

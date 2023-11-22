@@ -14,7 +14,7 @@ const EditImageModal = ({ image }: { image: Image }) => {
 			<FontAwesomeIcon
 				id='edit-image'
 				icon={faPen}
-				className='fa-solid fa-pen'
+				className='fa-solid fa-pen fa-outline'
 				onClick={() => setShowModal(true)}
 			/>
 			{showModal && (

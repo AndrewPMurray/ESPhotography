@@ -16,7 +16,7 @@ export default function Footer() {
 						alt='signature'
 					/>
 					<p id='disclaimer-text'>
-						All Images and Original Text &#169; 2020-2022 Elmar Schmittou{' '}
+						All Images and Original Text &#169; 2020-2024 Elmar Schmittou{' '}
 					</p>
 					<a
 						href='https://instagram.com/elmarschmittou'

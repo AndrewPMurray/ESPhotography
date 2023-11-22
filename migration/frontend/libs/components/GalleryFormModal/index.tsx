@@ -17,7 +17,7 @@ const GalleryFormModal = ({ gallery }: { gallery?: Gallery }) => {
 				<FontAwesomeIcon
 					id='edit-gallery'
 					icon={faPen}
-					className='fa-solid fa-pen'
+					className='fa-solid fa-pen fa-outline'
 					onClick={() => setShowModal(true)}
 				/>
 			) : (
