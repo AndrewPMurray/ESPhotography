@@ -30,6 +30,11 @@ const validateGallery = [
 	handleValidationErrors,
 ];
 
+const validateEditedGallery = [
+	check('title').notEmpty().withMessage('Title is required'),
+	handleValidationErrors,
+];
+
 const defaultGallerySort = async (_req, _res, next) => {
 	const galleries = await Gallery.findAll({
 		order: [['orderNumber', 'ASC']],
@@ -97,7 +102,7 @@ router.post(
 router.put(
 	'/:id',
 	csrfProtection,
-	validateGallery,
+	validateEditedGallery,
 	asyncHandler(async (req, res) => {
 		const { id, title, description, orderNumber } = req.body;
 		const gallery = await Gallery.findByPk(id);
