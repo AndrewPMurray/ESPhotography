@@ -28,6 +28,9 @@
 		"redux-persist": "^6.0.0",
 		"redux-thunk": "^2.3.0",
 		"tailwindcss": "^3.3.0",
+		"typescript": "^5",
+		"eslint": "^8",
+		"eslint-config-next": "14.0.3",
 		"seamless-scroll-polyfill": "^2.3.4"
 	},
 	"devDependencies": {
@@ -38,10 +41,7 @@
 		"@types/react-dom": "^18",
 		"@types/react-redux": "^7.1.30",
 		"autoprefixer": "^10.0.1",
-		"eslint": "^8",
-		"eslint-config-next": "14.0.3",
-		"postcss": "^8",
-		"typescript": "^5"
+		"postcss": "^8"
 	},
 	"browserslist": {
 		"production": [
