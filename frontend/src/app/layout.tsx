@@ -15,8 +15,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
 	title: 'Elmar Schmittou Photography',
 	description: 'Professional photographs by Indianapolis based photographer, Elmar Schmittou.',
-	generator:
+	keywords:
 		'Photography Photographer Photo Photos shoot fine art prints indy Indianapolis Indiana circle city Midwest portrait portraits family pet studio dog cat couple couples elope elopement senior high school portraits newborn candid street style black white nature headshot commissions Elmar schmittou best talented skilled classy',
+	robots: 'index, follow',
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
