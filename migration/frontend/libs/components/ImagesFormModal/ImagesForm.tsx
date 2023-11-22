@@ -37,14 +37,6 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 			}
 		}
 		images.forEach(async (image, i) => {
-			console.log({
-				title: title[i],
-				description: description[i],
-				galleryId,
-				isHomepageImage: isHomepage[i],
-				orderNumber: images.length + i,
-				image,
-			});
 			await dispatch(
 				addImage({
 					title: title[i],
