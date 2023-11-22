@@ -10,10 +10,10 @@ A photography portfolio made for a professional photographer, Elmar Schmittou
 
 ## Technologies Used
 
- - **Backend:** JavaScript, Express, aws-sdk
- - **Frontend:** JavaScript, React/Redux, React-Drag-And-Drop(for image upload functionality), react-beautiful-dnd (for drag and drop functionality)
- - **Database:** PostgresSQL
- - **Image hosting:** AWS/S3
+ - **Backend:** JavaScript, Express, minio-s3-sdk
+ - **Frontend:** TypeScript, Next.js v14 w/ App Router, React-Drag-And-Drop(for image upload functionality), react-beautiful-dnd (for drag and drop functionality for sorting images & galleries when logged in as admin user)
+ - **Database:** PostgreSQL
+ - **Image hosting:** Minio/S3
 
 ## Features
 
@@ -28,16 +28,13 @@ A photography portfolio made for a professional photographer, Elmar Schmittou
 
  1. Clone this repo
 	 - `git clone git@github.com:AndrewPMurray/GameMasterStudio.git`
- 2. Install dependencies for backend 
-	 - `npm install`
- 3. Install dependencies for frontend
-	 - `cd frontend`
+ 2. Install dependencies for backend & frontend
 	 - `npm install`
  4. Create PostgreSQL user
 	 - `CREATE USER esphotography_app WITH CREATEDB PASSWORD '<password>'`
  5. Create PostgreSQL database
 	 - `CREATE DATABASE esphotography_db WITH OWNER esphotography_app
-6. Create a `.env` file in the backend directory based on the `.env.example` file
+6. Create an `.env` file in the backend directory based on the `.env.example` file
 7. In `.env` file:
 	- Replace 'password' in DATABASE_URL with your chosen password
 	- Enter a secure combination of characters for your SECRET_KEY
@@ -49,7 +46,7 @@ A photography portfolio made for a professional photographer, Elmar Schmittou
 9. Start backend server in root directory
 	- `npm start`
 10. Start frontend server in `frontend` directory
-	- `npm start`
+	- `npm run dev`
 11. In your browser go to `localhost:3000`
 12. You may login by typing in `localhost:3000/login` (Use the username and password you provided as your "seeder username" and "seeder password" in step 7)
 
