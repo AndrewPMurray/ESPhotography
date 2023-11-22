@@ -10,7 +10,7 @@
 		"dev:frontend": "npm install --prefix frontend start",
 		"sequelize": "npm run --prefix backend sequelize",
 		"sequelize-cli": "npm run --prefix backend sequelize-cli",
-		"start": "npm start --prefix backend"
+		"start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\" "
 	},
 	"repository": {
 		"type": "git",
@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/AndrewPMurray/ESPhotography",
 	"dependencies": {
+		"concurrently": "^8.2.2",
 		"react-scroll": "^1.8.7"
 	}
 }
