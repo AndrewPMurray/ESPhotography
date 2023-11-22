@@ -33,7 +33,7 @@ export default function GalleryList() {
 
 	useEffect(() => {
 		dispatch(setCurrentRoute());
-	}, [setCurrentRoute]);
+	}, [dispatch]);
 
 	const updateGalleryOrder = async ({
 		source,

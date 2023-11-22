@@ -13,13 +13,14 @@ import { loadSingleGallery, updateGalleryKey } from '@state/galleries';
 import { updateImage, deleteImage } from '@state/images';
 import { RootState, useAppDispatch } from '@state/index';
 import { setCurrentRoute } from '@state/session';
-import { Image } from '@state/@types';
+import type { Image as ImageType } from '@state/@types';
 
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
 import DescriptionModal from './DescriptionModal';
 
 import './Gallery.css';
+import Image from 'next/image';
 
 export default function Gallery({ params }: { params: { galleryId: string } }) {
 	const dispatch = useAppDispatch();
@@ -68,9 +69,9 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 
 	useEffect(() => {
 		dispatch(setCurrentRoute());
-	}, []);
+	}, [dispatch]);
 
-	const handleDelete = (image: Image, i: number) => {
+	const handleDelete = (image: ImageType, i: number) => {
 		if (!image.id) return;
 		dispatch(deleteImage(image.id));
 		if (image.url === gallery?.keyImageURL && galleryId) {
@@ -176,9 +177,9 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 					</div>
 					{gallery?.images?.map((image, i) => (
 						<div id='gallery-image-container' key={`gallery-image-${i}`}>
-							<img
+							<Image
 								id='gallery-image'
-								src={image.url}
+								src={image?.url ? image.url : ''}
 								alt='focused'
 								style={
 									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
@@ -299,9 +300,9 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														<EditImageModal image={image} />
 													</div>
 												)}
-												<img
+												<Image
 													id='slider-preview'
-													src={image?.url}
+													src={image?.url ? image.url : ''}
 													alt='slider-preview'
 													onClick={() => setActiveImage(i)}
 													onLoad={() =>
@@ -361,9 +362,9 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									<EditImageModal image={image} />
 								</div>
 							)}
-							<img
+							<Image
 								id='slider-preview'
-								src={image?.url}
+								src={image?.url ? image.url : ''}
 								alt='slider-preview'
 								onLoad={() =>
 									images?.length

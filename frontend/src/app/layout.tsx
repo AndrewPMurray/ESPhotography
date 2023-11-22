@@ -34,3 +34,5 @@ export default function RootLayout({ children }: PropsWithChildren) {
 		</html>
 	);
 }
+
+export const dynamic = 'force-static';
