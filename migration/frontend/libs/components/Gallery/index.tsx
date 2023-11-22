@@ -71,6 +71,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 	}, []);
 
 	const handleDelete = (image: Image, i: number) => {
+		if (!image.id) return;
 		dispatch(deleteImage(image.id));
 		if (image.url === gallery?.keyImageURL && galleryId) {
 			dispatch(updateGalleryKey({ galleryId, url: null }));

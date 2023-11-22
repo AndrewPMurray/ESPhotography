@@ -19,7 +19,9 @@ export const loadHomeImages = createAsyncThunk('images/loadHomeImages', async ()
 });
 
 export const addImage = createAsyncThunk('images/addImage', async (payload: Image) => {
-	const { title, description, galleryId, isHomepageImage, image } = payload;
+	const { title, description = '', galleryId, isHomepageImage, image } = payload;
+	if (!image || !galleryId) return;
+
 	const formData = new FormData();
 	formData.append('image', image);
 	formData.append('title', title);

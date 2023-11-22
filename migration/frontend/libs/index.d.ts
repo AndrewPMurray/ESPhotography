@@ -3,5 +3,3 @@ interface Window {
 	store: any;
 	sessionActions: any;
 }
-
-declare module 'redux-persist/lib/storage';
