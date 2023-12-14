@@ -27,12 +27,12 @@ export const metadata: Metadata = {
 				indianapolis couples photography,elope photographs indiana,elopement photography,
 				senior high school portraits,high school portraits,school portraits,newborn photography,
 				newborn photographer,indianapolis newborn photographer,candid photos,candid photographs,
-				candid photography,street style photographs,street style photography,black white photography
-				,black white photographs,nature photography,photo headshot,photography commissions,Elmar,
+				candid photography,street style photographs,street style photography,black white photography,
+				black white photographs,nature photography,photo headshot,photography commissions,Elmar,
 				elmar schmittou,best photographer,best indianapolis photographer,best indianapolis photography,
 				talented photographer,skilled photographer,skilled indiana photographer,
 				classy photographs indianapolis,classy photography indiana
-				`,
+			  `,
 	robots: 'index, follow',
 };
 
