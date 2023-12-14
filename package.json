@@ -24,7 +24,6 @@
 	},
 	"homepage": "https://github.com/AndrewPMurray/ESPhotography",
 	"dependencies": {
-		"concurrently": "^8.2.2",
-		"react-scroll": "^1.8.7"
+		"concurrently": "^8.2.2"
 	}
 }
