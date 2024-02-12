@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { WheelEvent, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -23,6 +23,7 @@ import './Gallery.css';
 import Image from 'next/image';
 
 export default function Gallery({ params }: { params: { galleryId: string } }) {
+	const gallerySliderRef = useRef<HTMLDivElement>(null);
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const { galleryId } = params ?? {};
@@ -105,6 +106,16 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 		});
 	};
 
+	const handleScroll = (e: WheelEvent<HTMLDivElement>) => {
+		e.stopPropagation();
+
+		const container = gallerySliderRef.current;
+		if (container) {
+			container.scrollLeft += e.deltaY;
+			window.scrollY += 0;
+		}
+	};
+
 	return (
 		<div id='gallery-images-container'>
 			{user && <ImagesFormModal galleryId={galleryId} />}
@@ -150,7 +161,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							icon={faChevronRight}
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
-								if (activeImage === images?.length ?? 0 - 1) {
+								if (activeImage === (images?.length ?? 0) - 1) {
 									const sliderPreviewElement =
 										document.querySelector(`.slider-preview-0`);
 									setActiveImage(0);
@@ -336,7 +347,13 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 					</Droppable>
 				</DragDropContext>
 			) : (
-				<div id='images-slider'>
+				<div
+					id='images-slider'
+					ref={gallerySliderRef}
+					onWheel={handleScroll}
+					onMouseEnter={(e) => (document.body.style.overflow = 'hidden')}
+					onMouseLeave={(e) => (document.body.style.overflow = '')}
+				>
 					{gallery?.images?.map((image, i) => (
 						<div id='slider-div' key={`slider-preview-${i}`}>
 							{user && (
