@@ -129,8 +129,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							icon={faChevronLeft}
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
-								console.log(activeImage);
-								console.log(images?.length);
 								if (activeImage === 0 && images?.length) {
 									const sliderPreviewElement = document.querySelector(
 										`.slider-preview-${images.length - 1}`

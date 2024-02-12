@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import './Footer.css';
+import Image from 'next/image';
 
 export default function Footer() {
 	// const fileTypes = ['JPG', 'PNG', ' JPEG', 'jpg', 'jpeg'];
@@ -10,7 +11,7 @@ export default function Footer() {
 		<footer id='footer-container' className='fade-in'>
 			<div id='footer-links-container'>
 				<div id='footer-copyright'>
-					<img
+					<Image
 						id='footer-signature'
 						src='../images/signature-inverted.png'
 						alt='signature'

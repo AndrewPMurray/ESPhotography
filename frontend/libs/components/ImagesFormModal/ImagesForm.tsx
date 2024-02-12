@@ -7,6 +7,7 @@ import { addImage } from '@state/images';
 import { useAppDispatch } from '@state/index';
 
 import './ImagesForm.css';
+import Image from 'next/image';
 
 type ImagesFormProps = {
 	setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -112,7 +113,7 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 						>
 							X
 						</p>
-						<img id='image-preview' src={URL.createObjectURL(image)} alt='preview' />
+						<Image id='image-preview' src={URL.createObjectURL(image)} alt='preview' />
 						<input
 							type='text'
 							placeholder='title'

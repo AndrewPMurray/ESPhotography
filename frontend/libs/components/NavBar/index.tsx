@@ -10,6 +10,7 @@ import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import Image from 'next/image';
 
 export default function NavBar() {
 	const { user, currentRoute } = useSelector((state: RootState) => state.session);
@@ -19,7 +20,7 @@ export default function NavBar() {
 			<nav>
 				<div id='navbar-links'>
 					<Link href='/'>
-						<img id='signature' src='../images/signature.png' alt='signature' />
+						<Image id='signature' src='../images/signature.png' alt='signature' />
 					</Link>
 					<div id='navbar-sub-links'>
 						<Link

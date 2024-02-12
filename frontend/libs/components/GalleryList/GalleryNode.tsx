@@ -2,6 +2,7 @@ import Link from 'next/link';
 import GalleryFormModal from '../GalleryFormModal';
 import { Gallery, User } from '@state/@types';
 import { DraggableProvided } from 'react-beautiful-dnd';
+import Image from 'next/image';
 
 type GalleryNodeProps = {
 	gallery: Gallery;
@@ -27,7 +28,7 @@ export default function GalleryNode({ gallery, user, provided, i }: GalleryNodeP
 				}}
 			>
 				<Link href={`/galleries/${gallery.id}`}>
-					<img
+					<Image
 						id='gallery-node-image'
 						src={
 							gallery.keyImageURL

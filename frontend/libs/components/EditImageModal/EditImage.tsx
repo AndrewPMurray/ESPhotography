@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux';
 
 import { updateImage } from '@state/images';
 import { useAppDispatch } from '@state/index';
-import type { Image } from '@state/@types';
+import type { Image as ImageType } from '@state/@types';
 
 import './EditImage.css';
+import Image from 'next/image';
 
 type ErrorType = {
 	title?: string;
@@ -17,7 +18,7 @@ export default function EditImage({
 	image,
 }: {
 	setShowModal: Dispatch<SetStateAction<boolean>>;
-	image: Image;
+	image: ImageType;
 }) {
 	const dispatch = useAppDispatch();
 	const [errors, setErrors] = useState<ErrorType>({});
@@ -51,7 +52,7 @@ export default function EditImage({
 
 	return (
 		<div id='edit-image-form-container'>
-			<img id='edit-image-preview' src={image.url} alt='edit-preview' />
+			<Image id='edit-image-preview' src={image.url ?? ''} alt='edit-preview' />
 			<form id='edit-image-form' onSubmit={handleSubmit}>
 				<div id='edit-image-title'>
 					<label htmlFor='title'>Title</label>

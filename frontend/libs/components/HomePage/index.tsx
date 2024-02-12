@@ -13,6 +13,7 @@ import { setCurrentRoute } from '@state/session';
 import HomepageImagesModal from '../HomepageImagesModal';
 
 import './HomePage.css';
+import Image from 'next/image';
 
 export default function HomePage() {
 	const dispatch = useAppDispatch();
@@ -51,9 +52,9 @@ export default function HomePage() {
 				>
 					{sortedImages?.map((image, i) => (
 						<div id='home-image-container' key={`gallery-image-${i}`}>
-							<img
+							<Image
 								id='home-image'
-								src={image.url}
+								src={image.url ?? ''}
 								alt='focused'
 								style={
 									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
