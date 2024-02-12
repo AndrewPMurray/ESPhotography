@@ -390,6 +390,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							)}
 							<div id='slider-preview'>
 								<Image
+									id='slider-preview'
 									className={`slider-preview-${i} fade-in`}
 									src={image?.url ? image.url : ''}
 									alt='slider-preview'
