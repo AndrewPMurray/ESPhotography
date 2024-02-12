@@ -11,9 +11,14 @@ import './NavBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import Image from 'next/legacy/image';
+import { useEffect, useLayoutEffect } from 'react';
 
 export default function NavBar() {
 	const { user, currentRoute } = useSelector((state: RootState) => state.session);
+
+	useLayoutEffect(() => {
+		window.scrollTo(0, 0);
+	}, [currentRoute]);
 
 	return (
 		<div id='navbar-container' className='fade-in'>
