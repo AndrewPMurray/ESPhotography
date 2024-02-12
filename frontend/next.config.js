@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	distDir: 'build',
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'minio.domainofaka.app',
+			},
+		],
+	},
 	async rewrites() {
 		return [
 			{
