@@ -9,9 +9,9 @@
 #edit-image-preview {
 	height: calc(50% - 8px);
 	width: 100%;
-	object-fit: contain;
 	margin-bottom: 30px;
 	align-self: center;
+	position: relative;
 }
 
 #edit-image-title,

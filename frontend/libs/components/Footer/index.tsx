@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import './Footer.css';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 export default function Footer() {
 	// const fileTypes = ['JPG', 'PNG', ' JPEG', 'jpg', 'jpeg'];
@@ -11,11 +11,9 @@ export default function Footer() {
 		<footer id='footer-container' className='fade-in'>
 			<div id='footer-links-container'>
 				<div id='footer-copyright'>
-					<Image
-						id='footer-signature'
-						src='../images/signature-inverted.png'
-						alt='signature'
-					/>
+					<div id='footer-signature'>
+						<Image src='/images/signature-inverted.png' alt='signature' layout='fill' />
+					</div>
 					<p id='disclaimer-text'>
 						All Images and Original Text &#169; 2020-2024 Elmar Schmittou{' '}
 					</p>

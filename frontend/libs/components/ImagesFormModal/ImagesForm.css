@@ -50,6 +50,7 @@
 	max-height: 200px;
 	max-width: 200px;
 	margin-bottom: 5px;
+	position: relative;
 }
 
 #add-photos-button {

@@ -20,7 +20,7 @@ import EditImageModal from '../EditImageModal';
 import DescriptionModal from './DescriptionModal';
 
 import './Gallery.css';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 export default function Gallery({ params }: { params: { galleryId: string } }) {
 	const gallerySliderRef = useRef<HTMLDivElement>(null);
@@ -186,14 +186,21 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 					</div>
 					{gallery?.images?.map((image, i) => (
 						<div id='gallery-image-container' key={`gallery-image-${i}`}>
-							<Image
-								id='gallery-image'
-								src={image?.url ? image.url : ''}
-								alt='focused'
-								style={
-									activeImage === i ? { opacity: 1, zIndex: 5 } : { opacity: 0 }
-								}
-							/>
+							<div id='gallery-image'>
+								<Image
+									id='gallery-image'
+									src={image?.url ? image.url : ''}
+									alt='focused'
+									style={
+										activeImage === i
+											? { opacity: 1, zIndex: 5 }
+											: { opacity: 0 }
+									}
+									layout='fill'
+									objectFit='contain'
+									objectPosition='bottom'
+								/>
+							</div>
 							<div id='title-description-container'>
 								<p
 									id='gallery-image-title'
@@ -309,32 +316,36 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														<EditImageModal image={image} />
 													</div>
 												)}
-												<Image
-													id='slider-preview'
-													src={image?.url ? image.url : ''}
-													alt='slider-preview'
-													onClick={() => setActiveImage(i)}
-													onLoad={() =>
-														images?.length
-															? setImagesLength(
-																	images.length *
-																		(document.querySelector(
-																			'#slider-preview'
-																		)?.clientWidth ?? 0) +
-																		100
-															  )
-															: undefined
-													}
-													className={`slider-preview-${i} fade-in`}
-													style={
-														activeImage === i
-															? {
-																	border: '5px solid #C0C0C0',
-																	animationDuration: '500ms',
-															  }
-															: { animationDuration: '500ms' }
-													}
-												/>
+												<div id='slider-preview'>
+													<Image
+														className={`slider-preview-${i} fade-in`}
+														src={image?.url ? image.url : ''}
+														alt='slider-preview'
+														onClick={() => setActiveImage(i)}
+														onLoad={() =>
+															images?.length
+																? setImagesLength(
+																		images.length *
+																			(document.querySelector(
+																				'#slider-preview'
+																			)?.clientWidth ?? 0) +
+																			100
+																  )
+																: undefined
+														}
+														style={
+															activeImage === i
+																? {
+																		border: '5px solid #C0C0C0',
+																		animationDuration: '500ms',
+																  }
+																: { animationDuration: '500ms' }
+														}
+														layout='fill'
+														objectFit='cover'
+														objectPosition='center'
+													/>
+												</div>
 											</div>
 										)}
 									</Draggable>
@@ -377,31 +388,35 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									<EditImageModal image={image} />
 								</div>
 							)}
-							<Image
-								id='slider-preview'
-								src={image?.url ? image.url : ''}
-								alt='slider-preview'
-								onLoad={() =>
-									images?.length
-										? setImagesLength(
-												images.length *
-													(document.querySelector('#slider-preview')
-														?.clientWidth ?? 0) +
-													100
-										  )
-										: undefined
-								}
-								onClick={() => setActiveImage(i)}
-								className={`slider-preview-${i} fade-in`}
-								style={
-									activeImage === i
-										? {
-												border: '5px solid #C0C0C0',
-												animationDuration: '500ms',
-										  }
-										: { animationDuration: '500ms' }
-								}
-							/>
+							<div id='slider-preview'>
+								<Image
+									className={`slider-preview-${i} fade-in`}
+									src={image?.url ? image.url : ''}
+									alt='slider-preview'
+									onLoad={() =>
+										images?.length
+											? setImagesLength(
+													images.length *
+														(document.querySelector('#slider-preview')
+															?.clientWidth ?? 0) +
+														100
+											  )
+											: undefined
+									}
+									onClick={() => setActiveImage(i)}
+									style={
+										activeImage === i
+											? {
+													border: '5px solid #C0C0C0',
+													animationDuration: '500ms',
+											  }
+											: { animationDuration: '500ms' }
+									}
+									layout='fill'
+									objectFit='cover'
+									objectPosition='center'
+								/>
+							</div>
 						</div>
 					))}
 				</div>

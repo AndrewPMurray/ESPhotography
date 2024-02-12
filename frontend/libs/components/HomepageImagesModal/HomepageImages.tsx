@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { updateImage } from '@state/images';
 import { useAppDispatch } from '@state/index';
 import type { Image as ImageType } from '@state/@types';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 type HomepageImagesProps = {
 	setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -34,7 +34,15 @@ export default function HomepageImages({ setShowModal, images }: HomepageImagesP
 			<div id='homepage-images-container'>
 				{images.map((image, i) => (
 					<div id='homepage-image-card' key={`homepage-image-${i}`}>
-						<Image id='homepage-sort-image' src={image.url ?? ''} alt='homepage' />
+						<div id='homepage-sort-image'>
+							<Image
+								src={image.url ?? ''}
+								alt='homepage'
+								layout='fill'
+								objectFit='cover'
+								objectPosition='center'
+							/>
+						</div>
 						<input
 							type='number'
 							placeholder='order'

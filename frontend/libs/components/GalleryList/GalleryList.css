@@ -35,10 +35,9 @@
 #gallery-node-image {
 	height: 325px;
 	width: 325px;
-	object-fit: cover;
-	object-position: center;
 	border: 5px solid transparent;
 	transition-duration: 300ms;
+	position: relative;
 }
 
 #gallery-title {

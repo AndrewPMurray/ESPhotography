@@ -28,9 +28,11 @@
 
 #footer-signature {
 	height: 120px;
-	padding-bottom: 20px;
+	width: 360px;
+	margin-bottom: 20px;
 	border-radius: 5px;
 	transition-duration: 200ms;
+	position: relative;
 }
 
 #disclaimer-text {
@@ -99,7 +101,9 @@
 		width: 100%;
 	}
 	#footer-signature {
-		max-width: 75vw;
+		min-width: 360px;
+		width: 360px;
+		max-width: 360px;
 	}
 	#footer-links {
 		flex-wrap: wrap;

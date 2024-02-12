@@ -6,7 +6,7 @@ import { useAppDispatch } from '@state/index';
 import type { Image as ImageType } from '@state/@types';
 
 import './EditImage.css';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 type ErrorType = {
 	title?: string;
@@ -52,7 +52,9 @@ export default function EditImage({
 
 	return (
 		<div id='edit-image-form-container'>
-			<Image id='edit-image-preview' src={image.url ?? ''} alt='edit-preview' />
+			<div id='edit-image-preview'>
+				<Image src={image.url ?? ''} alt='edit-preview' objectFit='contain' layout='fill' />
+			</div>
 			<form id='edit-image-form' onSubmit={handleSubmit}>
 				<div id='edit-image-title'>
 					<label htmlFor='title'>Title</label>

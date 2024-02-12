@@ -2,7 +2,7 @@ import Link from 'next/link';
 import GalleryFormModal from '../GalleryFormModal';
 import { Gallery, User } from '@state/@types';
 import { DraggableProvided } from 'react-beautiful-dnd';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 type GalleryNodeProps = {
 	gallery: Gallery;
@@ -28,18 +28,22 @@ export default function GalleryNode({ gallery, user, provided, i }: GalleryNodeP
 				}}
 			>
 				<Link href={`/galleries/${gallery.id}`}>
-					<Image
-						id='gallery-node-image'
-						src={
-							gallery.keyImageURL
-								? gallery.keyImageURL
-								: 'https://minio.domainofaka.app/esphotography/placeholder-image.png'
-						}
-						alt={gallery.title}
-						style={{
-							opacity: 0,
-						}}
-					/>
+					<div id='gallery-node-image'>
+						<Image
+							src={
+								gallery.keyImageURL
+									? gallery.keyImageURL
+									: 'https://minio.domainofaka.app/esphotography/placeholder-image.png'
+							}
+							alt={gallery.title}
+							style={{
+								opacity: 0,
+							}}
+							objectFit='cover'
+							objectPosition='center'
+							layout='fill'
+						/>
+					</div>
 					<p id='gallery-title'>{gallery.title}</p>
 				</Link>
 				{user && <GalleryFormModal gallery={gallery} />}

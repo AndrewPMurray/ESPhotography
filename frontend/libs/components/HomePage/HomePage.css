@@ -5,6 +5,7 @@
 #home-slideshow {
 	height: calc(80vw - 50px);
 	max-height: 1080px;
+	min-height: 500px;
 	position: relative;
 }
 
@@ -12,8 +13,7 @@
 	position: absolute;
 	width: 100vw;
 	height: calc(80vw - 50px);
+	min-height: 480px;
 	max-height: 1080px;
-	object-fit: cover;
-	object-position: center;
-	transition-duration: 1000ms;
+	transition-duration: 750ms;
 }
