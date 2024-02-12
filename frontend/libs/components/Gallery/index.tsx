@@ -129,30 +129,30 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							icon={faChevronLeft}
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
-								if (activeImage === 0) {
-									if (images?.length) {
-										const sliderPreviewElement = document.querySelector(
-											`.slider-preview-${images.length - 1}`
-										);
-										setActiveImage(images.length - 1);
-										if (sliderPreviewElement)
-											scrollIntoView(sliderPreviewElement, {
-												block: 'end',
-												inline: 'nearest',
-												behavior: 'smooth',
-											});
-									} else {
-										const sliderPreviewElement = document.querySelector(
-											`.slider-preview-${activeImage - 1}`
-										);
-										setActiveImage((prev) => prev - 1);
-										if (sliderPreviewElement)
-											scrollIntoView(sliderPreviewElement, {
-												block: 'end',
-												inline: 'nearest',
-												behavior: 'smooth',
-											});
-									}
+								console.log(activeImage);
+								console.log(images?.length);
+								if (activeImage === 0 && images?.length) {
+									const sliderPreviewElement = document.querySelector(
+										`.slider-preview-${images.length - 1}`
+									);
+									setActiveImage(images.length - 1);
+									if (sliderPreviewElement)
+										scrollIntoView(sliderPreviewElement, {
+											block: 'end',
+											inline: 'nearest',
+											behavior: 'smooth',
+										});
+								} else {
+									const sliderPreviewElement = document.querySelector(
+										`.slider-preview-${activeImage - 1}`
+									);
+									setActiveImage((prev) => prev - 1);
+									if (sliderPreviewElement)
+										scrollIntoView(sliderPreviewElement, {
+											block: 'end',
+											inline: 'nearest',
+											behavior: 'smooth',
+										});
 								}
 							}}
 						/>
