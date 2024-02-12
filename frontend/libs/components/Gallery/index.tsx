@@ -188,7 +188,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 					</div>
 					{gallery?.images?.map((image, i) => (
 						<div id='gallery-image-container' key={`gallery-image-${i}`}>
-							<img
+							<Image
 								id='gallery-image'
 								src={image?.url ? image.url : ''}
 								alt='focused'
@@ -311,7 +311,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														<EditImageModal image={image} />
 													</div>
 												)}
-												<img
+												<Image
 													id='slider-preview'
 													src={image?.url ? image.url : ''}
 													alt='slider-preview'
@@ -379,7 +379,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									<EditImageModal image={image} />
 								</div>
 							)}
-							<img
+							<Image
 								id='slider-preview'
 								src={image?.url ? image.url : ''}
 								alt='slider-preview'
