@@ -54,6 +54,7 @@ export default function HomePage() {
 						<div id='home-image-container' key={`gallery-image-${i}`}>
 							<div id='home-image'>
 								<Image
+									id='home-image'
 									src={image.url ?? ''}
 									alt='focused'
 									style={
