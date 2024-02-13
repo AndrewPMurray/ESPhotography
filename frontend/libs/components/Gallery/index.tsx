@@ -234,10 +234,8 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 			{imagesLength > windowLength && (
 				<>
 					<div id='sliders'>
-						<FontAwesomeIcon
+						<div
 							id='slider-slide-left'
-							icon={faChevronLeft}
-							className='fa-solid fa-chevron-left'
 							onClick={() => {
 								const imagesSlider = document.querySelector('#images-slider');
 								if (imagesSlider) {
@@ -247,11 +245,21 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									});
 								}
 							}}
-						/>
-						<FontAwesomeIcon
+							onMouseEnter={(e) => (document.body.style.overflow = 'hidden')}
+							onMouseLeave={(e) => (document.body.style.overflow = '')}
+						>
+							<FontAwesomeIcon
+								icon={faChevronLeft}
+								style={{
+									fontSize: '80px',
+									textAlign: 'center',
+									transform: 'translateY(30%)',
+								}}
+								className='fa-solid fa-chevron-left'
+							/>
+						</div>
+						<div
 							id='slider-slide-right'
-							icon={faChevronRight}
-							className='fa-solid fa-chevron-right'
 							onClick={() => {
 								const imagesSlider = document.querySelector('#images-slider');
 								if (imagesSlider) {
@@ -261,7 +269,19 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									});
 								}
 							}}
-						/>
+							onMouseEnter={(e) => (document.body.style.overflow = 'hidden')}
+							onMouseLeave={(e) => (document.body.style.overflow = '')}
+						>
+							<FontAwesomeIcon
+								icon={faChevronRight}
+								style={{
+									fontSize: '80px',
+									textAlign: 'center',
+									transform: 'translateY(30%)',
+								}}
+								className='fa-solid fa-chevron-right'
+							/>
+						</div>
 					</div>
 				</>
 			)}
@@ -316,7 +336,18 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														<EditImageModal image={image} />
 													</div>
 												)}
-												<div id='slider-preview'>
+												<div
+													id='slider-preview'
+													className={`slider-preview-${i} fade-in`}
+													style={
+														activeImage === i
+															? {
+																	border: '5px solid #C0C0C0',
+																	animationDuration: '500ms',
+															  }
+															: { animationDuration: '500ms' }
+													}
+												>
 													<Image
 														className={`slider-preview-${i} fade-in`}
 														src={image?.url ? image.url : ''}
@@ -332,14 +363,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 																			100
 																  )
 																: undefined
-														}
-														style={
-															activeImage === i
-																? {
-																		border: '5px solid #C0C0C0',
-																		animationDuration: '500ms',
-																  }
-																: { animationDuration: '500ms' }
 														}
 														layout='fill'
 														objectFit='cover'
@@ -388,7 +411,18 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									<EditImageModal image={image} />
 								</div>
 							)}
-							<div id='slider-preview'>
+							<div
+								id='slider-preview'
+								className={`slider-preview-${i} fade-in`}
+								style={
+									activeImage === i
+										? {
+												border: '3px solid #606060',
+												animationDuration: '500ms',
+										  }
+										: { animationDuration: '500ms' }
+								}
+							>
 								<Image
 									id='slider-preview'
 									className={`slider-preview-${i} fade-in`}
@@ -405,14 +439,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 											: undefined
 									}
 									onClick={() => setActiveImage(i)}
-									style={
-										activeImage === i
-											? {
-													border: '5px solid #C0C0C0',
-													animationDuration: '500ms',
-											  }
-											: { animationDuration: '500ms' }
-									}
 									layout='fill'
 									objectFit='cover'
 									objectPosition='center'
