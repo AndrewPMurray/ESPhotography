@@ -15,7 +15,8 @@ export default function Footer() {
 						<Image src='/images/signature-inverted.png' alt='signature' layout='fill' />
 					</div>
 					<p id='disclaimer-text'>
-						All Images and Original Text &#169; 2020-2024 Elmar Schmittou{' '}
+						All Images and Original Text &#169; 2020-2024 Elmar Schmittou Photography,
+						LLC
 					</p>
 					<a
 						href='https://instagram.com/elmarschmittou'
