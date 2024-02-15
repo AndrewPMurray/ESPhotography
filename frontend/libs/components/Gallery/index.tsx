@@ -247,6 +247,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							}}
 							onMouseEnter={(e) => (document.body.style.overflow = 'hidden')}
 							onMouseLeave={(e) => (document.body.style.overflow = '')}
+							style={{ zIndex: 100 }}
 						>
 							<FontAwesomeIcon
 								icon={faChevronLeft}
@@ -271,6 +272,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							}}
 							onMouseEnter={(e) => (document.body.style.overflow = 'hidden')}
 							onMouseLeave={(e) => (document.body.style.overflow = '')}
+							style={{ zIndex: 100 }}
 						>
 							<FontAwesomeIcon
 								icon={faChevronRight}
@@ -312,11 +314,13 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 												{user && (
 													<div
 														style={{
-															zIndex: 100,
+															zIndex: 25,
 															height: '100%',
 															width: '100%',
 															position: 'absolute',
+															cursor: 'pointer',
 														}}
+														onClick={() => setActiveImage(i)}
 													>
 														<p
 															id='delete-image'
@@ -361,7 +365,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														id='slider-image'
 														src={image?.url ? image.url : ''}
 														alt='slider-preview'
-														onClick={() => setActiveImage(i)}
 														onLoad={() =>
 															images?.length
 																? setImagesLength(
