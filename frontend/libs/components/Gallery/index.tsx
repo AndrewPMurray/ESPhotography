@@ -307,9 +307,17 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 												ref={provided.innerRef}
 												{...provided.draggableProps}
 												{...provided.dragHandleProps}
+												style={{ position: 'relative' }}
 											>
 												{user && (
-													<div>
+													<div
+														style={{
+															zIndex: 100,
+															height: '100%',
+															width: '100%',
+															position: 'absolute',
+														}}
+													>
 														<p
 															id='delete-image'
 															onClick={() => handleDelete(image, i)}
@@ -350,6 +358,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 												>
 													<Image
 														className={`slider-preview-${i} fade-in`}
+														id='slider-image'
 														src={image?.url ? image.url : ''}
 														alt='slider-preview'
 														onClick={() => setActiveImage(i)}
@@ -367,6 +376,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														layout='fill'
 														objectFit='cover'
 														objectPosition='center'
+														style={{ zIndex: 0 }}
 													/>
 												</div>
 											</div>

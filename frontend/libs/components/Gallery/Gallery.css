@@ -27,9 +27,9 @@
 	right: 10px;
 }
 
-#images-slider > div:hover > div > #delete-image,
-#images-slider > div:hover > div > #edit-image,
-#images-slider > div:hover > div > #set-key-image {
+#slider-div:hover > div > #delete-image,
+#slider-div:hover > div > #edit-image,
+#slider-div:hover > div > #set-key-image {
 	visibility: visible;
 }
 
