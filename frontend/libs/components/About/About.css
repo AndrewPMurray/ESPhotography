@@ -7,6 +7,22 @@
 	justify-content: space-around;
 }
 
+#about-header {
+	width: 100vw;
+	height: 540px;
+	position: relative;
+}
+
+#about-header p {
+	font-size: 88px;
+	font-family: 'Forum';
+	text-transform: capitalize;
+	position: absolute;
+	color: white;
+	bottom: 0;
+	left: 20px;
+}
+
 #text {
 	text-align: center;
 	font-size: 16px;
@@ -19,4 +35,24 @@
 	text-align: center;
 	font-size: 24px;
 	margin: 16px 0;
+	margin-top: 40px;
+}
+
+#about-mid-images {
+	width: 60%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#mid-image-1,
+#mid-image-2 {
+	height: 200px;
+	width: 200px;
+	position: relative;
+}
+
+#mid-image-1 > * > *,
+#mid-image-2 > * > * {
+	border-radius: 100px;
 }

@@ -25,6 +25,7 @@ export default function EditImage({
 	const [title, setTitle] = useState(image.title);
 	const [description, setDescription] = useState(image.description);
 	const [isHomepage, setIsHomepage] = useState(image.isHomepageImage);
+	const [isPortrait, setIsPortrait] = useState(image.isPortrait);
 
 	const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
@@ -36,6 +37,8 @@ export default function EditImage({
 				description,
 				isHomepageImage: isHomepage,
 				orderNumber: image.orderNumber,
+				isPortrait: isPortrait,
+				portraitOrderNumber: image.portraitOrderNumber,
 				homepageOrderNumber: image.homepageOrderNumber,
 			})
 		)
@@ -72,12 +75,21 @@ export default function EditImage({
 					/>
 				</div>
 				<div id='is-homepage-checkbox'>
-					<label htmlFor='description'>Homepage Image: </label>
+					<label htmlFor='homepageImage'>Homepage Image: </label>
 					<input
 						type='checkbox'
 						checked={isHomepage}
 						defaultChecked={isHomepage}
 						onChange={() => setIsHomepage(!isHomepage)}
+					/>
+				</div>
+				<div id='is-portrait-checkbox'>
+					<label htmlFor='portraitImage'>Portrait Image: </label>
+					<input
+						type='checkbox'
+						checked={isPortrait}
+						defaultChecked={isPortrait}
+						onChange={() => setIsPortrait(!isPortrait)}
 					/>
 				</div>
 				<div id='submit-image-button-container'>

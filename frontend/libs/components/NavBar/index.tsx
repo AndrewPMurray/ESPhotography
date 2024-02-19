@@ -11,7 +11,7 @@ import './NavBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import Image from 'next/legacy/image';
-import { useEffect, useLayoutEffect } from 'react';
+import { CSSProperties, useLayoutEffect } from 'react';
 
 export default function NavBar() {
 	const { user, currentRoute } = useSelector((state: RootState) => state.session);
@@ -19,6 +19,16 @@ export default function NavBar() {
 	useLayoutEffect(() => {
 		window.scrollTo(0, 0);
 	}, [currentRoute]);
+
+	const changeActiveLink = (linkName: string): CSSProperties | undefined => {
+		return currentRoute.includes(linkName)
+			? {
+					textDecoration: 'underline',
+					textDecorationThickness: 'from-font',
+					textUnderlineOffset: '5px',
+			  }
+			: undefined;
+	};
 
 	return (
 		<div id='navbar-container' className='fade-in'>
@@ -36,46 +46,18 @@ export default function NavBar() {
 						</div>
 					</Link>
 					<div id='navbar-sub-links'>
-						<Link
-							href='/galleries'
-							style={
-								currentRoute.includes('galleries')
-									? {
-											textDecoration: 'underline',
-											textDecorationThickness: 'from-font',
-											textUnderlineOffset: '5px',
-									  }
-									: undefined
-							}
-						>
+						{user && (
+							<Link href='/portraits' style={changeActiveLink('portraits')}>
+								Portraits
+							</Link>
+						)}
+						<Link href='/galleries' style={changeActiveLink('galleries')}>
 							Galleries
 						</Link>
-						<Link
-							href='/about'
-							style={
-								currentRoute.includes('about')
-									? {
-											textDecoration: 'underline',
-											textDecorationThickness: 'from-font',
-											textUnderlineOffset: '5px',
-									  }
-									: undefined
-							}
-						>
+						<Link href='/about' style={changeActiveLink('about')}>
 							About
 						</Link>
-						<Link
-							href='/contact'
-							style={
-								currentRoute.includes('contact')
-									? {
-											textDecoration: 'underline',
-											textDecorationThickness: 'from-font',
-											textUnderlineOffset: '5px',
-									  }
-									: undefined
-							}
-						>
+						<Link href='/contact' style={changeActiveLink('contact')}>
 							Contact
 						</Link>
 						<Link

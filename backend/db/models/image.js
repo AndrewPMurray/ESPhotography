@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
 			isHomepageImage: DataTypes.BOOLEAN,
 			orderNumber: DataTypes.INTEGER,
 			homepageOrderNumber: DataTypes.INTEGER,
+			isPortrait: DataTypes.BOOLEAN,
+			portraitOrderNumber: DataTypes.INTEGER,
 		},
 		{}
 	);

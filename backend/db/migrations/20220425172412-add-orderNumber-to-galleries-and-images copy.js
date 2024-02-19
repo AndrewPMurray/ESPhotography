@@ -24,7 +24,7 @@ module.exports = {
 		return Promise.all([
 			queryInterface.removeColumn('Galleries', 'orderNumber'),
 			queryInterface.removeColumn('Images', 'orderNumber'),
-			queryInterface.removeColumn('homepageOrderNumber', 'orderNumber'),
+			queryInterface.removeColumn('Images', 'homepageOrderNumber'),
 		]);
 	},
 };

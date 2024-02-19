@@ -24,7 +24,7 @@
 }
 
 #signature {
-	height: 7em;
+	height: 95px;
 	width: 400px;
 	margin: 20px;
 	border-radius: 5px;
@@ -47,7 +47,8 @@
 
 #navbar-sub-links a {
 	margin: 5px 15px;
-	font-size: 1.5em;
+	font-size: 18px;
+	letter-spacing: 3px;
 }
 
 #navbar-links * {
@@ -64,16 +65,14 @@
 
 @media (max-width: 600px) {
 	#signature {
-		height: 5em;
+		height: 85px;
+		margin: 0;
+		margin-bottom: 10px;
 	}
 	#navbar-sub-links {
 		justify-content: space-between;
 	}
 	#navbar-sub-links a {
 		padding: 0.05em 0;
-	}
-	#signature {
-		margin: 0;
-		margin-bottom: 10px;
 	}
 }

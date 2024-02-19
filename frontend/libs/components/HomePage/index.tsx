@@ -65,6 +65,7 @@ export default function HomePage() {
 									objectFit='cover'
 									objectPosition='center'
 									layout='fill'
+									priority={true}
 								/>
 							</div>
 							<FontAwesomeIcon

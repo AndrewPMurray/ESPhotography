@@ -50,6 +50,8 @@
 	max-height: 200px;
 	max-width: 200px;
 	margin-bottom: 5px;
+	height: 150px;
+	width: 100%;
 	position: relative;
 }
 

@@ -62,13 +62,25 @@ export default function GalleryList() {
 
 	return (
 		<div id='gallery-list-container'>
-			<div id='header'>
-				{user && <GalleryFormModal />}
-				<h2>Galleries</h2>
-				<p>
-					For fine art print inquiries, please contact{' '}
-					<a href='mailto:info@elmarschimttou.com'>info@elmarschmittou.com</a>
-				</p>
+			<div
+				id='header'
+				style={{
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+					alignItems: 'flex-end',
+				}}
+			>
+				<div id='header-left'>
+					{user && <GalleryFormModal />}
+					<h2>Galleries</h2>
+					<p id='header-sub-text'>Of selected works</p>
+				</div>
+				<div id='header-right'>
+					<p>
+						For fine art print inquiries, please contact{' '}
+						<a href='mailto:info@elmarschimttou.com'>info@elmarschmittou.com</a>
+					</p>
+				</div>
 			</div>
 			{user && isBrowser ? (
 				<DragDropContext onDragEnd={updateGalleryOrder}>

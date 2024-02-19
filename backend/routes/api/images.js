@@ -29,21 +29,40 @@ router.get('/home', async (req, res) => {
 	return res.json(images);
 });
 
+router.get('/portrait', async (req, res) => {
+	const images = await Image.findAll({
+		where: {
+			isPortrait: true,
+		},
+		order: [['portraitOrderNumber', 'ASC']],
+	});
+	return res.json(images);
+});
+
 router.post(
 	'/',
 	singleMulterUpload('image'),
 	csrfProtection,
 	asyncHandler(async (req, res) => {
-		const { title, description, galleryId, isHomepageImage, orderNumber, homepageOrderNumber } =
-			req.body;
+		const {
+			title,
+			description,
+			galleryId,
+			isHomepageImage,
+			orderNumber,
+			homepageOrderNumber,
+			isPortrait,
+		} = req.body;
 		const imgUrl = await singlePublicFileUpload(req.file);
 		if (imgUrl) {
+			console.log(`IsPortrait: ${isPortrait}`);
 			const image = await Image.create({
 				url: imgUrl,
 				title,
 				description,
 				galleryId,
 				isHomepageImage,
+				isPortrait,
 				orderNumber,
 				homepageOrderNumber,
 			});
@@ -60,13 +79,22 @@ router.put(
 	validateImage,
 	asyncHandler(async (req, res) => {
 		const { id } = req.params;
-		const { title, description, isHomepageImage, orderNumber } = req.body;
+		const {
+			title,
+			description,
+			isHomepageImage,
+			orderNumber,
+			isPortrait,
+			portraitOrderNumber,
+		} = req.body;
 		const image = await Image.findByPk(id);
 		const editedImage = await image.update({
 			title,
 			description,
 			isHomepageImage,
 			orderNumber,
+			isPortrait,
+			portraitOrderNumber,
 		});
 
 		return res.json(editedImage);

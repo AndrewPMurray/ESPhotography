@@ -18,8 +18,16 @@ export const loadHomeImages = createAsyncThunk('images/loadHomeImages', async ()
 	}
 });
 
+export const loadPortraitImages = createAsyncThunk('images/loadPortraitImages', async () => {
+	const response = await fetch('/api/images/portrait');
+	if (response.ok) {
+		const images = await response.json();
+		return images;
+	}
+});
+
 export const addImage = createAsyncThunk('images/addImage', async (payload: Image) => {
-	const { title, description = '', galleryId, isHomepageImage, image } = payload;
+	const { title, description = '', galleryId, isHomepageImage, isPortrait, image } = payload;
 	if (!image || !galleryId) return;
 
 	const formData = new FormData();
@@ -28,6 +36,7 @@ export const addImage = createAsyncThunk('images/addImage', async (payload: Imag
 	formData.append('description', description);
 	formData.append('galleryId', galleryId);
 	formData.append('isHomepageImage', String(isHomepageImage));
+	formData.append('isPortrait', String(isPortrait));
 
 	const response = await csrfFetch('/api/images', {
 		method: 'POST',
@@ -81,6 +90,9 @@ const imagesSlice = createSlice({
 				return action.payload;
 			})
 			.addCase(loadHomeImages.fulfilled, (_state, action) => {
+				return action.payload;
+			})
+			.addCase(loadPortraitImages.fulfilled, (_state, action) => {
 				return action.payload;
 			})
 			.addCase(addImage.fulfilled, (state, action) => {

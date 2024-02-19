@@ -26,6 +26,7 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 	const [title, setTitle] = useState<string[]>([]);
 	const [description, setDescription] = useState<string[]>([]);
 	const [isHomepage, setIsHomepage] = useState<boolean[]>([]);
+	const [isPortrait, setIsPortrait] = useState<boolean[]>([]);
 	const fileTypes = ['JPG', 'PNG', ' JPEG', 'jpg', 'jpeg'];
 
 	const handleSubmit = async () => {
@@ -38,12 +39,14 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 			}
 		}
 		images.forEach(async (image, i) => {
+			console.log(isPortrait[i]);
 			await dispatch(
 				addImage({
 					title: title[i],
 					description: description[i] ?? '',
 					galleryId,
 					isHomepageImage: isHomepage[i],
+					isPortrait: isPortrait[i],
 					orderNumber: images.length + i,
 					image,
 				})
@@ -79,6 +82,11 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 								newHomepages[images.length + +i] = false;
 								return newHomepages;
 							});
+							setIsPortrait((prev) => {
+								const newPortraits = [...prev];
+								newPortraits[images.length + +i] = false;
+								return newPortraits;
+							});
 						}
 					}
 				}}
@@ -109,12 +117,24 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 									newHomepages.splice(i, 1);
 									return newHomepages;
 								});
+								setIsPortrait((prev) => {
+									const newPortraits = [...prev];
+									newPortraits.splice(i, 1);
+									return newPortraits;
+								});
 							}}
 						>
 							X
 						</p>
-						<div id='image-preview'>
-							<Image src={URL.createObjectURL(image)} alt='preview' layout='fill' />
+						<div id='image-preview' style={{ position: 'relative' }}>
+							<Image
+								id='image-preview'
+								src={URL.createObjectURL(image)}
+								alt='preview'
+								layout='fill'
+								objectFit='cover'
+								objectPosition='center'
+							/>
 						</div>
 						<input
 							type='text'
@@ -147,13 +167,26 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 							<label htmlFor='isHomePageImage'>Homepage image: </label>
 							<input
 								type='checkbox'
-								defaultChecked={isHomepage[i] || false}
 								checked={isHomepage[i] || false}
 								onChange={() =>
 									setIsHomepage((prev) => {
 										const newHomepages = [...prev];
 										newHomepages[i] = !newHomepages[i];
 										return newHomepages;
+									})
+								}
+							/>
+						</div>
+						<div id='portrait-image-div'>
+							<label htmlFor='isPortraitImage'>Portrait image: </label>
+							<input
+								type='checkbox'
+								checked={isPortrait[i] || false}
+								onChange={() =>
+									setIsPortrait((prev) => {
+										const newPortraits = [...prev];
+										newPortraits[i] = !newPortraits[i];
+										return newPortraits;
 									})
 								}
 							/>

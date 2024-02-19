@@ -11,7 +11,7 @@ export default function Contact() {
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(setCurrentRoute());
-	}, [setCurrentRoute]);
+	}, [dispatch]);
 
 	return (
 		<div id='contact-container'>
