@@ -21,6 +21,7 @@ export default function Footer() {
 								layout='fill'
 								objectFit='contain'
 								objectPosition='left'
+								priority
 							/>
 						</div>
 						<p id='disclaimer-text'>All Images and Original Text</p>

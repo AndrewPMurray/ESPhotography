@@ -42,6 +42,7 @@ export default function NavBar() {
 								layout='fill'
 								objectFit='contain'
 								objectPosition='center'
+								priority
 							/>
 						</div>
 					</Link>
