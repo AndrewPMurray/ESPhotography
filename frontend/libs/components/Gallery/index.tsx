@@ -46,7 +46,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 	const [activeImage, setActiveImage] = useState(0);
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
 	const [imagesLength, setImagesLength] = useState(0);
-	const [imageWidths, setImageWidths] = useState<number[]>([]);
 
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
@@ -66,14 +65,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 	useEffect(() => {
 		const updateLength = () => {
 			setTimeout(() => setWindowLength(window.innerWidth), 500);
-		};
-
-		const updateWidth = (e: EventTarget & AdditionalImageProps, i: number) => {
-			setImageWidths((prev) => {
-				const newWidths = [...prev];
-				newWidths[i] = getImageWidth(e) ?? 0;
-				return newWidths;
-			});
 		};
 
 		window.addEventListener('resize', updateLength);
@@ -139,18 +130,18 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 		}
 	};
 
-	function getImageWidth(img: (EventTarget & AdditionalImageProps) | null) {
-		if (img) {
-			var ratio = img.naturalWidth / img.naturalHeight;
-			var width = img.height * ratio;
-			var height = img.height;
-			if (width > img.width) {
-				width = img.width;
-				height = img.width / ratio;
-			}
-			return width;
-		}
-	}
+	// function getImageWidth(img: (EventTarget & AdditionalImageProps) | null) {
+	// 	if (img) {
+	// 		var ratio = img.naturalWidth / img.naturalHeight;
+	// 		var width = img.height * ratio;
+	// 		var height = img.height;
+	// 		if (width > img.width) {
+	// 			width = img.width;
+	// 			height = img.width / ratio;
+	// 		}
+	// 		return width;
+	// 	}
+	// }
 
 	return (
 		<div id='gallery-images-container'>
@@ -220,63 +211,57 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							}}
 						/>
 					</div>
-					{gallery?.images?.map((image, i) => (
-						<div id='gallery-image-container' key={`gallery-image-${i}`}>
-							<div id='gallery-image'>
-								<Image
-									id='gallery-image'
-									className={`gallery-image-${i}`}
-									src={image?.url ? image.url : ''}
-									alt='focused'
-									style={
-										activeImage === i
-											? { opacity: 1, zIndex: 5 }
-											: { opacity: 0 }
-									}
-									layout='fill'
-									objectFit='contain'
-									objectPosition='bottom'
-									priority
-									onLoad={(e) =>
-										setImageWidths((prev) => {
-											const newWidths = [...prev];
-											newWidths[i] =
-												getImageWidth(
-													e.target as EventTarget & AdditionalImageProps
-												) ?? 0;
-											return newWidths;
-										})
-									}
-								/>
-							</div>
-							<div id='title-description-container'>
-								<p
-									id='gallery-image-title'
-									style={
-										activeImage === i
-											? { opacity: 1, zIndex: 5 }
-											: { opacity: 0 }
-									}
-								>
-									{image.title}
-								</p>
-								<div
-									id='gallery-image-description'
-									style={
-										activeImage === i
-											? { opacity: 1, zIndex: 5 }
-											: { opacity: 0 }
-									}
-								>
-									{image.description?.length && image.description.length > 300 ? (
-										<DescriptionModal description={image.description} />
-									) : (
-										image.description
-									)}
+					{gallery?.images?.map(
+						(image, i) =>
+							i === activeImage && (
+								<div id='gallery-image-container' key={`gallery-image-${i}`}>
+									<div id='gallery-image'>
+										<Image
+											id='gallery-image'
+											className={`gallery-image-${i}`}
+											src={image?.url ? image.url : ''}
+											alt='focused'
+											style={
+												activeImage === i
+													? { opacity: 1, zIndex: 5 }
+													: { opacity: 0 }
+											}
+											layout='fill'
+											objectFit='contain'
+											objectPosition='bottom'
+											priority
+										/>
+									</div>
+									<div id='title-description-container'>
+										<p
+											id='gallery-image-title'
+											style={
+												activeImage === i
+													? { opacity: 1, zIndex: 5 }
+													: { opacity: 0 }
+											}
+										>
+											{image.title}
+										</p>
+										<div
+											id='gallery-image-description'
+											style={
+												activeImage === i
+													? { opacity: 1, zIndex: 5 }
+													: { opacity: 0 }
+											}
+										>
+											{image.description?.length &&
+											image.description.length > 300 ? (
+												<DescriptionModal description={image.description} />
+											) : (
+												image.description
+											)}
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
-					))}
+							)
+					)}
 				</div>
 			)}
 			{imagesLength > windowLength && (
