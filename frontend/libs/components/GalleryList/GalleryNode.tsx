@@ -2,7 +2,7 @@ import Link from 'next/link';
 import GalleryFormModal from '../GalleryFormModal';
 import { Gallery, User } from '@state/@types';
 import { DraggableProvided } from 'react-beautiful-dnd';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 
 type GalleryNodeProps = {
 	gallery: Gallery;
@@ -39,10 +39,10 @@ export default function GalleryNode({ gallery, user, provided, i }: GalleryNodeP
 							alt={gallery.title}
 							style={{
 								opacity: 0,
+								objectFit: 'cover',
+								objectPosition: 'center',
 							}}
-							objectFit='cover'
-							objectPosition='center'
-							layout='fill'
+							fill
 						/>
 					</div>
 					<p id='gallery-title'>{gallery.title}</p>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '@context/Modal';
 import Description from './Description';
 
-const DescriptionModal = ({ description }) => {
+const DescriptionModal = ({ description }: { description: string }) => {
 	const [showModal, setShowModal] = useState(false);
 
 	return (

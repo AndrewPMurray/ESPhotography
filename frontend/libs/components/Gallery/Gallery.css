@@ -83,10 +83,11 @@
 #description-modal-container {
 	display: flex;
 	align-items: center;
-	background-color: #565656;
+	background-color: #ffffff;
 	width: 40vw;
 	min-height: 275px;
 	border-radius: 5px;
+	border: 1px solid black;
 	padding: 25px;
 }
 

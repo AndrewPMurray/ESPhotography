@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 import { useAppDispatch } from '@state/index';
 import { setCurrentRoute } from '@state/session';
@@ -10,7 +11,6 @@ import midImage1 from '../../../public/images/mid-image-1.jpg';
 import midImage2 from '../../../public/images/mid-image-2.jpg';
 
 import './About.css';
-import Image from 'next/legacy/image';
 
 export default function About() {
 	const dispatch = useAppDispatch();
@@ -24,10 +24,9 @@ export default function About() {
 			<div id='about-header'>
 				<Image
 					src={aboutImage}
-					layout='fill'
+					fill
 					alt='about'
-					objectFit='cover'
-					objectPosition='center'
+					style={{ objectFit: 'cover', objectPosition: 'center' }}
 				/>
 				<p>About</p>
 			</div>
@@ -64,19 +63,17 @@ export default function About() {
 				<div id='mid-image-1'>
 					<Image
 						src={midImage1}
-						layout='fill'
+						fill
 						alt='about'
-						objectFit='cover'
-						objectPosition='center'
+						style={{ objectFit: 'cover', objectPosition: 'center' }}
 					/>
 				</div>
 				<div id='mid-image-2'>
 					<Image
 						src={midImage2}
-						layout='fill'
+						fill
 						alt='about'
-						objectFit='cover'
-						objectPosition='center'
+						style={{ objectFit: 'cover', objectPosition: 'center' }}
 					/>
 				</div>
 			</div>

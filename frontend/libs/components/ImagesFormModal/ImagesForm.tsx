@@ -1,13 +1,13 @@
 'use client';
 
 import { type Dispatch, type SetStateAction, useState } from 'react';
+import Image from 'next/image';
 import { FileUploader } from 'react-drag-drop-files';
 
 import { addImage } from '@state/images';
 import { useAppDispatch } from '@state/index';
 
 import './ImagesForm.css';
-import Image from 'next/legacy/image';
 
 type ImagesFormProps = {
 	setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -131,9 +131,8 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 								id='image-preview'
 								src={URL.createObjectURL(image)}
 								alt='preview'
-								layout='fill'
-								objectFit='cover'
-								objectPosition='center'
+								fill
+								style={{ objectFit: 'cover', objectPosition: 'center' }}
 							/>
 						</div>
 						<input

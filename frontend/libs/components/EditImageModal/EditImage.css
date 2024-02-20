@@ -1,8 +1,9 @@
 #edit-image-form-container {
-	background-color: #565656;
+	background-color: #ffffff;
 	width: 40vw;
 	height: 40vh;
 	border-radius: 5px;
+	border: 1px solid black;
 	padding: 25px;
 }
 

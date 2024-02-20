@@ -52,7 +52,7 @@
 	position: relative;
 }
 
-#mid-image-1 > * > *,
-#mid-image-2 > * > * {
+#mid-image-1 > *,
+#mid-image-2 > * {
 	border-radius: 100px;
 }

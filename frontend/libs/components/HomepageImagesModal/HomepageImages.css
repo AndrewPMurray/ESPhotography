@@ -1,8 +1,9 @@
 #homepage-images-container {
-	background-color: #565656;
+	background-color: #ffffff;
 	width: 80vw;
 	height: 75vh;
 	border-radius: 5px;
+	border: 1px solid black;
 	padding: 25px;
 	display: flex;
 	flex-wrap: wrap;

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Image from 'next/image';
 
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +14,6 @@ import { setCurrentRoute } from '@state/session';
 import HomepageImagesModal from '../HomepageImagesModal';
 
 import './HomePage.css';
-import Image from 'next/legacy/image';
 
 export default function HomePage() {
 	const dispatch = useAppDispatch();
@@ -59,13 +59,15 @@ export default function HomePage() {
 									alt='focused'
 									style={
 										activeImage === i
-											? { opacity: 1, zIndex: 5 }
+											? {
+													opacity: 1,
+													zIndex: 5,
+													objectFit: 'cover',
+													objectPosition: 'center',
+											  }
 											: { opacity: 0 }
 									}
-									objectFit='cover'
-									objectPosition='center'
-									layout='fill'
-									priority={true}
+									fill
 								/>
 							</div>
 							<FontAwesomeIcon

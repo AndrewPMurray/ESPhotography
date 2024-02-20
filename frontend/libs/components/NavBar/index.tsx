@@ -10,7 +10,7 @@ import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { CSSProperties, useLayoutEffect } from 'react';
 
 export default function NavBar() {
@@ -39,9 +39,8 @@ export default function NavBar() {
 							<Image
 								src='/images/signature.png'
 								alt='signature'
-								layout='fill'
-								objectFit='contain'
-								objectPosition='center'
+								fill
+								style={{ objectFit: 'contain', objectPosition: 'center' }}
 								priority
 							/>
 						</div>

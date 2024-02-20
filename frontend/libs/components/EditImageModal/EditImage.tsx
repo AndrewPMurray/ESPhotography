@@ -1,12 +1,11 @@
 import { type Dispatch, type FormEventHandler, type SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import Image from 'next/image';
 
 import { updateImage } from '@state/images';
 import { useAppDispatch } from '@state/index';
 import type { Image as ImageType } from '@state/@types';
 
 import './EditImage.css';
-import Image from 'next/legacy/image';
 
 type ErrorType = {
 	title?: string;
@@ -56,7 +55,12 @@ export default function EditImage({
 	return (
 		<div id='edit-image-form-container'>
 			<div id='edit-image-preview'>
-				<Image src={image.url ?? ''} alt='edit-preview' objectFit='contain' layout='fill' />
+				<Image
+					src={image.url ?? ''}
+					alt='edit-preview'
+					fill
+					style={{ objectFit: 'contain' }}
+				/>
 			</div>
 			<form id='edit-image-form' onSubmit={handleSubmit}>
 				<div id='edit-image-title'>

@@ -1,11 +1,11 @@
 'use client';
 
 import { Dispatch, SetStateAction, useState } from 'react';
+import Image from 'next/image';
 
 import { updateImage } from '@state/images';
 import { useAppDispatch } from '@state/index';
 import type { Image as ImageType } from '@state/@types';
-import Image from 'next/legacy/image';
 
 type HomepageImagesProps = {
 	setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -38,9 +38,8 @@ export default function HomepageImages({ setShowModal, images }: HomepageImagesP
 							<Image
 								src={image.url ?? ''}
 								alt='homepage'
-								layout='fill'
-								objectFit='cover'
-								objectPosition='center'
+								fill
+								style={{ objectFit: 'cover', objectPosition: 'center' }}
 							/>
 						</div>
 						<input

@@ -1,29 +1,30 @@
 #gallery-form-container {
-    background-color: #565656;
-    width: 40vw;
-    height: 40vh;
-    min-height: 275px;
-    border-radius: 5px;
-    padding: 25px;
+	background-color: #ffffff;
+	width: 40vw;
+	height: 40vh;
+	min-height: 275px;
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 25px;
 }
 
 #gallery-form div {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
 }
 
 #gallery-form div label {
-    margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 #gallery-form div textarea {
-    resize: none;
-    height: 25vh;
-    min-height: 155px;
-    padding: 10px;
+	resize: none;
+	height: 25vh;
+	min-height: 155px;
+	padding: 10px;
 }
 
 #submit-gallery-button {
-    align-self: flex-end;
+	align-self: flex-end;
 }

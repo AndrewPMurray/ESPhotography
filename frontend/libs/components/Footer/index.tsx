@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import './Footer.css';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 
@@ -18,10 +18,8 @@ export default function Footer() {
 							<Image
 								src='/images/signature-inverted.png'
 								alt='signature'
-								layout='fill'
-								objectFit='contain'
-								objectPosition='left'
-								priority
+								fill
+								style={{ objectFit: 'contain', objectPosition: 'left' }}
 							/>
 						</div>
 						<p id='disclaimer-text'>All Images and Original Text</p>
