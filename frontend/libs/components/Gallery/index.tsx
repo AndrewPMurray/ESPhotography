@@ -2,6 +2,7 @@
 
 import { WheelEvent, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { scrollTo, scrollIntoView } from 'seamless-scroll-polyfill';
@@ -20,18 +21,10 @@ import EditImageModal from '../EditImageModal';
 import DescriptionModal from './DescriptionModal';
 
 import './Gallery.css';
-import Image from 'next/legacy/image';
-
-type AdditionalImageProps = {
-	naturalWidth: number;
-	naturalHeight: number;
-	height: number;
-	width: number;
-};
 
 export default function Gallery({ params }: { params: { galleryId: string } }) {
-	const gallerySliderRef = useRef<HTMLDivElement>(null);
 	const dispatch = useAppDispatch();
+	const gallerySliderRef = useRef<HTMLDivElement>(null);
 	const router = useRouter();
 	const { galleryId } = params ?? {};
 
@@ -46,6 +39,9 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 	const [activeImage, setActiveImage] = useState(0);
 	const [windowLength, setWindowLength] = useState(window.innerWidth);
 	const [imagesLength, setImagesLength] = useState(0);
+	const [imageWidth, setImageWidth] = useState(0);
+	const [imageHeight, setImageHeight] = useState(0);
+	const [imageTarget, setImageTarget] = useState<HTMLImageElement | null>(null);
 
 	useEffect(() => {
 		dispatch(loadSingleGallery(galleryId))
@@ -64,21 +60,20 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 
 	useEffect(() => {
 		const updateLength = () => {
-			setTimeout(() => setWindowLength(window.innerWidth), 500);
+			setTimeout(() => {
+				setWindowLength(window.innerWidth);
+				updateImageDimensions(imageTarget);
+			}, 500);
 		};
 
 		window.addEventListener('resize', updateLength);
 		window.addEventListener('orientationchange', updateLength);
 
-		gallery?.images?.forEach((gallery, i) => {
-			const imageEl = document.querySelector(`gallery-image-${i}`);
-		});
-
 		return () => {
 			window.removeEventListener('resize', updateLength);
 			window.removeEventListener('orientationchange', updateLength);
 		};
-	}, [gallery?.images]);
+	}, [imageTarget]);
 
 	useEffect(() => {
 		dispatch(setCurrentRoute());
@@ -130,18 +125,19 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 		}
 	};
 
-	// function getImageWidth(img: (EventTarget & AdditionalImageProps) | null) {
-	// 	if (img) {
-	// 		var ratio = img.naturalWidth / img.naturalHeight;
-	// 		var width = img.height * ratio;
-	// 		var height = img.height;
-	// 		if (width > img.width) {
-	// 			width = img.width;
-	// 			height = img.width / ratio;
-	// 		}
-	// 		return width;
-	// 	}
-	// }
+	const updateImageDimensions = (target: HTMLImageElement | null): void => {
+		if (target === null) return;
+
+		const ratio = target.naturalWidth / target.naturalHeight;
+		let width = target.height * ratio;
+		let height = target.height;
+		if (width > target.width) {
+			width = target.width;
+			height = target.width / ratio;
+		}
+		setImageWidth(width);
+		setImageHeight(height);
+	};
 
 	return (
 		<div id='gallery-images-container'>
@@ -149,7 +145,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 			{noImages ? (
 				<h2>No images in this gallery</h2>
 			) : (
-				<div id='gallery-slideshow' className='fade-in-slide-up'>
+				<div id='gallery-slideshow' className='fade-in-slide-up' style={{ zIndex: 10 }}>
 					<div id='gallery-slide-container'>
 						<FontAwesomeIcon
 							id='slide-left'
@@ -213,50 +209,102 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 					</div>
 					{gallery?.images?.map(
 						(image, i) =>
-							i === activeImage && (
-								<div id='gallery-image-container' key={`gallery-image-${i}`}>
-									<div id='gallery-image'>
-										<Image
-											id='gallery-image'
-											className={`gallery-image-${i}`}
-											src={image?.url ? image.url : ''}
-											alt='focused'
-											style={
-												activeImage === i
-													? { opacity: 1, zIndex: 5 }
-													: { opacity: 0 }
-											}
-											layout='fill'
-											objectFit='contain'
-											objectPosition='bottom'
-											priority
-										/>
-									</div>
-									<div id='title-description-container'>
-										<p
-											id='gallery-image-title'
-											style={
-												activeImage === i
-													? { opacity: 1, zIndex: 5 }
-													: { opacity: 0 }
-											}
-										>
-											{image.title}
-										</p>
+							activeImage === i && (
+								<div
+									key={`gallery-image-${i}`}
+									id='gallery-image-outer-container'
+									style={{
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center',
+										width: '100vw',
+										marginTop: '50px',
+										maxHeight: '80vh',
+									}}
+								>
+									<div
+										id='gallery-image-container'
+										className='fade-in'
+										style={{
+											flexDirection: 'column',
+											justifyContent: 'center',
+											alignItems: 'center',
+											maxHeight: '80vh',
+										}}
+									>
 										<div
-											id='gallery-image-description'
-											style={
-												activeImage === i
-													? { opacity: 1, zIndex: 5 }
-													: { opacity: 0 }
-											}
+											id='gallery-image'
+											style={{
+												WebkitUserSelect: 'none',
+												MozUserSelect: 'none',
+												msUserSelect: 'none',
+												userSelect: 'none',
+												width: '95vw',
+												height:
+													!imageHeight && !imageTarget?.naturalHeight
+														? '60vh'
+														: imageHeight <
+														  (imageTarget?.naturalHeight ?? 0)
+														? imageTarget?.naturalHeight
+														: imageHeight,
+												maxHeight: '60vh',
+											}}
 										>
-											{image.description?.length &&
-											image.description.length > 300 ? (
-												<DescriptionModal description={image.description} />
-											) : (
-												image.description
-											)}
+											<Image
+												id='gallery-image-inner'
+												className={`gallery-image-${i}`}
+												src={image?.url ? image.url : ''}
+												alt='focused'
+												style={{
+													objectFit: 'contain',
+													objectPosition: 'center',
+												}}
+												fill
+												sizes='m'
+												onLoad={(e) => {
+													const target = e.target as HTMLImageElement;
+													setImageTarget(target);
+													updateImageDimensions(target);
+												}}
+												priority
+											/>
+										</div>
+										<div
+											id='title-description-container'
+											style={{ width: imageWidth ?? '100vw' }}
+										>
+											<p
+												id='gallery-image-title'
+												style={{
+													zIndex: 5,
+													WebkitUserSelect: 'none',
+													MozUserSelect: 'none',
+													msUserSelect: 'none',
+													userSelect: 'none',
+												}}
+											>
+												{image.title}
+											</p>
+											<div
+												id='gallery-image-description'
+												style={{
+													zIndex: 5,
+													WebkitUserSelect: 'none',
+													MozUserSelect: 'none',
+													msUserSelect: 'none',
+													userSelect: 'none',
+													minWidth: '550px',
+												}}
+											>
+												{image.description?.length &&
+												image.description.length > 250 ? (
+													<DescriptionModal
+														description={image.description}
+													/>
+												) : (
+													image.description
+												)}
+											</div>
 										</div>
 									</div>
 								</div>
@@ -266,7 +314,15 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 			)}
 			{imagesLength > windowLength && (
 				<>
-					<div id='sliders'>
+					<div
+						id='sliders'
+						style={{
+							WebkitUserSelect: 'none',
+							MozUserSelect: 'none',
+							msUserSelect: 'none',
+							userSelect: 'none',
+						}}
+					>
 						<div
 							id='slider-slide-left'
 							onClick={() => {
@@ -409,10 +465,12 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 																  )
 																: undefined
 														}
-														layout='fill'
-														objectFit='cover'
-														objectPosition='center'
-														style={{ zIndex: 0 }}
+														fill
+														sizes='m'
+														style={{
+															objectFit: 'cover',
+															objectPosition: 'center',
+														}}
 													/>
 												</div>
 											</div>
@@ -485,9 +543,9 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 											: undefined
 									}
 									onClick={() => setActiveImage(i)}
-									layout='fill'
-									objectFit='cover'
-									objectPosition='center'
+									fill
+									sizes='m'
+									style={{ objectFit: 'cover', objectPosition: 'center' }}
 								/>
 							</div>
 						</div>
