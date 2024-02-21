@@ -65,7 +65,11 @@ export default function HomePage() {
 													objectFit: 'cover',
 													objectPosition: 'center',
 											  }
-											: { opacity: 0 }
+											: {
+													opacity: 0,
+													objectFit: 'cover',
+													objectPosition: 'center',
+											  }
 									}
 									fill
 								/>
