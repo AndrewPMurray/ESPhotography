@@ -1,6 +1,6 @@
 'use client';
 
-import { WheelEvent, useEffect, useRef, useState } from 'react';
+import { WheelEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -63,7 +63,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 			setTimeout(() => {
 				setWindowLength(window.innerWidth);
 				updateImageDimensions(imageTarget);
-			}, 500);
+			}, 300);
 		};
 
 		window.addEventListener('resize', updateLength);
@@ -125,7 +125,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 		}
 	};
 
-	const updateImageDimensions = (target: HTMLImageElement | null): void => {
+	const updateImageDimensions = (target: HTMLImageElement | null) => {
 		if (target === null) return;
 
 		const ratio = target.naturalWidth / target.naturalHeight;
@@ -135,9 +135,19 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 			width = target.width;
 			height = target.width / ratio;
 		}
-		setImageWidth(width);
+		console.log(width);
 		setImageHeight(height);
+		setImageWidth(width);
+
+		return { width, height };
 	};
+
+	const modifiedImageHeight =
+		!imageHeight && !imageTarget?.naturalHeight
+			? '60vh'
+			: imageHeight < (imageTarget?.naturalHeight ?? 0)
+			? imageTarget?.naturalHeight
+			: imageHeight;
 
 	return (
 		<div id='gallery-images-container'>
@@ -240,13 +250,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 												msUserSelect: 'none',
 												userSelect: 'none',
 												width: '95vw',
-												height:
-													!imageHeight && !imageTarget?.naturalHeight
-														? '60vh'
-														: imageHeight <
-														  (imageTarget?.naturalHeight ?? 0)
-														? imageTarget?.naturalHeight
-														: imageHeight,
+												height: modifiedImageHeight,
 												maxHeight: '60vh',
 											}}
 										>
@@ -263,7 +267,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 												sizes='m'
 												onLoad={(e) => {
 													const target = e.target as HTMLImageElement;
-													setImageTarget(target);
+													setImageTarget(() => target);
 													updateImageDimensions(target);
 												}}
 												priority
@@ -470,6 +474,10 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														style={{
 															objectFit: 'cover',
 															objectPosition: 'center',
+															WebkitUserSelect: 'none',
+															MozUserSelect: 'none',
+															msUserSelect: 'none',
+															userSelect: 'none',
 														}}
 													/>
 												</div>
@@ -528,7 +536,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 								}
 							>
 								<Image
-									id='slider-preview'
 									className={`slider-preview-${i} fade-in`}
 									src={image?.url ? image.url : ''}
 									alt='slider-preview'
@@ -545,7 +552,14 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									onClick={() => setActiveImage(i)}
 									fill
 									sizes='m'
-									style={{ objectFit: 'cover', objectPosition: 'center' }}
+									style={{
+										objectFit: 'cover',
+										objectPosition: 'center',
+										WebkitUserSelect: 'none',
+										MozUserSelect: 'none',
+										msUserSelect: 'none',
+										userSelect: 'none',
+									}}
 								/>
 							</div>
 						</div>

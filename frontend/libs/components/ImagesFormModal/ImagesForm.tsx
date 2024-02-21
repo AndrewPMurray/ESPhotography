@@ -128,7 +128,6 @@ export default function ImagesForm({ setShowModal, galleryId }: ImagesFormProps)
 						</p>
 						<div id='image-preview' style={{ position: 'relative' }}>
 							<Image
-								id='image-preview'
 								src={URL.createObjectURL(image)}
 								alt='preview'
 								fill

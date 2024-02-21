@@ -30,7 +30,6 @@ export default function GalleryNode({ gallery, user, provided, i }: GalleryNodeP
 				<Link href={`/galleries/${gallery.id}`}>
 					<div id='gallery-node-image'>
 						<Image
-							id='gallery-node-image'
 							src={
 								gallery.keyImageURL
 									? gallery.keyImageURL
