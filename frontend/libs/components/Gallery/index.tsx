@@ -297,7 +297,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 												}}
 											>
 												{image.description?.length &&
-												image.description.length > 250 ? (
+												image.description.length > 100 ? (
 													<DescriptionModal
 														description={image.description}
 													/>

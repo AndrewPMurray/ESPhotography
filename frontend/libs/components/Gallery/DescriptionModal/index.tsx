@@ -8,7 +8,7 @@ const DescriptionModal = ({ description }: { description: string }) => {
 	return (
 		<>
 			<p onClick={() => setShowModal(true)} style={{ cursor: 'pointer' }}>
-				{description.slice(0, 250)}... (click to read more)
+				{description.slice(0, 100)}... (click to read more)
 			</p>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
