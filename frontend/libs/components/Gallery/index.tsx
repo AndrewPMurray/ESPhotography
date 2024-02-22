@@ -135,7 +135,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 			width = target.width;
 			height = target.width / ratio;
 		}
-		console.log(width);
 		setImageHeight(height);
 		setImageWidth(width);
 
