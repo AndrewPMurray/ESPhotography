@@ -55,6 +55,7 @@ export default function HomePage() {
 							<div id='home-image'>
 								<Image
 									src={image.url ?? ''}
+									id='home-image'
 									alt='focused'
 									style={
 										activeImage === i
