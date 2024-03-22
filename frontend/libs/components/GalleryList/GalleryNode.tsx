@@ -42,6 +42,7 @@ export default function GalleryNode({ gallery, user, provided, i }: GalleryNodeP
 								objectPosition: 'center',
 							}}
 							fill
+							priority
 						/>
 					</div>
 					<p id='gallery-title'>{gallery.title}</p>
