@@ -26,5 +26,8 @@
 	"homepage": "https://github.com/AndrewPMurray/ESPhotography",
 	"dependencies": {
 		"concurrently": "^8.2.2"
+	},
+	"devDependencies": {
+		"next": "14.0.3"
 	}
 }
