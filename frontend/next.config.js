@@ -6,6 +6,8 @@ const nextConfig = {
 			{
 				protocol: 'https',
 				hostname: 'minio.domainofaka.app',
+				port: '',
+				pathname: '/esphotography/**',
 			},
 		],
 	},

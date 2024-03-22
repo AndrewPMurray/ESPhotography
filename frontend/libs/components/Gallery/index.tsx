@@ -161,24 +161,20 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							icon={faChevronLeft}
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
+								const galleryImageElement =
+									document.querySelector(`#gallery-image`);
 								if (activeImage === 0 && images?.length) {
-									const sliderPreviewElement = document.querySelector(
-										`.slider-preview-${images.length - 1}`
-									);
 									setActiveImage(images.length - 1);
-									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+									if (galleryImageElement)
+										scrollIntoView(galleryImageElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
 										});
 								} else {
-									const sliderPreviewElement = document.querySelector(
-										`.slider-preview-${activeImage - 1}`
-									);
 									setActiveImage((prev) => prev - 1);
-									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+									if (galleryImageElement)
+										scrollIntoView(galleryImageElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
@@ -191,23 +187,20 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							icon={faChevronRight}
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
+								const galleryImageElement =
+									document.querySelector(`#gallery-image`);
 								if (activeImage === (images?.length ?? 0) - 1) {
-									const sliderPreviewElement =
-										document.querySelector(`.slider-preview-0`);
 									setActiveImage(0);
-									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+									if (galleryImageElement)
+										scrollIntoView(galleryImageElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
 										});
 								} else {
-									const sliderPreviewElement = document.querySelector(
-										`.slider-preview-${activeImage + 1}`
-									);
 									setActiveImage((prev) => prev + 1);
-									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+									if (galleryImageElement)
+										scrollIntoView(galleryImageElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
@@ -264,7 +257,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 												}}
 												fill
 												sizes='m'
-												onLoad={(e) => {
+												onLoad={(e: any) => {
 													const target = e.target as HTMLImageElement;
 													setImageTarget(() => target);
 													updateImageDimensions(target);
