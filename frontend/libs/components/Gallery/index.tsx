@@ -22,13 +22,7 @@ import GalleryImageModal from './GalleryImageModal';
 
 import './Gallery.css';
 
-export default function Gallery({
-	params,
-	gallery,
-}: {
-	params: { galleryId: string };
-	gallery: Gallery;
-}) {
+export default function Gallery({ params }: { params: { galleryId: string } }) {
 	const dispatch = useAppDispatch();
 	const gallerySliderRef = useRef<HTMLDivElement>(null);
 	const router = useRouter();
@@ -36,6 +30,9 @@ export default function Gallery({
 
 	const user = useSelector((state: RootState) => state.session.user);
 	const imageState = useSelector((state: RootState) => state.images);
+	const gallery = useSelector((state: RootState) =>
+		state.galleries.find((g) => g.id === +galleryId)
+	);
 	const images = gallery?.images;
 
 	const [noImages, setNoImages] = useState(false);
