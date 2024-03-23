@@ -82,7 +82,7 @@
 	font-weight: 200;
 }
 
-#description-modal-container {
+#image-modal-container {
 	display: flex;
 	align-items: center;
 	background-color: #ffffff;
@@ -91,6 +91,11 @@
 	border-radius: 5px;
 	border: 1px solid black;
 	padding: 25px;
+}
+
+#image-modal-text {
+	width: 100%;
+	text-align: left;
 }
 
 #gallery-image {

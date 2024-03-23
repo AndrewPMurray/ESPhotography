@@ -39,13 +39,13 @@ export default function Footer() {
 						</Link>
 					</div>
 					<div id='footer-sub-div'>
-						<p style={{ fontSize: '24px' }}>
+						<p style={{ fontSize: '14px' }}>
 							Made by{' '}
 							<Link
 								href='https://andrewmurray.dev'
 								target='_blank'
 								rel='noopener noreferrer'
-								style={{ textDecoration: 'underline', fontSize: '24px' }}
+								style={{ textDecoration: 'underline', fontSize: '14px' }}
 							>
 								Andrew Murray
 							</Link>

@@ -47,8 +47,8 @@ export default function NavBar() {
 					</Link>
 					<div id='navbar-sub-links'>
 						{user && (
-							<Link href='/portraits' style={changeActiveLink('portraits')}>
-								Portraits
+							<Link href='/pricing' style={changeActiveLink('pricing')}>
+								Pricing & FAQ
 							</Link>
 						)}
 						<Link href='/galleries' style={changeActiveLink('galleries')}>

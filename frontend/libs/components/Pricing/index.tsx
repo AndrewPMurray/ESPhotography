@@ -7,9 +7,9 @@ import { RootState, useAppDispatch } from '@state/index';
 import { setCurrentRoute } from '@state/session';
 import { loadPortraitImages } from '@state/images';
 
-import './Portrait.css';
+import './Pricing.css';
 
-export default function Portraits() {
+export default function Pricing() {
 	const dispatch = useAppDispatch();
 	const images = useSelector((state: RootState) => Object.values(state.images)) ?? [];
 

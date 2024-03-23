@@ -1,6 +1,6 @@
 'use client';
 
-import { WheelEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { WheelEvent, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -14,15 +14,21 @@ import { loadSingleGallery, updateGalleryKey } from '@state/galleries';
 import { updateImage, deleteImage } from '@state/images';
 import { RootState, useAppDispatch } from '@state/index';
 import { setCurrentRoute } from '@state/session';
-import type { Image as ImageType } from '@state/@types';
+import type { Gallery, Image as ImageType } from '@state/@types';
 
 import ImagesFormModal from '../ImagesFormModal';
 import EditImageModal from '../EditImageModal';
-import DescriptionModal from './DescriptionModal';
+import GalleryImageModal from './GalleryImageModal';
 
 import './Gallery.css';
 
-export default function Gallery({ params }: { params: { galleryId: string } }) {
+export default function Gallery({
+	params,
+	gallery,
+}: {
+	params: { galleryId: string };
+	gallery: Gallery;
+}) {
 	const dispatch = useAppDispatch();
 	const gallerySliderRef = useRef<HTMLDivElement>(null);
 	const router = useRouter();
@@ -30,9 +36,6 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 
 	const user = useSelector((state: RootState) => state.session.user);
 	const imageState = useSelector((state: RootState) => state.images);
-	const gallery = useSelector((state: RootState) =>
-		state.galleries.find((g) => g.id === Number(galleryId))
-	);
 	const images = gallery?.images;
 
 	const [noImages, setNoImages] = useState(false);
@@ -231,85 +234,14 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 										maxHeight: '80vh',
 									}}
 								>
-									<div
-										id='gallery-image-container'
-										className='fade-in'
-										style={{
-											flexDirection: 'column',
-											justifyContent: 'center',
-											alignItems: 'center',
-											maxHeight: '80vh',
-										}}
-									>
-										<div
-											id='gallery-image'
-											style={{
-												WebkitUserSelect: 'none',
-												MozUserSelect: 'none',
-												msUserSelect: 'none',
-												userSelect: 'none',
-												width: '95vw',
-												height: modifiedImageHeight,
-												maxHeight: '60vh',
-											}}
-										>
-											<Image
-												id='gallery-image-inner'
-												className={`gallery-image-${i}`}
-												src={image?.url ? image.url : ''}
-												alt='focused'
-												style={{
-													objectFit: 'contain',
-													objectPosition: 'center',
-												}}
-												fill
-												sizes='m'
-												onLoad={(e: any) => {
-													const target = e.target as HTMLImageElement;
-													setImageTarget(() => target);
-													updateImageDimensions(target);
-												}}
-												priority
-											/>
-										</div>
-										<div
-											id='title-description-container'
-											style={{ width: imageWidth ?? '100vw' }}
-										>
-											<p
-												id='gallery-image-title'
-												style={{
-													zIndex: 5,
-													WebkitUserSelect: 'none',
-													MozUserSelect: 'none',
-													msUserSelect: 'none',
-													userSelect: 'none',
-												}}
-											>
-												{image.title}
-											</p>
-											<div
-												id='gallery-image-description'
-												style={{
-													zIndex: 5,
-													WebkitUserSelect: 'none',
-													MozUserSelect: 'none',
-													msUserSelect: 'none',
-													userSelect: 'none',
-													minWidth: '550px',
-												}}
-											>
-												{image.description?.length &&
-												image.description.length > 100 ? (
-													<DescriptionModal
-														description={image.description}
-													/>
-												) : (
-													image.description
-												)}
-											</div>
-										</div>
-									</div>
+									<GalleryImageModal
+										modifiedImageHeight={modifiedImageHeight}
+										image={image}
+										i={i}
+										setImageTarget={setImageTarget}
+										updateImageDimensions={updateImageDimensions}
+										imageWidth={imageWidth}
+									/>
 								</div>
 							)
 					)}
