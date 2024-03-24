@@ -21,6 +21,7 @@ import EditImageModal from '../EditImageModal';
 import GalleryImageModal from './GalleryImageModal';
 
 import './Gallery.css';
+import { scrollIntoViewHorizontal } from '../../util/scrollIntoViewHorizontal';
 
 export default function Gallery({ params }: { params: { galleryId: string } }) {
 	const dispatch = useAppDispatch();
@@ -161,13 +162,20 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							icon={faChevronLeft}
 							className='fa-solid fa-chevron-left'
 							onClick={() => {
+								const imageElement = document.querySelector('#gallery-image');
+								if (imageElement)
+									scrollIntoView(imageElement, {
+										block: 'end',
+										inline: 'nearest',
+										behavior: 'smooth',
+									});
 								if (activeImage === 0 && images?.length) {
 									const sliderPreviewElement = document.querySelector(
 										`.slider-preview-${images.length - 1}`
 									);
 									setActiveImage(images.length - 1);
 									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+										scrollIntoViewHorizontal(sliderPreviewElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
@@ -178,7 +186,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									);
 									setActiveImage((prev) => prev - 1);
 									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+										scrollIntoViewHorizontal(sliderPreviewElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
@@ -191,12 +199,19 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 							icon={faChevronRight}
 							className='fa-solid fa-chevron-right'
 							onClick={() => {
+								const imageElement = document.querySelector('#gallery-image');
+								if (imageElement)
+									scrollIntoView(imageElement, {
+										block: 'end',
+										inline: 'nearest',
+										behavior: 'smooth',
+									});
 								if (activeImage === (images?.length ?? 0) - 1) {
 									const sliderPreviewElement =
 										document.querySelector(`.slider-preview-0`);
 									setActiveImage(0);
 									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+										scrollIntoViewHorizontal(sliderPreviewElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',
@@ -207,7 +222,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									);
 									setActiveImage((prev) => prev + 1);
 									if (sliderPreviewElement)
-										scrollIntoView(sliderPreviewElement, {
+										scrollIntoViewHorizontal(sliderPreviewElement, {
 											block: 'end',
 											inline: 'nearest',
 											behavior: 'smooth',

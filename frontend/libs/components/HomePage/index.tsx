@@ -72,6 +72,7 @@ export default function HomePage() {
 											  }
 									}
 									fill
+									priority
 								/>
 							</div>
 							<FontAwesomeIcon
