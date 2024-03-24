@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"cacheDirectories": [
+		"frontend/node_modules",
 		"frontend/build/cache"
 	],
 	"scripts": {
