@@ -41,8 +41,12 @@ export default function ExpandedGalleryImage({
 				/>
 			</div>
 			<div id='title-description-container'>
-				<p id='gallery-image-title'>{image?.title ?? ''}</p>
-				<p id='gallery-image-description'>{image?.description ?? ''}</p>
+				<p id='gallery-image-title' style={{ textAlign: 'left', width: '85vw' }}>
+					{image?.title ?? ''}
+				</p>
+				<p id='gallery-image-description' style={{ textAlign: 'left', width: '85vw' }}>
+					{image?.description ?? ''}
+				</p>
 			</div>
 		</div>
 	);
