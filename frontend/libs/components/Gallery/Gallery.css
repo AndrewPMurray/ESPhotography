@@ -184,8 +184,8 @@
 }
 
 @media (max-width: 600px) {
-	#sliders {
-		overflow-x: visible;
+	#images-slider {
+		overflow-x: auto;
 	}
 
 	#slider-slide-left,
