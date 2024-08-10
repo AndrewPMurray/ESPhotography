@@ -182,3 +182,14 @@
 		line-height: 80px;
 	}
 }
+
+@media (max-width: 600px) {
+	#sliders {
+		overflow-x: auto;
+	}
+
+	#slider-slide-left,
+	#slider-slide-right {
+		visibility: hidden;
+	}
+}

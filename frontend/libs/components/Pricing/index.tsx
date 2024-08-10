@@ -1,13 +1,15 @@
 'use client';
+import 'swiper/react';
+import 'swiper/css';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Image from 'next/image';
 
 import { RootState, useAppDispatch } from '@state/index';
 import { setCurrentRoute } from '@state/session';
 import { loadPortraitImages } from '@state/images';
 
 import './Pricing.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 export default function Pricing() {
 	const dispatch = useAppDispatch();
@@ -19,12 +21,26 @@ export default function Pricing() {
 	}, [dispatch]);
 
 	return (
-		<div id='portrait-container'>
-			{images.map((image, i) => (
-				<div id='portrait-image' key={`portrait-image-${i}`}>
-					<Image src={image.url ?? ''} alt='portrait' fill />
-				</div>
-			))}
-		</div>
+		<Swiper
+			spaceBetween={50}
+			slidesPerView={3}
+			onSlideChange={() => console.log('slide change')}
+			onSwiper={(swiper) => console.log(swiper)}
+		>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+			<SwiperSlide>Slide</SwiperSlide>
+		</Swiper>
 	);
 }

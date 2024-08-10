@@ -48,6 +48,7 @@ const LoginForm = () => {
 					<div className='form-field'>
 						<input
 							type='text'
+							name='username'
 							value={credential}
 							onChange={(e) => setCredential(e.target.value)}
 							placeholder='Email or Username'
@@ -56,6 +57,7 @@ const LoginForm = () => {
 					<div className='form-field'>
 						<input
 							type='password'
+							name='password'
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							placeholder='Password'

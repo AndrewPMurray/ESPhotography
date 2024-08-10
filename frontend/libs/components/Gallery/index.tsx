@@ -97,7 +97,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 		if (!images || !images.length) return;
 		const newImages = [...images];
 		const [reorderedImage] = newImages.splice(source.index, 1);
-		newImages.splice(destination.index, 0, reorderedImage);
+		newImages.splice(destination?.index, 0, reorderedImage);
 
 		newImages.forEach(async (image, i) => {
 			if (image.orderNumber !== i) {
