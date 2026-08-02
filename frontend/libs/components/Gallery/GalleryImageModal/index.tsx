@@ -10,7 +10,7 @@ type GalleryImageModalProps = {
 	i: number;
 	setImageTarget: Dispatch<SetStateAction<HTMLImageElement | null>>;
 	updateImageDimensions: (
-		target: HTMLImageElement | null
+		target: HTMLImageElement | null,
 	) => { width: number; height: number } | undefined;
 	imageWidth: number;
 };
@@ -67,7 +67,7 @@ const GalleryImageModal = ({
 							setImageTarget(() => target);
 							updateImageDimensions(target);
 						}}
-						priority
+						priority={i < 4}
 					/>
 				</div>
 				<div id='title-description-container' style={{ width: imageWidth ?? '100vw' }}>

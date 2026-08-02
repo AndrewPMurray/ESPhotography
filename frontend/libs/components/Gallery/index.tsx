@@ -30,9 +30,8 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 	const { galleryId } = params ?? {};
 
 	const user = useSelector((state: RootState) => state.session.user);
-	const imageState = useSelector((state: RootState) => state.images);
 	const gallery = useSelector((state: RootState) =>
-		state.galleries.find((g) => g.id === +galleryId)
+		state.galleries.find((g) => g.id === +galleryId),
 	);
 	const images = gallery?.images;
 
@@ -57,7 +56,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 			.catch(() => {
 				router.push('/not-found');
 			});
-	}, [dispatch, galleryId, router, user, imageState]);
+	}, [dispatch, galleryId, router, user]);
 
 	useEffect(() => {
 		const updateLength = () => {
@@ -110,7 +109,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 						orderNumber: i,
 						homepageOrderNumber: image.homepageOrderNumber,
 						portraitOrderNumber: image.portraitOrderNumber,
-					})
+					}),
 				);
 			}
 		});
@@ -146,8 +145,8 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 		!imageHeight && !imageTarget?.naturalHeight
 			? '60vh'
 			: imageHeight < (imageTarget?.naturalHeight ?? 0)
-			? imageTarget?.naturalHeight
-			: imageHeight;
+				? imageTarget?.naturalHeight
+				: imageHeight;
 
 	return (
 		<div id='gallery-images-container'>
@@ -171,7 +170,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									});
 								if (activeImage === 0 && images?.length) {
 									const sliderPreviewElement = document.querySelector(
-										`.slider-preview-${images.length - 1}`
+										`.slider-preview-${images.length - 1}`,
 									);
 									setActiveImage(images.length - 1);
 									if (sliderPreviewElement)
@@ -182,7 +181,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 										});
 								} else {
 									const sliderPreviewElement = document.querySelector(
-										`.slider-preview-${activeImage - 1}`
+										`.slider-preview-${activeImage - 1}`,
 									);
 									setActiveImage((prev) => prev - 1);
 									if (sliderPreviewElement)
@@ -218,7 +217,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 										});
 								} else {
 									const sliderPreviewElement = document.querySelector(
-										`.slider-preview-${activeImage + 1}`
+										`.slider-preview-${activeImage + 1}`,
 									);
 									setActiveImage((prev) => prev + 1);
 									if (sliderPreviewElement)
@@ -255,7 +254,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 										imageWidth={imageWidth}
 									/>
 								</div>
-							)
+							),
 					)}
 				</div>
 			)}
@@ -377,7 +376,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 																			color: 'gold',
 																			visibility: 'visible',
 																			filter: 'none',
-																	  }
+																		}
 																	: undefined
 															}
 														/>
@@ -392,7 +391,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 															? {
 																	border: '5px solid #C0C0C0',
 																	animationDuration: '500ms',
-															  }
+																}
 															: { animationDuration: '500ms' }
 													}
 												>
@@ -406,10 +405,10 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 																? setImagesLength(
 																		images.length *
 																			(document.querySelector(
-																				'#slider-preview'
+																				'#slider-preview',
 																			)?.clientWidth ?? 0) +
-																			100
-																  )
+																			100,
+																	)
 																: undefined
 														}
 														fill
@@ -460,7 +459,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 														color: 'gold',
 														visibility: 'visible',
 														filter: 'none',
-												  }
+													}
 												: undefined
 										}
 									/>
@@ -475,7 +474,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 										? {
 												border: '3px solid #606060',
 												animationDuration: '500ms',
-										  }
+											}
 										: { animationDuration: '500ms' }
 								}
 							>
@@ -489,8 +488,8 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 													images.length *
 														(document.querySelector('#slider-preview')
 															?.clientWidth ?? 0) +
-														100
-											  )
+														100,
+												)
 											: undefined
 									}
 									onClick={() => setActiveImage(i)}
