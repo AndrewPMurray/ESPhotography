@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	transpilePackages: ['swiper'],
 	distDir: 'build',
 	images: {
 		remotePatterns: [
@@ -21,4 +22,4 @@ const nextConfig = {
 	},
 };
 
-module.exports = nextConfig;
+export default nextConfig;
