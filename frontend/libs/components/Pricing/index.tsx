@@ -1,6 +1,5 @@
 'use client';
 import 'swiper/react';
-import 'swiper/css';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 

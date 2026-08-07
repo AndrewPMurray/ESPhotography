@@ -11,7 +11,7 @@ export default function NotFound() {
 	const dispatch = useAppDispatch();
 	useEffect(() => {
 		dispatch(setCurrentRoute());
-	}, [setCurrentRoute]);
+	}, [dispatch]);
 
 	return <h2>This page is, like, totally not found.</h2>;
 }
