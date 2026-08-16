@@ -14,8 +14,8 @@
 		"dev:frontend": "npm install --prefix frontend start",
 		"sequelize": "npm run --prefix backend sequelize",
 		"sequelize-cli": "npm run --prefix backend sequelize-cli",
-		"start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
-		"start:dev": "concurrently \"npm start --prefix backend\" \"npm run dev --prefix frontend\""
+		"start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\" \"node frontend/warmup-image-cache.mjs\"",
+		"start:dev": "concurrently \"npm start --prefix backend\" \"npm run dev --prefix frontend\" \"node frontend/warmup-image-cache.mjs\""
 	},
 	"repository": {
 		"type": "git",

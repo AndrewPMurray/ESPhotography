@@ -70,7 +70,7 @@ router.post(
 			return res.json(image);
 		}
 		return res.status(500).json({ error: 'file upload failed' });
-	})
+	}),
 );
 
 router.put(
@@ -98,7 +98,7 @@ router.put(
 		});
 
 		return res.json(editedImage);
-	})
+	}),
 );
 
 router.delete(
@@ -115,7 +115,7 @@ router.delete(
 		await image.destroy();
 
 		return res.json({ message: 'success' });
-	})
+	}),
 );
 
 module.exports = router;

@@ -412,7 +412,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 																: undefined
 														}
 														fill
-														sizes='m'
+														sizes='150px'
 														style={{
 															objectFit: 'cover',
 															objectPosition: 'center',
@@ -421,7 +421,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 															msUserSelect: 'none',
 															userSelect: 'none',
 														}}
-														priority
+														priority={i < 3}
 													/>
 												</div>
 											</div>
@@ -494,7 +494,7 @@ export default function Gallery({ params }: { params: { galleryId: string } }) {
 									}
 									onClick={() => setActiveImage(i)}
 									fill
-									sizes='m'
+									sizes='(max-width: 1080px) 100vw, 1080px'
 									style={{
 										objectFit: 'cover',
 										objectPosition: 'center',

@@ -61,7 +61,7 @@ const GalleryImageModal = ({
 							objectPosition: 'center',
 						}}
 						fill
-						sizes='m'
+						sizes='(max-width: 1200px) 100vw, 1200px'
 						onLoad={(e: any) => {
 							const target = e.target as HTMLImageElement;
 							setImageTarget(() => target);
